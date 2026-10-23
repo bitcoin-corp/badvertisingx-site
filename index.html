@@ -60,7 +60,7 @@
 
       .cta { display: flex; gap: 12px; flex-wrap: wrap; }
       .note { font-size: .86rem; color: var(--dim); }
-      /* hero v3 (23 Oct 2026): "b Bad", a fast-cut bAds montage with kinetic type */
+      /* hero v3 (23 Oct 2026): bAds, a fast-cut bAds montage with kinetic type */
       .bad { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; background: #000; isolation: isolate; }
       .bad video, .bad .still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
       .bad::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 70% 55% at 50% 52%, rgba(0,0,0,.55), rgba(0,0,0,.15) 70%), linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,0) 38%), linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 22%); pointer-events: none; }
@@ -194,8 +194,8 @@
       </div>
       <div class="stage wrap">
         <div>
-          <h1 class="slogan" id="slogan" aria-label="b Bad."><span class="w"><img class="lb" src="/logo.svg" alt="" /><span class="g">&nbsp;</span>Bad.</span></h1>
-          <p class="tagline">bAds · ads made by <i>b</i></p>
+          <h1 class="slogan" id="slogan" aria-label="bAds."><span class="w"><img class="lb" src="/logo.svg" alt="" />Ads.</span></h1>
+          <p class="tagline">We sell <b>bAds</b> · ads made by <i>b</i></p>
         </div>
       </div>
       <div class="dock wrap">
@@ -210,7 +210,7 @@
     <div class="wrap">
       <section class="s rise" style="padding-top:72px">
         <div class="why">
-          <div><b>b <em>Bad.</em></b><span>Our ads are made by b, the agent in your bWalletX. We call them bAds. Say it out loud.</span></div>
+          <div><b><em>bAds.</em></b><span>Our ads are made by b, the agent in your bWalletX. We call them bAds.</span></div>
           <div><b>One price.</b><span>b quotes a fixed price in Bitcoin before anything starts. No hourly rates, no agency lunch.</span></div>
           <div><b>Your brand.</b><span>Your colours, your logo, your voice. We never put our b on your business.</span></div>
         </div>
@@ -218,7 +218,7 @@
 
       <section class="s rise" id="work">
         <p class="eyebrow">Work</p>
-        <h2>Our first client was us. b was very bad.</h2>
+        <h2>Our first client was us.</h2>
         <p class="sub">Everything here was made by b for the bWalletX family: films, a full brand system, colours for 25 services. Your brand keeps its own look. We never put our logo on yours.</p>
         <div class="work">
           <a href="https://bwalletx.com/b-is-for-business"><div class="img"><img src="/work/og-b-is-for-business-v3.jpg" alt="" loading="lazy" /></div><h3>b is for business <span class="arrow">→</span></h3><p>Ad film · 46 seconds · music by VexVoid</p></a>
@@ -295,7 +295,7 @@
       </section>
 
       <div class="final rise">
-        <h2>Your business deserves a bad ad. A b ad.</h2>
+        <h2>Your business deserves a bAd.</h2>
         <div class="cta"><a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad</a><a class="btn ghost" href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a></div>
       </div>
 
@@ -303,11 +303,11 @@
       <footer><span>b<b style="font-weight:600">Advertising</b><i class="x">X</i> · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd</span><span><a href="/samples/acme-coffee-film/">Sample film</a> · <a href="/samples/acme-coffee-brand/brand">Sample brand kit</a></span></footer>
     </div>
     <script>
-      // "b Bad" hero: one montage (24 s, VexVoid "Whispering Shadows", 139.7 BPM). Slogans follow the video clock, a hit on every beat.
+      // bAds hero: one montage (24 s, VexVoid "Whispering Shadows", 139.7 BPM). Slogans follow the video clock, a hit on every beat.
       (function () {
         var v = document.getElementById('bgv'), el = document.getElementById('slogan'), btn = document.getElementById('sound'), lab = document.getElementById('soundl');
         var B = 60 / 139.7, L = '{L}';
-        var LINES = [L + ' Bad.', 'bAds.', 'Ads made by ' + L + '.', 'Coffee? ' + L + ' Bad.', 'Your coffee. Your ad.', 'Tell ' + L + '. Get the ad.', 'Bad to the bone.'];
+        var LINES = [L + 'Ads.', 'We sell bAds.', 'Ads made by ' + L + '.', 'Your coffee. Your bAd.', 'Tell ' + L + '. Get the bAd.'];
         var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
         function render(line) {
           el.setAttribute('aria-label', line.replace(/\{L\}/g, 'b'));
