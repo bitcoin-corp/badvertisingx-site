@@ -1,0 +1,18 @@
+badvertisingx.com hero montage ("b Bad"), cut 23 Oct 2026
+24 s, 139.7 BPM, cuts on the beat (1 beat, 2 beats, half-beat bursts) with 2-frame flash frames. ffmpeg only.
+Wide 1280x720 and tall 720x1280 cuts, H.264 + VP9.
+
+All footage is our own work or was made with our tools. No third-party footage.
+
+MUSIC
+  VexVoid - "Whispering Shadows", 1:02.0-1:26.05, with fades.
+
+bMOVIES ORIGINALS (bmoviesx.com trailer reel and clips; parody posters excluded)
+  Ashes of the Border, The Teapot from Paraguay, The Cicada Room, Crack Force One,
+  The Last Lighthouse, The Weight of Water, Silverfish in the Cathedral, the bMovies ident.
+VEXVOID AV library: crowd, decks, speakers, strobe, alley, Four Ton Shadow.
+NINJA PUNK GIRLS: hero card videos.
+BUSINESS PHOTOS: AI-made (Flux 1.1 Pro via Replicate) for bwalletx.com/b-is-for-business, 23 Oct 2026:
+  coffee, stride, pen, car, deal, shop. The people are not real.
+
+Typeface: Space Grotesk (SIL OFL). Logo: the gold b.

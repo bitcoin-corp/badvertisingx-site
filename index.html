@@ -9,14 +9,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://badvertisingx.com/" />
     <meta property="og:site_name" content="bAdvertisingX" />
-    <meta property="og:title" content="bAdvertisingX" />
-    <meta property="og:description" content="Tell b about your business. Get the ad. Fixed price, paid in Bitcoin." />
-    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v2.jpg" />
+    <meta property="og:title" content="b Bad. bAds, made by b." />
+    <meta property="og:description" content="b Bad: ads made by b, the agent in your bWalletX. Tell b about your business, get the ad. One fixed price in Bitcoin." />
+    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v3.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bWalletX" />
-    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v2.jpg" />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v3.jpg" />
     <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,24 +58,44 @@
       .btn:focus-visible, a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
       .btn svg { width: 18px; height: 18px; }
 
-      /* hero */
-      .hero { position: relative; padding: 72px 0 40px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
-      .hero::before { content: ''; position: absolute; inset: -120px -40% auto auto; width: 820px; height: 620px; background: radial-gradient(closest-side, rgba(245,184,0,.16), transparent 70%); pointer-events: none; z-index: -1; }
-      h1 { font-size: clamp(2.7rem, 5.6vw, 4.6rem); line-height: .98; font-weight: 700; letter-spacing: -.05em; }
-      h1 em { font-style: normal; color: var(--gold-hi); }
-      .lede { font-size: clamp(1.08rem, 1.6vw, 1.25rem); color: #cfc7b6; max-width: 34ch; margin: 24px 0 32px; line-height: 1.55; }
       .cta { display: flex; gap: 12px; flex-wrap: wrap; }
-      .note { margin-top: 18px; font-size: .86rem; color: var(--dim); }
-
-      /* hero work stack */
-      .stack { position: relative; aspect-ratio: 1.05; }
-      .stack a { position: absolute; width: 78%; border-radius: 14px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4); transition: transform .4s var(--ease); }
-      .stack img { display: block; width: 100%; aspect-ratio: 1200/630; object-fit: cover; }
-      .stack a:nth-child(1) { top: 0; right: 0; transform: rotate(3deg); }
-      .stack a:nth-child(2) { top: 30%; left: 0; transform: rotate(-4deg); z-index: 2; }
-      .stack a:nth-child(3) { bottom: 0; right: 4%; transform: rotate(1.5deg); z-index: 3; }
-      .stack a:hover { transform: rotate(0) scale(1.03); z-index: 5; }
-      @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } .stack { max-width: 520px; width: 100%; margin: 8px auto 0; } }
+      .note { font-size: .86rem; color: var(--dim); }
+      /* hero v3 (23 Oct 2026): "b Bad", a fast-cut bAds montage with kinetic type */
+      .bad { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; background: #000; isolation: isolate; }
+      .bad video, .bad .still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+      .bad::after { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 70% 55% at 50% 52%, rgba(0,0,0,.55), rgba(0,0,0,.15) 70%), linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,0) 38%), linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 22%); pointer-events: none; }
+      .bad .wrap { width: 100%; }
+      .stage { flex: 1; display: grid; place-items: center; text-align: center; padding: 24px 0 8px; }
+      .slogan { margin: 0; min-height: 2em; display: flex; justify-content: center; align-content: center; align-items: center; flex-wrap: wrap; gap: 0 .22em; font: 700 clamp(3.6rem, 13vw, 9rem)/.98 'Space Grotesk', sans-serif; letter-spacing: -.055em; color: #fff; text-shadow: 0 6px 50px rgba(0,0,0,.7); }
+      .slogan .w { display: inline-flex; white-space: nowrap; }
+      .slogan .ch { display: inline-block; opacity: 0; transform: translateY(.4em) rotate(var(--r)) scale(1.4); filter: blur(10px); animation: chin .55s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * 38ms); }
+      .slogan .g { color: var(--gold-hi); }
+      .slogan .lb { height: .82em; width: auto; align-self: center; margin-right: .02em; transform-origin: 50% 80%; }
+      @keyframes chin { 60% { opacity: 1; filter: blur(0); transform: translateY(-.04em) rotate(0) scale(.97); } 100% { opacity: 1; filter: blur(0); transform: none; } }
+      .slogan.hit { animation: hit .14s steps(2) 1; }
+      @keyframes hit { 0% { transform: translate(3px,-2px) skewX(-4deg); text-shadow: -4px 0 0 rgba(180,77,255,.8), 4px 0 0 rgba(245,184,0,.8); } 100% { transform: none; } }
+      .tagline { margin: 6px 0 0; font: 500 .82rem 'IBM Plex Mono', monospace; letter-spacing: .16em; color: var(--gold-hi); text-shadow: 0 2px 12px #000; }
+      .tagline i { font-style: normal; color: var(--x); }
+      .dock { padding: 0 0 34px; display: grid; gap: 14px; justify-items: center; text-align: center; }
+      .dock .lede { margin: 0; max-width: 40ch; color: #eae3d2; font-size: clamp(1rem, 1.5vw, 1.18rem); text-shadow: 0 2px 16px #000; }
+      .dock .cta { justify-content: center; }
+      .sound { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; font: 600 .95rem 'Space Grotesk', sans-serif; cursor: pointer; transition: background .16s var(--ease), border-color .16s; }
+      .sound:hover { background: rgba(0,0,0,.65); border-color: var(--gold-hi); }
+      .sound:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+      .sound .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 rgba(245,184,0,.7); animation: ping 1.4s infinite; }
+      .sound[aria-pressed="true"] .dot { background: #6fe08f; animation: none; }
+      @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(245,184,0,0); } 100% { box-shadow: 0 0 0 0 rgba(245,184,0,0); } }
+      .dock .note { margin: 0; color: #b9b2a3; text-shadow: 0 1px 8px #000; }
+      .dock .note a { color: #fff; }
+      .bad nav { position: relative; }
+      .why { margin-top: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+      .why div { background: var(--bg); padding: 26px 24px; }
+      .why b { display: block; font: 700 1.5rem 'Space Grotesk', sans-serif; letter-spacing: -.03em; margin-bottom: 6px; }
+      .why b em { font-style: normal; color: var(--gold-hi); }
+      .why span { color: var(--mute); font-size: .95rem; }
+      @media (max-width: 860px) { .why { grid-template-columns: 1fr; } }
+      @media (max-width: 520px) { .dock .cta .btn { width: 100%; justify-content: center; } .sound { width: 100%; justify-content: center; } }
+      @media (prefers-reduced-motion: reduce) { .slogan .ch { animation: none; opacity: 1; filter: none; transform: none; } .slogan.hit { animation: none; } .sound .dot { animation: none; } }
 
       /* sections */
       section.s { padding: 96px 0 0; }
@@ -164,33 +184,41 @@
 </style>
 <aside class="bwx-strip" aria-label="bWalletX"><a href="https://bwalletx.com"><svg viewBox="23 8 74 100" aria-hidden="true" focusable="false"><defs><linearGradient id="bwx-g" gradientUnits="userSpaceOnUse" x1="0" y1="12" x2="0" y2="105"><stop offset="0" stop-color="#FFE58A"/><stop offset=".55" stop-color="#FFD24D"/><stop offset="1" stop-color="#C98F00"/></linearGradient><mask id="bwx-m"><rect width="140" height="140" fill="#fff"/><circle cx="60" cy="72" r="15" fill="#000"/></mask></defs><g fill="url(#bwx-g)" mask="url(#bwx-m)"><polygon points="45,12 45,72 27,72 27,30"/><circle cx="60" cy="72" r="33"/></g></svg><span>Part of <b>bWalletX</b></span><span class="bwx-go" aria-hidden="true">&rarr;</span></a></aside>
 <!-- /Part of bWalletX strip -->
-    <div class="wrap">
+    <header class="bad" id="top">
+      <video id="bgv" muted loop playsinline preload="none" aria-hidden="true" poster="/media/hero-poster-wide.jpg"></video>
+      <div class="wrap">
       <nav>
         <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
         <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a></div>
       </nav>
-
-      <header class="hero">
+      </div>
+      <div class="stage wrap">
         <div>
-          <p class="eyebrow">An ad studio in your pocket</p>
-          <h1>Tell b about your business. <em>Get the ad.</em></h1>
-          <p class="lede">b is the agent in your bWalletX. Describe what you sell and b makes the film, the logo or the whole brand, then quotes one fixed price in Bitcoin before it starts.</p>
-          <div class="cta">
-            <a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <a class="btn ghost" href="#work">See the work</a>
-          </div>
-          <p class="note">No wallet yet? <a href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a>, free, in a minute.</p>
+          <h1 class="slogan" id="slogan" aria-label="b Bad."><span class="w"><img class="lb" src="/logo.svg" alt="" /><span class="g">&nbsp;</span>Bad.</span></h1>
+          <p class="tagline">bAds · ads made by <i>b</i></p>
         </div>
-        <div class="stack" aria-label="Recent work">
-          <a href="https://bwalletx.com/brand"><img src="/work/og-brand-v2.jpg" alt="The bWalletX brand guide" /></a>
-          <a href="https://bwalletx.com/b-is-for-business"><img src="/work/og-b-is-for-business-v3.jpg" alt="b is for business, a 46-second ad film" /></a>
-          <a href="https://bwalletx.com/b-family"><img src="/work/og-b-family-v1.jpg" alt="The b family, a colour system for 25 services" /></a>
+      </div>
+      <div class="dock wrap">
+        <p class="lede">Tell b about your business. b makes the ad: the film, the logo, the whole brand. One fixed price, in Bitcoin.</p>
+        <div class="cta">
+          <a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <button class="sound" id="sound" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span id="soundl">Sound on</span></button>
         </div>
-      </header>
+        <p class="note">Already have bWalletX? <a href="/account">Send b a brief</a>. No wallet yet? <a href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a>, free.</p>
+      </div>
+    </header>
+    <div class="wrap">
+      <section class="s rise" style="padding-top:72px">
+        <div class="why">
+          <div><b>b <em>Bad.</em></b><span>Our ads are made by b, the agent in your bWalletX. We call them bAds. Say it out loud.</span></div>
+          <div><b>One price.</b><span>b quotes a fixed price in Bitcoin before anything starts. No hourly rates, no agency lunch.</span></div>
+          <div><b>Your brand.</b><span>Your colours, your logo, your voice. We never put our b on your business.</span></div>
+        </div>
+      </section>
 
       <section class="s rise" id="work">
         <p class="eyebrow">Work</p>
-        <h2>Our first client was us.</h2>
+        <h2>Our first client was us. b was very bad.</h2>
         <p class="sub">Everything here was made by b for the bWalletX family: films, a full brand system, colours for 25 services. Your brand keeps its own look. We never put our logo on yours.</p>
         <div class="work">
           <a href="https://bwalletx.com/b-is-for-business"><div class="img"><img src="/work/og-b-is-for-business-v3.jpg" alt="" loading="lazy" /></div><h3>b is for business <span class="arrow">→</span></h3><p>Ad film · 46 seconds · music by VexVoid</p></a>
@@ -267,12 +295,60 @@
       </section>
 
       <div class="final rise">
-        <h2>Your business deserves a good ad.</h2>
+        <h2>Your business deserves a bad ad. A b ad.</h2>
         <div class="cta"><a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad</a><a class="btn ghost" href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a></div>
       </div>
 
+      <p class="note" style="margin:56px 0 0;max-width:80ch">The hero montage is our own work: bMovies Originals trailers (Ashes of the Border, The Teapot from Paraguay, The Cicada Room, Crack Force One, Silverfish in the Cathedral), VexVoid AV footage, Ninja Punk Girls cards, and AI-made business photos (Flux) made for <a href="https://bwalletx.com/b-is-for-business">b is for business</a>; the people in them aren&rsquo;t real. Music: &ldquo;Whispering Shadows&rdquo; by <a href="https://www.bchatx.com/u/vexvoid">VexVoid</a>. <a href="/media/credits.txt">Credits</a>.</p>
       <footer><span>b<b style="font-weight:600">Advertising</b><i class="x">X</i> · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd</span><span><a href="/samples/acme-coffee-film/">Sample film</a> · <a href="/samples/acme-coffee-brand/brand">Sample brand kit</a></span></footer>
     </div>
+    <script>
+      // "b Bad" hero: one montage (24 s, VexVoid "Whispering Shadows", 139.7 BPM). Slogans follow the video clock, a hit on every beat.
+      (function () {
+        var v = document.getElementById('bgv'), el = document.getElementById('slogan'), btn = document.getElementById('sound'), lab = document.getElementById('soundl');
+        var B = 60 / 139.7, L = '{L}';
+        var LINES = [L + ' Bad.', 'bAds.', 'Ads made by ' + L + '.', 'Coffee? ' + L + ' Bad.', 'Your coffee. Your ad.', 'Tell ' + L + '. Get the ad.', 'Bad to the bone.'];
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function render(line) {
+          el.setAttribute('aria-label', line.replace(/\{L\}/g, 'b'));
+          var i = 0, out = line.split(' ').map(function (w) {
+            var h = '';
+            w.split(/(\{L\})/).forEach(function (part) {
+              if (part === L) { h += '<img class="lb ch" src="/logo.svg" alt="" style="--i:' + (i++) + ';--r:' + (Math.random() * 30 - 15).toFixed(1) + 'deg" />'; return; }
+              for (var k = 0; k < part.length; k++) h += '<span class="ch' + (/[.?]/.test(part[k]) ? ' g' : '') + '" style="--i:' + (i++) + ';--r:' + (Math.random() * 40 - 20).toFixed(1) + 'deg">' + part[k] + '</span>';
+            });
+            return '<span class="w">' + h + '</span>';
+          });
+          el.innerHTML = out.join(' ');
+        }
+        render(LINES[0]);
+        if (reduce) { v.removeAttribute('autoplay'); v.poster = matchMedia('(max-aspect-ratio: 1/1)').matches ? '/media/hero-poster-tall.jpg' : '/media/hero-poster-wide.jpg'; btn.hidden = true; return; }
+        var tall = matchMedia('(max-aspect-ratio: 1/1)').matches, k = tall ? 'tall' : 'wide';
+        v.poster = '/media/hero-poster-' + k + '.jpg';
+        var canWebm = v.canPlayType('video/webm; codecs="vp9, opus"');
+        v.src = '/media/hero-' + k + (canWebm ? '.webm' : '.mp4');
+        v.play().catch(function () {});
+        var lastBeat = -1, lastLine = 0;
+        (function tick() {
+          var t = v.currentTime || 0, beat = Math.floor(t / B);
+          if (beat !== lastBeat) {
+            lastBeat = beat;
+            var li = Math.floor(beat / 8) % LINES.length;
+            if (li !== lastLine) { lastLine = li; render(LINES[li]); }
+            else if (beat % 2 === 0) { el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); }
+          }
+          requestAnimationFrame(tick);
+        })();
+        btn.addEventListener('click', function () {
+          var on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          lab.textContent = on ? 'Sound off' : 'Sound on';
+          v.muted = !on;
+          if (on) { v.currentTime = 0; lastLine = -1; }
+          v.play().catch(function () {});
+        });
+      })();
+    </script>
     <script>
       const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
       document.querySelectorAll('.rise').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
