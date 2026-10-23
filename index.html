@@ -325,8 +325,7 @@
         if (reduce) { v.removeAttribute('autoplay'); v.poster = matchMedia('(max-aspect-ratio: 1/1)').matches ? '/media/hero-poster-tall.jpg' : '/media/hero-poster-wide.jpg'; btn.hidden = true; return; }
         var tall = matchMedia('(max-aspect-ratio: 1/1)').matches, k = tall ? 'tall' : 'wide';
         v.poster = '/media/hero-poster-' + k + '.jpg';
-        var canWebm = v.canPlayType('video/webm; codecs="vp9, opus"');
-        v.src = '/media/hero-' + k + (canWebm ? '.webm' : '.mp4');
+        v.src = '/media/hero-' + k + '.mp4';
         v.play().catch(function () {});
         var lastBeat = -1, lastLine = 0;
         (function tick() {
