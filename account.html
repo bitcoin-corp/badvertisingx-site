@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your account · bAdvertisingX</title>
+    <link rel="canonical" href="https://badvertisingx.com/account" />
+    <meta name="description" content="Sign in to bAdvertisingX with bWalletX and send b a brief for an ad film, brand kit, logo or share image." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badvertisingx.com/account" />
+    <meta property="og:site_name" content="bAdvertisingX" />
+    <meta property="og:title" content="bAdvertisingX · Your account" />
+    <meta property="og:description" content="Sign in with bWalletX and send b a brief." />
+    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v2.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v2.jpg" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" />
+    <style>
+      /* bAdvertisingX account: wallet sign-in + briefs (23 Oct 2026). Same house look as index.html. */
+      :root { --bg: #000; --fg: #f1ead9; --mute: #9a958a; --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff; --line: #ffffff1f; color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; }
+      header { display: flex; align-items: center; justify-content: space-between; max-width: 760px; margin: 0 auto; padding: 18px 16px; }
+      header a.home { display: flex; align-items: center; gap: 4px; color: var(--fg); text-decoration: none; font: 700 1.3rem 'Space Grotesk', sans-serif; letter-spacing: -.03em; }
+      header a.home img { height: 1.15em; }
+      header a.home i { font-style: normal; color: var(--x); }
+      #who { font: 500 .8rem 'IBM Plex Mono', monospace; color: var(--mute); }
+      main { max-width: 760px; margin: 0 auto; padding: 8px 16px 60px; }
+      h1 { font: 700 clamp(2rem, 6vw, 3rem) / 1.05 'Space Grotesk', sans-serif; letter-spacing: -.04em; margin: 24px 0 10px; }
+      h2 { font: 700 1.4rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; margin: 40px 0 12px; }
+      p { line-height: 1.65; color: #cfc6b0; }
+      .go { display: inline-block; border: 0; cursor: pointer; padding: 15px 30px; border-radius: 999px; background: linear-gradient(180deg, #ffd24d, #f5b800); color: #0b0a08; font: 700 1rem 'Space Grotesk', sans-serif; box-shadow: 0 12px 40px rgba(245,184,0,.3); }
+      .go:disabled { opacity: .55; cursor: default; }
+      .ln { background: none; border: 1px solid #ffffff66; color: #fff; border-radius: 999px; padding: 9px 16px; font: 500 .78rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+      .small { font-size: .85rem; color: var(--mute); }
+      .err { color: #ff8a80; min-height: 1.2em; }
+      form { display: grid; gap: 14px; }
+      label { display: grid; gap: 6px; font: 500 .9rem 'Space Grotesk', sans-serif; }
+      input, select, textarea { width: 100%; background: #0b0b0d; color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 400 1rem 'IBM Plex Sans', sans-serif; }
+      textarea { min-height: 150px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold-hi); outline-offset: 1px; }
+      .jobs { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+      .jobs li { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .jobs b { font-family: 'Space Grotesk', sans-serif; }
+      .tag { font: 600 .72rem 'IBM Plex Mono', monospace; letter-spacing: .06em; padding: 3px 9px; border-radius: 999px; background: #ffffff14; color: var(--gold-hi); text-transform: uppercase; align-self: center; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="home" href="/"><img src="/logo.svg" alt="b" />Advertising<i>X</i></a>
+      <span><span id="who"></span> <button class="ln" id="out" hidden>Sign out</button></span>
+    </header>
+    <main>
+      <section id="signin">
+        <h1>Your bAdvertisingX account</h1>
+        <p>Your bWalletX is your account: no email, no password. Connect it to send b a brief and follow your jobs.</p>
+        <p><button class="go" id="connect">Sign in with bWalletX</button></p>
+        <p class="err" id="err1"></p>
+        <p class="small">On a phone? Open this page in the bWalletX app, or scan the code with it. No wallet yet? <a href="https://bwalletx.com/get?from=badvertisingx" style="color:var(--gold-hi)">Get bWalletX</a>.</p>
+      </section>
+
+      <section id="acct" hidden>
+        <h1>Send b a brief</h1>
+        <p>Tell us what you need. We reply with a fixed price in Bitcoin before any work starts. Nothing is charged now.</p>
+        <form id="brief">
+          <label>What do you need?
+            <select name="job" required>
+              <option value="ad-film">Ad film (about 45 seconds)</option>
+              <option value="brand-kit">Brand kit</option>
+              <option value="logo">Logo</option>
+              <option value="share-image">Share image</option>
+              <option value="launch-pack">Launch pack (brand kit + ad film)</option>
+              <option value="other">Something else</option>
+            </select>
+          </label>
+          <label>Brand or project name <input name="brand" maxlength="120" required /></label>
+          <label>The brief
+            <textarea name="brief" maxlength="4000" required placeholder="What it's for, who it's for, where people should go next, and anything we must use (colours, logo, words)."></textarea>
+          </label>
+          <label>Link to your site or files (optional) <input name="link" type="url" maxlength="500" placeholder="https://" /></label>
+          <label>How should we reach you? (optional) <input name="contact" maxlength="200" placeholder="$handle, X handle or email" /></label>
+          <p><button class="go" type="submit">Send brief</button></p>
+          <p class="err" id="err2"></p>
+        </form>
+
+        <h2>Your jobs</h2>
+        <ul class="jobs" id="jobs"><li class="small">No briefs yet.</li></ul>
+      </section>
+    </main>
+
+    <script src="/connect/bwalletx-connect.global.js"></script>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const NAMES = { 'ad-film': 'Ad film', 'brand-kit': 'Brand kit', logo: 'Logo', 'share-image': 'Share image', 'launch-pack': 'Launch pack', other: 'Something else' };
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+      async function api(url, body) {
+        const res = await fetch(url, body === undefined ? { credentials: 'same-origin' } : { method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || `Something went wrong (${res.status})`);
+        return data;
+      }
+
+      function show(session) {
+        const on = !!(session && session.identityKey);
+        $('signin').hidden = on; $('acct').hidden = !on; $('out').hidden = !on;
+        $('who').textContent = on ? (session.handle ? '$' + session.handle : session.identityKey.slice(0, 8) + '…' + session.identityKey.slice(-4)) : '';
+        if (on) loadJobs();
+      }
+
+      async function loadJobs() {
+        try {
+          const { briefs } = await api('/api/briefs');
+          $('jobs').innerHTML = briefs.length
+            ? briefs.map((b) => `<li><span><b>${esc(NAMES[b.job] || b.job)}</b> · ${esc(b.brand)}<br><span class="small">${new Date(b.created_at).toLocaleDateString()}</span></span><span class="tag">${esc(b.status)}</span></li>`).join('')
+            : '<li class="small">No briefs yet.</li>';
+        } catch (e) { $('jobs').innerHTML = `<li class="small">${esc(e.message)}</li>`; }
+      }
+
+      $('connect').onclick = async () => {
+        const btn = $('connect'); btn.disabled = true; $('err1').textContent = '';
+        try {
+          const { signInWithBwalletX, pairingModal } = window.bWalletXConnect;
+          const r = await signInWithBwalletX({
+            challenge: (identityKey) => api('/api/bwalletx/challenge', { identityKey }),
+            pairing: pairingModal(),
+          });
+          await api('/api/bwalletx/verify', { identityKey: r.identityKey, nonce: r.nonce, signature: r.signature });
+          show(await api('/api/bwalletx/session').catch(() => ({ identityKey: r.identityKey })));
+        } catch (e) {
+          $('err1').textContent = e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : e.message;
+        } finally { btn.disabled = false; }
+      };
+
+      $('out').onclick = async () => { await api('/api/bwalletx/logout', {}).catch(() => {}); show(null); };
+
+      $('brief').onsubmit = async (ev) => {
+        ev.preventDefault(); $('err2').textContent = '';
+        const f = new FormData(ev.target), btn = ev.target.querySelector('button');
+        btn.disabled = true;
+        try {
+          await api('/api/briefs', Object.fromEntries(f));
+          ev.target.reset(); $('err2').textContent = 'Sent. We will reply with a quote.'; loadJobs();
+        } catch (e) { $('err2').textContent = e.message; }
+        finally { btn.disabled = false; }
+      };
+
+      api('/api/bwalletx/session').then(show).catch(() => show(null));
+    </script>
+  </body>
