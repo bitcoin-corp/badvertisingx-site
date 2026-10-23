@@ -1,5 +1,6 @@
 import { auth } from '../lib/auth.js';
 import { rest } from '../lib/db.js';
+import { notifyOwner } from '../lib/notify.js';
 
 const JOBS = ['share-image', 'logo', 'brand-kit', 'ad-film', 'launch-pack', 'other'];
 const json = (b, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
@@ -24,5 +25,7 @@ export async function POST(req) {
   const recent = await rest(`badx_briefs?identity_key=eq.${encodeURIComponent(s.sub)}&created_at=gt.${new Date(Date.now() - 864e5).toISOString()}&select=id`);
   if (recent.length >= 10) return json({ error: 'too many briefs today' }, 429);
   const [row] = await rest('badx_briefs', { method: 'POST', body: { identity_key: s.sub, job, brand, brief, link: link || null, contact: contact || null }, prefer: 'return=representation' });
+  const who = s.handle ? `$${s.handle}` : `${s.sub.slice(0, 8)}…${s.sub.slice(-4)}`;
+  await notifyOwner(`New bAdvertisingX brief from ${who}\n${job} · ${brand}\n\n${brief.slice(0, 600)}${link ? `\n\n${link}` : ''}${contact ? `\nContact: ${contact}` : ''}\n\nid ${row.id}`, `badx:${row.id}`);
   return json({ id: row.id, status: row.status }, 201);
 }
