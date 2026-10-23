@@ -1,0 +1,242 @@
+<!doctype html>
+<!--
+  b-ad-film template. Brand-neutral version of the bwalletx.com/b-is-for-business engine.
+  Fill every {{TOKEN}}. Edit the CSS variables in :root and the SCENES array in the script.
+  Scenes are built from SCENES at load time; timings follow the audio clock when music plays,
+  and the wall clock when the viewer picks "Watch without sound" (or no music file exists).
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acme Coffee</title>
+    <meta name="description" content="Good coffee, poured fast." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/acme" />
+    <meta property="og:title" content="Acme Coffee" />
+    <meta property="og:description" content="Good coffee, poured fast." />
+    <meta property="og:image" content="og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Acme Coffee" />
+    <meta name="twitter:image" content="og.jpg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" />
+    <style>
+      :root {
+        --bg: #000;            /* film letterbox / page */
+        --ink: #f1ead9;        /* main text */
+        --muted: #cfc6b0;      /* calm text */
+        --accent: #f5b800;     /* brand primary (play button, CTA, bar) */
+        --accent-hi: #ffd24d;  /* lighter accent */
+        --accent-lo: #c98f00;  /* darker accent */
+        --accent-rgb: 245, 184, 0;
+        --cta-ink: #0b0a08;    /* text on the CTA */
+        --hf: 'Space Grotesk', system-ui, sans-serif; /* headline + body font */
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--ink); overflow-x: clip; font-family: var(--hf); }
+      .film { position: relative; width: 100%; height: 100svh; min-height: 540px; background: var(--bg); overflow: hidden; }
+      .scene { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+      .scene.on { opacity: 1; }
+      .scene .ph { position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; transform: scale(1.02); filter: brightness(1.3) saturate(1.25) contrast(1.05); transition: transform 9s cubic-bezier(.2,.6,.3,1); will-change: transform; }
+      /* Photo zoom is a transition, not a keyframe: it never restarts mid-crossfade. */
+      .scene.on .ph { transform: scale(1.1) translate(-1.2%, -0.8%); }
+      .scene .shade { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.38), rgba(0,0,0,.08) 70%), linear-gradient(180deg, rgba(0,0,0,.1), transparent 30%, transparent 80%, rgba(0,0,0,.5)); }
+      .art { position: absolute; inset: 0; pointer-events: none; }
+      .art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+      .cap { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); padding: 0 16px; text-align: center; z-index: 2; }
+      .slogan { margin: 0; display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 0 0.22em; font: 700 clamp(2.6rem, 11vw, 9rem) / 1 var(--hf); letter-spacing: -0.045em; text-shadow: 0 6px 60px rgba(0,0,0,.6); }
+      /* The logo stands in for a letter: same height as the type, never shown huge on its own. */
+      .lb { display: block; height: 0.86em; width: auto; max-width: 1.2em; margin-top: 0.08em; }
+      .cap p { margin: 22px auto 0; max-width: 620px; font: 500 clamp(1.05rem, 2.6vw, 1.35rem) / 1.55 var(--hf); color: rgba(255,255,255,.92); text-shadow: 0 2px 18px rgba(0,0,0,.8); opacity: 0; filter: blur(4px); transform: translateY(0.4em); }
+      .scene.on .cap p { animation: rise 2.2s 1.2s cubic-bezier(.25,.1,.25,1) forwards; }
+      @keyframes rise { to { opacity: 1; filter: none; transform: none; } }
+
+      /* Letters rise out of a blur, one after another. */
+      .slogan .w { display: inline-flex; align-items: flex-start; perspective: 600px; }
+      .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      .w .lb { margin: 0.08em 0.02em 0; }
+      .ch { display: inline-block; white-space: pre; opacity: 0; filter: blur(8px); transform: translateY(0.35em) rotateX(40deg); }
+      .scene.on .ch, .poster .ch { animation: chin 1s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(0.35s + var(--i) * 55ms); }
+      @keyframes chin { to { opacity: 1; filter: none; transform: none; } }
+      .cap .lb, .poster .lb { opacity: 0; transform: scale(.6); }
+      .scene.on .lb, .poster .lb { animation: lbin 1s cubic-bezier(.2,1.4,.4,1) forwards, lbglow 5s 1.2s ease-in-out infinite; }
+      @keyframes lbin { to { opacity: 1; transform: none; } }
+      @keyframes lbglow { 0%, 100% { filter: drop-shadow(0 0 24px rgba(var(--accent-rgb), .35)); } 50% { filter: drop-shadow(0 0 56px rgba(var(--accent-rgb), .85)); } }
+
+      .cta { display: inline-block; padding: 18px 40px; border-radius: 999px; background: linear-gradient(180deg, var(--accent-hi), var(--accent)); color: var(--cta-ink); font: 700 1.1rem var(--hf); text-decoration: none; box-shadow: 0 14px 50px rgba(var(--accent-rgb), .35); }
+      .cap .getp { margin-top: 26px; }
+      .scene.on .getp a { pointer-events: auto; }
+
+      /* Gate: big pulsing play button + "Watch without sound". */
+      .poster { position: absolute; inset: 0; z-index: 4; display: flex; align-items: center; justify-content: center; transition: opacity 1.2s ease; background: var(--poster-bg, #111); }
+      .poster.gone { opacity: 0; pointer-events: none; }
+      .poster .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(1.3) saturate(1.25); }
+      .poster::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,.35), rgba(0,0,0,.05) 70%), linear-gradient(180deg, rgba(0,0,0,.2), transparent 40%, transparent 80%, var(--bg) 100%); }
+      .poster .in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 26px; padding: 0 16px; text-align: center; }
+      .play { position: relative; width: 120px; height: 120px; padding-left: 8px; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--cta-ink); background: radial-gradient(circle at 35% 30%, var(--accent-hi), var(--accent) 55%, var(--accent-lo)); box-shadow: 0 18px 60px rgba(var(--accent-rgb), .45), inset 0 2px 0 rgba(255,255,255,.5); animation: pulse 2.6s ease-in-out infinite; transition: transform .6s ease; }
+      .play::before { content: ''; position: absolute; inset: -10px; border-radius: 50%; border: 2px solid rgba(var(--accent-rgb), .7); animation: ring 2.6s ease-out infinite; }
+      .play:hover, .play:focus-visible { transform: scale(1.08); }
+      .play svg { width: 46px; height: 46px; }
+      @keyframes pulse { 0%, 100% { box-shadow: 0 18px 60px rgba(var(--accent-rgb), .4), inset 0 2px 0 rgba(255,255,255,.5); } 50% { box-shadow: 0 18px 90px rgba(var(--accent-rgb), .75), inset 0 2px 0 rgba(255,255,255,.5); } }
+      @keyframes ring { from { transform: scale(.92); opacity: .9; } to { transform: scale(1.35); opacity: 0; } }
+      .gate-l { margin: -4px 0 0; font: 700 1rem var(--hf); letter-spacing: .16em; text-transform: uppercase; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,.7); }
+      .quiet { background: none; border: 0; padding: 4px; font: 400 .85rem var(--hf); letter-spacing: .06em; color: rgba(255,255,255,.6); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+      .quiet:hover { color: #fff; }
+      .bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--accent-hi); z-index: 5; }
+      .snd { position: fixed; right: 14px; bottom: 14px; z-index: 6; display: none; gap: 4px; }
+      .started .snd { display: flex; }
+      .snd button { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: transparent; color: rgba(255,255,255,.5); cursor: pointer; }
+      .snd button:hover { color: rgba(255,255,255,.9); }
+      .snd button[aria-pressed="true"] { color: var(--accent-hi); }
+
+      /* Calm text and end card below the film. */
+      .calm { max-width: 680px; margin: 0 auto; padding: 20vh 24px 18vh; text-align: center; color: var(--muted); font: 400 clamp(1.05rem, 2.4vw, 1.3rem) / 1.75 var(--hf); }
+      .calm p { margin: 0 0 2.2em; }
+      .calm .lead { font: 700 clamp(1.9rem, 6vw, 3.2rem) / 1.15 var(--hf); letter-spacing: -0.03em; color: #fff; margin-bottom: 1.4em; }
+      .calm strong { display: block; margin-bottom: .35em; color: #fff; font-weight: 600; font-size: 1.15em; }
+      .calm em { font-style: normal; color: var(--accent-hi); }
+      .end { position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--end-bg, #111); }
+      .end > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(1.25) saturate(1.2); }
+      .end::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, var(--bg) 0%, rgba(0,0,0,.25) 30%, rgba(0,0,0,.25) 75%, var(--bg) 100%); }
+      .end-in { position: relative; z-index: 1; text-align: center; padding: 0 16px; }
+      .end-in .slogan { font-size: clamp(2.4rem, 10vw, 5rem); margin-bottom: 30px; }
+      .end-in .lb { opacity: 1; transform: none; }
+      .credit { margin: 22px 0 0; font: 400 .8rem var(--hf); letter-spacing: .08em; color: rgba(255,255,255,.6); }
+      .credit a { color: inherit; }
+      .foot { margin: 0; padding: 0 16px 22px; text-align: center; font-size: .75rem; color: #6a6458; }
+
+      @media (max-width: 480px) {
+        .play { width: 104px; height: 104px; }
+        .cap p { font-size: 1rem; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .scene, .scene *, .poster * { animation: none !important; transition: none !important; }
+        .ch, .lb, .cap p, .art * { opacity: 1 !important; filter: none !important; transform: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="film" id="film" aria-label="Acme Coffee: a 12-second film">
+      <!-- Scenes are generated from SCENES below. -->
+      <div class="poster" id="poster">
+        <!-- Optional: <img class="bg" src="{{POSTER_IMAGE}}" alt="" fetchpriority="high" /> -->
+        <div class="in">
+          <h1 class="slogan" data-slogan="Acme Coffee"></h1>
+          <button type="button" class="play" id="play" aria-label="Play Acme Coffee with sound"><svg viewBox="5 3 18 18" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg></button>
+          <p class="gate-l" id="gate-l">Play the film</p>
+          <button type="button" class="quiet" id="quiet">Watch without sound</button>
+        </div>
+      </div>
+      <div class="bar" id="bar"></div>
+      <audio id="music" preload="auto"></audio>
+    </section>
+    <div class="snd">
+      <button type="button" id="mute" aria-pressed="false" aria-label="Mute music"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg></button>
+      <button type="button" id="again" aria-label="Play again"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg></button>
+    </div>
+
+    <section class="calm">
+      <p class="lead">Coffee, calmly.</p>
+      <p><strong>Point 1.</strong> Live feature text.</p>
+      <p><strong>Point 2.</strong> Live feature text.</p>
+      <p><strong>Point 3.</strong> Live feature text.</p>
+      <p class="lead">Good coffee. Just Acme.</p>
+    </section>
+
+    <section class="end">
+      <!-- Optional: <img src="{{END_IMAGE}}" alt="" decoding="async" /> -->
+      <div class="end-in">
+        <h2 class="slogan" data-slogan="Acme C{L}ffee"></h2>
+        <a class="cta" href="/order">Order now</a>
+        <p class="credit" id="credit"></p>
+      </div>
+    </section>
+    <p class="foot">Acme Coffee test brand</p>
+
+    <script>
+      // ---------- FILL THESE ----------
+      var FILM = {
+        logo: 'logo.svg',          // brand logo (SVG preferred). Used in place of LOGO_LETTER, at letter size.
+        logoLetter: 'o',  // the letter the logo replaces, e.g. 'b'; '' to never swap
+        music: '',        // mp3 cut to END seconds; '' = silent film
+        credit: '',// e.g. 'Music: <a href="...">Phantom Echoes by VexVoid</a>'
+        cta: { href: '/order', label: 'Order now' },
+        end: 12                          // seconds the film runs (match the music cut)
+      };
+      // Each scene: at (seconds), bg (CSS background), photo (optional, brief accent only),
+      // art (optional inline SVG string, drawn scenes first), slogan (centred, large; '{L}' = logo),
+      // sub (one calm line), cta (true on the last scene).
+      var SCENES = [
+        { at: 0, bg: 'radial-gradient(circle at 50% 30%, #7a4a2a, #1e0f06)', art: '<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><circle cx="800" cy="200" r="90" fill="#c8732e" opacity=".6"/></svg>', slogan: 'Fresh coffee', sub: 'Roasted this week.' },
+        { at: 4, bg: 'radial-gradient(circle at 50% 30%, #2b8a8f, #0a2436)', slogan: 'P{L}ured fast', sub: 'Ready in two minutes.' },
+        { at: 8, bg: 'radial-gradient(circle at 50% 30%, #d99a3a, #3a1f08)', slogan: 'Acme C{L}ffee', sub: 'Good coffee. Just Acme.', cta: true }
+      ];
+      // ---------------------------------
+
+      (function () {
+        var END = FILM.end, LEN = SCENES.length ? SCENES[SCENES.length - 1].at : END;
+        var film = document.getElementById('film'), poster = document.getElementById('poster'), bar = document.getElementById('bar');
+        function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        // Slogan markup: words wrap as units; each letter is its own span so it can rise out of a blur.
+        // '{L}' inside or beside a word becomes the logo, at letter height (e.g. 'P{L}ured', '{L} paid').
+        function slogan(text) {
+          var i = 0, logo = FILM.logo ? '<img class="lb" src="' + esc(FILM.logo) + '" alt="' + esc(FILM.logoLetter || '') + '" />' : esc(FILM.logoLetter || '');
+          return '<span class="sr">' + esc(text.replace(/\{L\}/g, FILM.logoLetter || '')) + '</span>' + text.split(/\s+/).filter(Boolean).map(function (word) {
+            return '<span class="w" aria-hidden="true">' + word.split(/(\{L\})/).filter(Boolean).map(function (part) {
+              if (part === '{L}') return logo;
+              return part.split('').map(function (c) { return '<span class="ch" style="--i:' + (i++) + '">' + esc(c) + '</span>'; }).join('');
+            }).join('') + '</span>';
+          }).join('');
+        }
+        var html = '';
+        SCENES.forEach(function (s) {
+          html += '<div class="scene" data-at="' + s.at + '" style="background:' + esc(s.bg || '#000') + '">';
+          if (s.photo) html += '<img class="ph" src="' + esc(s.photo) + '" alt="" decoding="async" /><div class="shade"></div>';
+          if (s.art) html += '<div class="art" aria-hidden="true">' + s.art + '</div>';
+          html += '<div class="cap"><h2 class="slogan">' + slogan(s.slogan || '') + '</h2>';
+          if (s.sub) html += '<p>' + esc(s.sub) + '</p>';
+          if (s.cta) html += '<p class="getp"><a class="cta" href="' + esc(FILM.cta.href) + '">' + esc(FILM.cta.label) + '</a></p>';
+          html += '</div></div>';
+        });
+        poster.insertAdjacentHTML('beforebegin', html);
+        [].forEach.call(document.querySelectorAll('[data-slogan]'), function (h) { h.innerHTML = slogan(h.getAttribute('data-slogan')); });
+        if (FILM.credit) document.getElementById('credit').innerHTML = FILM.credit;
+        var m = Math.floor(END / 60), sec = Math.round(END % 60);
+        document.getElementById('gate-l').innerHTML = 'Play the film &middot; ' + m + ':' + (sec < 10 ? '0' : '') + sec;
+
+        var scenes = [].slice.call(film.querySelectorAll('.scene'));
+        var music = document.getElementById('music'), muted = false, hasMusic = !!FILM.music;
+        if (hasMusic) music.src = FILM.music;
+        var start = 0, raf = 0, withSound = false, cur = -1;
+        // With sound the film follows the track's own clock; silent, the wall clock.
+        function now() { return withSound ? music.currentTime : performance.now() / 1000 - start; }
+        function show(k) { if (k === cur) return; cur = k; scenes.forEach(function (s, j) { s.classList.toggle('on', j === k); }); }
+        function frame() {
+          var t = now(), k = 0;
+          scenes.forEach(function (s, j) { if (t >= parseFloat(s.dataset.at)) k = j; });
+          show(k); bar.style.width = Math.min(100, (t / END) * 100) + '%';
+          if (t < END && !(withSound && music.ended)) raf = requestAnimationFrame(frame); else bar.style.width = '0';
+        }
+        function play(sound) {
+          cancelAnimationFrame(raf); withSound = sound && hasMusic; cur = -1;
+          scenes.forEach(function (s) { s.classList.remove('on'); });
+          if (hasMusic) { music.pause(); music.currentTime = 0; music.muted = muted; }
+          start = performance.now() / 1000;
+          if (withSound) music.play().catch(function () { withSound = false; start = performance.now() / 1000; });
+          poster.classList.add('gone'); document.body.classList.add('started'); raf = requestAnimationFrame(frame);
+        }
+        document.getElementById('play').onclick = function () { play(true); };
+        document.getElementById('quiet').onclick = function () { play(false); };
+        document.getElementById('again').onclick = function () { play(withSound); };
+        document.getElementById('mute').onclick = function () { muted = !muted; music.muted = muted; this.setAttribute('aria-pressed', String(muted)); };
+        // Test / recording hook: ?autoplay=silent starts at once; ?t=12 jumps to a time (for screenshots).
+        var q = new URLSearchParams(location.search);
+        if (q.get('autoplay') === 'silent' || q.has('t')) { play(false); if (q.has('t')) start -= parseFloat(q.get('t')) || 0; }
+        window.__film = { scenes: scenes.length, end: END, play: play };
+      })();
+    </script>
+  </body>
+</html>

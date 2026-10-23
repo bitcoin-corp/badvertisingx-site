@@ -1,0 +1,366 @@
+<!doctype html>
+<!--
+  b-brand-kit public brand page template (from bwalletx.com/brand, 23 Oct 2026).
+  Fill with: python3 ~/.claude/skills/b-brand-kit/scripts/fill-template.py brand-page.html tokens.json out.html
+  Every double-brace token must be filled; the fill script fails on any left over. Tokens are listed in SKILL.md.
+  Keep: 14 numbered sections, top menu, 1100px layout, construction-diagram slot, CSS misuse cards,
+  swatches + 70/20/10 ratio, type specimen, say/not-say table, press copy button, kit zip.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Acme Coffee brand</title>
+    <link rel="canonical" href="https://example.com/brand" />
+    <meta name="description" content="The Acme Coffee brand: the logo and how it's built, versions and downloads, colour, type, voice, imagery, motion, buttons, family and a press kit." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/brand" />
+    <meta property="og:site_name" content="Acme Coffee" />
+    <meta property="og:title" content="The Acme Coffee brand" />
+    <meta property="og:description" content="The Acme Coffee cup, colour, type and voice, with downloads." />
+    <meta property="og:image" content="https://example.com/og-brand-v1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Acme Coffee logo with its construction lines, logo versions, colour bar and type." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://example.com/og-brand-v1.jpg" />
+    <link rel="icon" href="brand/app-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" />
+    <style>
+      :root {
+        --ground: #2B1A10;     /* 70%: the background */
+        --surface: #3A2416;   /* cards on the ground */
+        --text: #F3E9D7;         /* 20%: reading colour */
+        --muted: #B9A68C;       /* captions, small print */
+        --accent: #2BB3AA;     /* 10%: the light (buttons, numbers, the X) */
+        --accent-hi: #5FD3CB;
+        --on-accent: #10201F;
+        --line: #ffffff1a;
+        --hf: 'Fraunces', Georgia, serif;
+        --bf: 'Inter', system-ui, sans-serif;
+        --mf: 'IBM Plex Mono', ui-monospace, monospace;
+      }
+      * { box-sizing: border-box; }
+      html, body { overflow-x: clip; scroll-behavior: smooth; }
+      body { margin: 0; background: var(--ground); color: var(--text); font: 400 1rem/1.6 var(--bf); }
+      a { color: var(--accent-hi); }
+      img { max-width: 100%; }
+
+      /* Top bar + menu (always a menu at the top) */
+      .topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--ground) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .topbar-in { max-width: 1100px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 1.1rem var(--hf); color: var(--text); text-decoration: none; }
+      .brand img { height: 30px; width: auto; }
+      .topbar nav { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; }
+      .topbar nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+      .topbar nav a:hover { color: var(--accent-hi); }
+
+      main.br { max-width: 1100px; margin: 0 auto; padding: 0 16px 80px; }
+      section.s { padding-top: 8px; scroll-margin-top: 90px; border-top: 1px solid var(--line); margin-top: 64px; }
+      h2 { margin: 40px 0 10px; font: 700 clamp(1.8rem, 4.4vw, 2.8rem) / 1.05 var(--hf); letter-spacing: -0.03em; }
+      h2 .no { display: block; font: 500 0.8rem var(--mf); letter-spacing: 0.14em; color: var(--accent); margin-bottom: 12px; }
+      h3 { margin: 30px 0 8px; font: 600 1.1rem var(--hf); }
+      p, li { line-height: 1.7; }
+      .lead { font-size: 1.12rem; max-width: 720px; }
+      .mono { font: 500 0.78rem var(--mf); letter-spacing: 0.02em; color: var(--muted); }
+      .small { color: var(--muted); font-size: 0.85rem; }
+      .x { color: var(--accent); }
+      .card { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+      .brrow { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0; }
+      .brrow.c { justify-content: center; }
+      .btn { display: inline-block; padding: 12px 22px; border-radius: 999px; border: 1px solid var(--line); color: var(--text); background: transparent; text-decoration: none; font: 600 0.95rem var(--hf); cursor: pointer; }
+      .btn-main { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+      .g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px; margin: 18px 0; }
+      .g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; margin: 18px 0; }
+      .g4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; margin: 18px 0; }
+      @media (min-width: 760px) { .g3.fix3 { grid-template-columns: repeat(3, 1fr); } .g4.fix4 { grid-template-columns: repeat(4, 1fr); } }
+
+      /* Hero: the mark is modest (never enormous on its own) */
+      .br-hero { text-align: center; padding: 40px 0 0; }
+      .br-hero > img { display: block; margin: 0 auto; width: min(30vw, 120px); height: auto; }
+      .br-hero h1 { margin: 24px 0 14px; font: 700 clamp(2.4rem, 8vw, 4.6rem) / 1 var(--hf); letter-spacing: -0.04em; }
+      .br-hero p { max-width: 660px; margin: 0 auto; color: var(--muted); }
+      .toc { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 26px auto 0; max-width: 900px; }
+      .toc a { padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.85rem; color: var(--text); text-decoration: none; }
+      .toc a:hover { border-color: var(--accent); color: var(--accent-hi); }
+
+      .idea div { padding: 22px; }
+      .idea b { display: block; font: 700 1.35rem var(--hf); margin-bottom: 6px; }
+
+      /* 02 Logo anatomy: construction-diagram slot */
+      .anat { padding: 22px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+      @media (max-width: 760px) { .anat { grid-template-columns: 1fr; } }
+      .anat svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
+      .anat ol { margin: 0; padding-left: 20px; }
+      .demo { padding: 22px; display: flex; align-items: center; justify-content: center; min-height: 240px; }
+      .clear { position: relative; display: inline-block; padding: 36px; outline: 1px dashed var(--accent); }
+      .clear img { display: block; height: 110px; width: auto; }
+      .clear span { position: absolute; font: 500 0.7rem var(--mf); color: var(--accent); }
+      .clear .t { top: 10px; left: 50%; transform: translateX(-50%); }
+      .clear .l { left: 12px; top: 50%; transform: translateY(-50%); }
+      .sizes { display: flex; align-items: flex-end; justify-content: center; gap: 28px; flex-wrap: wrap; }
+      .sizes figure { margin: 0; text-align: center; }
+      .sizes img { display: block; margin: 0 auto 10px; width: auto; }
+
+      /* 03 Versions + 05 Misuse previews */
+      .ver .pv, .bad .pv { height: 170px; display: flex; align-items: center; justify-content: center; border-radius: 17px 17px 0 0; overflow: hidden; background: var(--ground); }
+      .ver .pv img, .bad .pv img { height: 84px; width: auto; }
+      .ver .cap, .bad .cap { padding: 14px 16px; font-size: 0.9rem; }
+      .ver .cap b { display: block; }
+      .ver .cap span { color: var(--muted); }
+      .bad { position: relative; }
+      .bad .cap::before { content: '\2715  '; color: #e05555; font-weight: 700; }
+
+      /* 04 Name lockups */
+      .wm { padding: 30px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center; }
+      .wm .lock { display: inline-flex; align-items: center; gap: 12px; font: 700 2rem var(--hf); letter-spacing: -0.03em; }
+      .wm .lock img { height: 40px; width: auto; }
+      .wm .stk { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; font: 700 1.4rem var(--hf); }
+      .wm .stk img { height: 56px; width: auto; }
+
+      /* 06 Colour */
+      .sw { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 12px; margin: 18px 0; }
+      .sw > div { border-radius: 16px; padding: 70px 16px 16px; font: 500 0.82rem / 1.5 var(--mf); border: 1px solid var(--line); }
+      .sw b { display: block; font: 700 1rem var(--hf); margin-bottom: 2px; }
+      .ratio { display: flex; height: 56px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); margin: 12px 0 8px; }
+      .ratio i { display: flex; align-items: center; padding-left: 12px; font: 600 0.8rem var(--hf); font-style: normal; white-space: nowrap; overflow: hidden; }
+      .pairs > div { padding: 22px; border-radius: 16px; font: 600 1.05rem var(--hf); border: 1px solid var(--line); }
+      .pairs small { display: block; margin-top: 6px; font: 500 0.75rem var(--mf); opacity: 0.8; }
+
+      /* 07 Type specimen */
+      .spec { padding: 26px; }
+      .spec .row { padding: 18px 0; border-bottom: 1px solid var(--line); }
+      .spec .row:last-child { border-bottom: 0; }
+      .spec .s-h { font: 700 clamp(2rem, 6vw, 3.6rem) / 1.05 var(--hf); letter-spacing: -0.03em; }
+      .spec .s-b { font: 400 1.05rem / 1.7 var(--bf); max-width: 560px; }
+      .spec .s-l { font: 700 0.82rem var(--hf); letter-spacing: 0.16em; text-transform: uppercase; }
+      .spec .s-m { font: 500 0.95rem var(--mf); }
+      .alpha { font: 500 clamp(1.3rem, 3.4vw, 2rem) / 1.35 var(--hf); overflow-wrap: anywhere; }
+
+      /* 08 Voice */
+      .lines div { padding: 22px; font: 700 1.3rem / 1.2 var(--hf); }
+      .lines small { display: block; margin-top: 10px; font: 400 0.8rem var(--bf); color: var(--muted); }
+      .say { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.95rem; }
+      .say th, .say td { text-align: left; padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; width: 50%; }
+      .say th { font: 600 0.78rem var(--hf); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      .say td:first-child { color: #5fb36b; }
+      .say td:last-child { color: #d66a6a; }
+
+      /* 09 Imagery */
+      .gal a, .gal figure { display: block; margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); text-decoration: none; color: inherit; background: var(--surface); }
+      .gal img { display: block; width: 100%; aspect-ratio: 1200 / 630; object-fit: cover; }
+      .gal span, .gal figcaption { display: block; padding: 10px 14px; font-size: 0.85rem; color: var(--muted); }
+
+      /* 10 Motion demos */
+      .mo { padding: 26px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; min-height: 220px; text-align: center; }
+      .mo .fadein { font: 700 2.4rem var(--hf); animation: fadein 4.8s cubic-bezier(.2,.7,.2,1) infinite; }
+      @keyframes fadein { 0% { opacity: 0; filter: blur(8px); transform: translateY(0.3em); } 25%, 80% { opacity: 1; filter: none; transform: none; } 100% { opacity: 0; } }
+      .mo .pulse { width: 84px; height: 84px; border-radius: 50%; background: var(--accent); animation: pulse 2.6s ease-in-out infinite; }
+      @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: .85; } }
+
+      /* 11 Buttons */
+      .comp { padding: 26px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center; }
+
+      /* 12 Family / 13 Services / 14 Press */
+      .fam div { padding: 22px; }
+      .fam .nm2 { font: 700 1.6rem var(--hf); }
+      .fam p { margin: 8px 0 0; color: var(--muted); }
+      .svc { border: 1px solid var(--accent); border-radius: 22px; padding: 6px 28px 10px; background: var(--surface); }
+      .press { padding: 24px; }
+      .press p { margin: 0 0 12px; }
+      footer { max-width: 1100px; margin: 0 auto; padding: 0 16px 40px; }
+      @media (prefers-reduced-motion: reduce) { .mo .fadein, .mo .pulse { animation: none !important; opacity: 1 !important; filter: none !important; transform: none !important; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-in">
+        <a class="brand" href="https://example.com/"><img src="brand/logo.svg" alt="" /><span>Acme <span class="x">Coffee</span></span></a>
+        <nav aria-label="Pages"><a href="#logo">Logo</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#press">Press</a></nav>
+      </div>
+    </header>
+    <main class="br">
+      <section class="br-hero">
+        <img src="brand/logo.svg" alt="The Acme Coffee logo" />
+        <h1>The Acme <span class="x">Coffee</span> brand</h1>
+        <p>A cream cup on espresso brown, a warm plain voice and a few rules that keep everything we make looking like us.</p>
+        <div class="brrow c"><a class="btn btn-main" href="acme-brand-kit.zip" download>Download the brand kit</a><a class="btn" href="https://docs.example.com/brand/">Read the full brand guide</a></div>
+        <nav class="toc" aria-label="On this page"><a href="#idea">The idea</a><a href="#logo">Logo</a><a href="#versions">Versions</a><a href="#name">Name</a><a href="#misuse">Misuse</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#voice">Voice</a><a href="#imagery">Imagery</a><a href="#motion">Motion</a><a href="#buttons">Buttons</a><a href="#family">Family</a><a href="#services">Services</a><a href="#press">Press</a></nav>
+      </section>
+
+      <section class="s" id="idea">
+        <h2><span class="no">01 · THE IDEA</span>Good coffee, no fuss.</h2>
+        <p class="lead">We make coffee for people who want it good and quick, without the ceremony.</p>
+        <div class="g3 fix3 idea"><div class="card"><b>Warm.</b>Like the first cup of the day.</div>
+<div class="card"><b>Plain.</b>We say what is in the cup.</div>
+<div class="card"><b>Steady.</b>The same good cup every time.</div></div>
+      </section>
+
+      <section class="s" id="logo">
+        <h2><span class="no">02 · LOGO</span>The cup.</h2>
+        <p class="lead">A cup built from three shapes: a bowl, a ring handle and a saucer bar.</p>
+        <div class="card anat">
+          <svg viewBox="0 0 120 120" aria-label="How the cup is built"><path fill="#F3E9D7" opacity=".9" d="M84 41 A17 17 0 1 1 84 75 A17 17 0 1 1 84 41 Z M84 50 A8 8 0 1 0 84 66 A8 8 0 1 0 84 50 Z M20 34 H88 V60 A34 34 0 0 1 20 60 Z"/><rect x="12" y="98" width="84" height="8" rx="4" fill="#1F8A84" opacity=".9"/><g fill="none" stroke="#1F8A84" stroke-width=".4" stroke-dasharray="1.6 1.2"><line x1="4" y1="34" x2="116" y2="34"/><line x1="4" y1="60" x2="116" y2="60"/><line x1="4" y1="94" x2="116" y2="94"/><circle cx="54" cy="60" r="34"/><circle cx="84" cy="58" r="17"/><circle cx="84" cy="58" r="8"/><line x1="20" y1="20" x2="20" y2="110"/><line x1="88" y1="20" x2="88" y2="110"/></g><g fill="#1F8A84" font-family="IBM Plex Mono, monospace" font-size="3.4"><text x="100" y="32">rim</text><text x="100" y="58">bowl</text><text x="96" y="92">base</text><text x="40" y="80">r34</text><text x="96" y="46">r17 / r8</text></g></svg>
+          <ol><li><b>The bowl</b> is a 68-unit rectangle ending in a half circle (radius 34). Sides meet the curve where it is upright.</li>
+<li><b>The handle</b> is a ring, radius 17 with an 8 counter, centred on the rim edge.</li>
+<li><b>The saucer</b> is an 84 × 8 bar with round ends, in teal.</li></ol>
+        </div>
+        <div class="g2">
+          <div class="card demo"><div class="clear"><span class="t">x</span><span class="l">x</span><img src="brand/logo.svg" alt="" /></div></div>
+          <div class="card demo"><div class="sizes"><figure><img src="brand/logo.svg" alt="" style="height:16px" /><span class="mono">16 px min</span></figure><figure><img src="brand/logo.svg" alt="" style="height:24px" /><span class="mono">24 px</span></figure><figure><img src="brand/logo.svg" alt="" style="height:34px" /><span class="mono">34 px header</span></figure><figure><img src="brand/logo.svg" alt="" style="height:80px" /><span class="mono">80 px</span></figure></div></div>
+        </div>
+        <p><b>Clear space:</b> the height of the saucer bar × 2 on every side. <b>Minimum size:</b> 16 px on screen, 6 mm in print.</p>
+      </section>
+
+      <section class="s" id="versions">
+        <h2><span class="no">03 · VERSIONS</span>Use the right one.</h2>
+        <p class="lead">Cream on espresso is the logo. Use the others only when it can't work.</p>
+        <div class="g3 fix3">
+          <div class="card ver"><div class="pv" style="background:var(--ground)"><img src="brand/logo.svg" alt="" /></div><div class="cap"><b>Full colour</b><span>The logo.</span><br /><a href="brand/logo.svg" download>SVG</a> · <a href="out/acme-logo-1024.png" download>PNG 1024</a></div></div>
+          <div class="card ver"><div class="pv" style="background:var(--ground)"><img src="brand/logo-flat.svg" alt="" /></div><div class="cap"><b>Flat</b><span>One solid colour, for print, stitch and small sizes.</span><br /><a href="brand/logo-flat.svg" download>SVG</a></div></div>
+          <div class="card ver"><div class="pv" style="background:#7a4a2a"><img src="brand/logo-white.svg" alt="" /></div><div class="cap"><b>White</b><span>On photos and strong colour.</span><br /><a href="brand/logo-white.svg" download>SVG</a></div></div>
+          <div class="card ver"><div class="pv" style="background:#f4f1e8"><img src="brand/logo-black.svg" alt="" /></div><div class="cap"><b>Black</b><span>On white, light themes and one-colour print.</span><br /><a href="brand/logo-black.svg" download>SVG</a></div></div>
+          <div class="card ver"><div class="pv" style="background:var(--surface)"><img src="brand/app-icon.svg" alt="" /></div><div class="cap"><b>App tile</b><span>App icon, favicon, extension.</span><br /><a href="brand/app-icon.svg" download>SVG</a></div></div>
+          <div class="card ver"><div class="pv" style="background:var(--ground)"><img src="brand/avatar.svg" alt="" /></div><div class="cap"><b>Round avatar</b><span>Profile pictures.</span><br /><a href="brand/avatar.svg" download>SVG</a></div></div>
+        </div>
+      </section>
+
+      <section class="s" id="name">
+        <h2><span class="no">04 · NAME</span>Acme <span class="x">Coffee</span></h2>
+        <p class="lead">Two words, capital A and capital C. Coffee takes the teal when we can show colour.</p>
+        <div class="card wm">
+          <span class="lock"><img src="brand/logo.svg" alt="" /><span>Acme <span class="x">Coffee</span></span></span>
+          <span class="stk"><img src="brand/logo.svg" alt="" /><span>Acme <span class="x">Coffee</span></span></span>
+        </div>
+        <p class="small">Never ACME COFFEE in running text, never Acme Coffee Co.</p>
+      </section>
+
+      <section class="s" id="misuse">
+        <h2><span class="no">05 · MISUSE</span>Please don&rsquo;t.</h2>
+        <div class="g4 fix4">
+          <div class="card bad"><div class="pv"><img src="brand/logo.svg" alt="" style="transform:scaleX(1.5)" /></div><div class="cap">Stretch or squash it.</div></div>
+          <div class="card bad"><div class="pv"><img src="brand/logo.svg" alt="" style="transform:rotate(-18deg)" /></div><div class="cap">Rotate or tilt it.</div></div>
+          <div class="card bad"><div class="pv"><img src="brand/logo.svg" alt="" style="filter:hue-rotate(150deg) saturate(2)" /></div><div class="cap">Recolour it.</div></div>
+          <div class="card bad"><div class="pv"><span style="display:inline-flex;align-items:flex-end;gap:2px"><img src="brand/logo.svg" alt="" /><b style="font:700 2.4rem var(--hf);color:var(--accent)">+</b></span></div><div class="cap">Add letters or symbols to the mark.</div></div>
+          <div class="card bad"><div class="pv"><img src="brand/logo.svg" alt="" style="filter:drop-shadow(6px 6px 0 #e33) drop-shadow(-3px -3px 0 #3cf)" /></div><div class="cap">Add outlines, shadows or effects.</div></div>
+          <div class="card bad"><div class="pv" style="background:repeating-linear-gradient(45deg,#888 0 12px,#c66 12px 24px,#69c 24px 36px)"><img src="brand/logo.svg" alt="" style="opacity:.55" /></div><div class="cap">Lose it on a busy background.</div></div>
+          <div class="card bad"><div class="pv" style="background:#fff"><img src="brand/logo.svg" alt="" style="opacity:.9;filter:saturate(.6) brightness(1.4)" /></div><div class="cap">Low contrast: use the black version on white.</div></div>
+          <div class="card bad"><div class="pv"><img src="brand/logo.svg" alt="" style="height:150px" /></div><div class="cap">Blow it up huge on its own.</div></div>
+        </div>
+      </section>
+
+      <section class="s" id="colour">
+        <h2><span class="no">06 · COLOUR</span>Espresso, cream, teal.</h2>
+        <p class="lead">Espresso is the ground, cream is for reading, teal is the one bright thing.</p>
+        <div class="sw"><div style="background:#2B1A10;color:#F3E9D7"><b>Espresso</b>#2B1A10<br />RGB 43 26 16</div>
+<div style="background:#3A2416;color:#F3E9D7"><b>Roast</b>#3A2416<br />RGB 58 36 22</div>
+<div style="background:#F3E9D7;color:#2B1A10"><b>Cream</b>#F3E9D7<br />RGB 243 233 215</div>
+<div style="background:#1F8A84;color:#fff"><b>Teal</b>#1F8A84<br />RGB 31 138 132</div>
+<div style="background:#2BB3AA;color:#10201F"><b>Bright teal</b>#2BB3AA<br />RGB 43 179 170</div></div>
+        <h3>The ratio</h3>
+        <div class="ratio"><i style="flex:70;background:#2B1A10;color:#B9A68C">Espresso 70%</i>
+<i style="flex:20;background:#F3E9D7;color:#2B1A10">Cream 20%</i>
+<i style="flex:10;background:#2BB3AA;color:#10201F">Teal</i></div>
+        <p class="small">Roughly 70% ground, 20% reading colour, 10% accent. One accent button per screen.</p>
+        <h3>Pairs that work</h3>
+        <div class="g3 pairs"><div style="background:#2B1A10;color:#F3E9D7">Cream on espresso<small>13.9:1 AAA</small></div>
+<div style="background:#F3E9D7;color:#2B1A10">Espresso on cream<small>13.9:1 AAA</small></div>
+<div style="background:#2BB3AA;color:#10201F">Ink on bright teal<small>6.5:1 AA</small></div></div>
+        <p class="small">Every text pair listed passes WCAG AA (4.5:1 body, 3:1 large). Ratios shown on each card.</p>
+      </section>
+
+      <section class="s" id="type">
+        <h2><span class="no">07 · TYPE</span>Fraunces and Inter.</h2>
+        <p class="lead">Fraunces, a soft serif, for headlines. Inter for everything you read.</p>
+        <div class="card spec">
+          <div class="row"><p class="mono">HEADLINE · Fraunces</p><div class="s-h">Good coffee, no fuss.</div></div>
+          <div class="row"><p class="mono">BODY · Inter</p><div class="s-b">Our beans are roasted on Tuesdays and in the shop by Thursday. Ask for a flat white and you'll get one.</div></div>
+          <div class="row"><p class="mono">LABEL · Fraunces CAPS, TRACKED</p><div class="s-l">Order ahead</div></div>
+          <div class="row"><p class="mono">MONO · IBM Plex Mono</p><div class="s-m">£2.80 · 12 oz · 07:00</div></div>
+          <div class="row"><div class="alpha">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789</div></div>
+        </div>
+      </section>
+
+      <section class="s" id="voice">
+        <h2><span class="no">08 · VOICE</span>Warm, plain, short.</h2>
+        <p class="lead">Talk like the person behind the counter.</p>
+        <div class="g3 lines"><div class="card">Good coffee, no fuss.<small>The line</small></div>
+<div class="card">Ready in two minutes.<small>Product</small></div>
+<div class="card">Roasted Tuesday.<small>Detail</small></div></div>
+        <table class="say">
+          <thead><tr><th>Say</th><th>Not</th></tr></thead>
+          <tbody><tr><td>Ready in two minutes.</td><td>Artisanal handcrafted experience.</td></tr>
+<tr><td>Roasted on Tuesday.</td><td>Ethically curated bean journey.</td></tr>
+<tr><td>Flat white, £2.80.</td><td>Premium espresso-based beverage.</td></tr></tbody>
+        </table>
+      </section>
+
+      <section class="s" id="imagery">
+        <h2><span class="no">09 · IMAGERY</span>Real cups, real light.</h2>
+        <p class="lead">Morning light, hands, steam. Phone-first, edge to edge, no filters.</p>
+        <div class="g3 gal"><figure><img src="out/acme-logo-1024.png" alt="" style="background:#2B1A10;object-fit:contain" /><figcaption>Placeholder: product shot</figcaption></figure></div>
+      </section>
+
+      <section class="s" id="motion">
+        <h2><span class="no">10 · MOTION AND SOUND</span>Slow, like steam.</h2>
+        <p class="lead">Things arrive gently and never flash.</p>
+        <div class="g2">
+          <div class="card mo"><div class="fadein">Acme Coffee</div><span class="mono">TEXT ARRIVES: 600 ms, ease-out, blur to sharp</span></div>
+          <div class="card mo"><div class="pulse"></div><span class="mono">ATTENTION: slow 2.6 s pulse, never a flash</span></div>
+        </div>
+      </section>
+
+      <section class="s" id="buttons">
+        <h2><span class="no">11 · BUTTONS AND LABELS</span>One teal button per screen.</h2>
+        <div class="card comp">
+          <a class="btn btn-main" href="#buttons">Order ahead</a>
+          <a class="btn" href="#buttons">See the menu</a>
+        </div>
+        <p>Buttons are verbs. Sentence case. The teal button is the one thing we want you to do.</p>
+      </section>
+
+      <section class="s" id="family">
+        <h2><span class="no">12 · FAMILY</span>One shop.</h2>
+        <p class="lead">Acme Coffee has no sub-brands yet. If it gets one, it gets a single accent colour and keeps the cup.</p>
+        <div class="g3 fam"><div class="card"><div class="nm2">Acme <span class="x">Coffee</span></div><p>The shop and the beans.</p></div></div>
+      </section>
+
+      <section class="s" id="services">
+        <h2><span class="no">13 · SERVICES</span>Wholesale.</h2>
+        <div class="svc"><p>We supply beans to cafés. Your café keeps its own name and look; our cup appears only if you want a small 'Beans by Acme' credit.</p></div>
+      </section>
+
+      <section class="s" id="press">
+        <h2><span class="no">14 · PRESS</span>Writing about us?</h2>
+        <div class="card press">
+          <p class="mono">ABOUT ACME COFFEE</p>
+          <p id="boiler">Acme Coffee roasts and serves coffee in London. Beans are roasted every Tuesday and served within the week, in a flat white that's ready in two minutes. Acme Coffee is a test brand made to check the b-brand-kit skill.</p>
+          <div class="brrow" style="margin-bottom:0"><button type="button" class="btn" id="copyb">Copy this paragraph</button><a class="btn btn-main" href="acme-brand-kit.zip" download>Download the brand kit</a><a class="btn" href="mailto:hello@example.com?subject=Press">Press questions</a></div>
+        </div>
+        <p class="small">The kit has every logo version (SVG and PNG), the app tile, the round avatar and the colour and type sheet.</p>
+      </section>
+
+      <section class="s" id="guide">
+        <h2><span class="no">THE FULL GUIDE</span>Every rule, dated.</h2>
+        <p>The complete rules for logo, colour, type, voice, imagery, motion, campaigns, share images and names. Every change is dated.</p>
+        <div class="brrow"><a class="btn btn-main" href="https://docs.example.com/brand/">Read the guide</a></div>
+      </section>
+    </main>
+    <footer><p class="small">Acme Coffee is made by Acme Coffee Ltd (a test brand). Brand questions: <a href="mailto:hello@example.com">hello@example.com</a></p></footer>
+    <script>
+      (function () {
+        var b = document.getElementById('copyb');
+        b.onclick = function () {
+          var t = document.getElementById('boiler').textContent;
+          (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+            b.textContent = 'Copied';
+          }, function () { b.textContent = 'Select and copy'; }).finally(function () {
+            setTimeout(function () { b.textContent = 'Copy this paragraph'; }, 1800);
+          });
+        };
+      })();
+    </script>
+  </body>
+</html>
