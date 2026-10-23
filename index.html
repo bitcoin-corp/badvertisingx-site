@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>bAdvertisingX</title>
     <link rel="canonical" href="https://badvertisingx.com/" />
-    <meta name="description" content="bAdvertisingX: advertising paid in Bitcoin, for people and their agents. In planning. Part of bWalletX." />
+    <meta name="description" content="Tell b about your business and get the ad: films, logos and brand kits made by b, the agent in your bWalletX, for one fixed price in Bitcoin." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://badvertisingx.com/" />
     <meta property="og:site_name" content="bAdvertisingX" />
     <meta property="og:title" content="bAdvertisingX" />
-    <meta property="og:description" content="Advertising, paid in Bitcoin. For people and their agents." />
+    <meta property="og:description" content="Tell b about your business. Get the ad. Fixed price, paid in Bitcoin." />
     <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v2.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -21,39 +21,132 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500;600&display=swap" />
     <style>
-      /* bAdvertisingX holding page (23 Oct 2026). House look: black, warm white, gold b, gold button; the X is this service's accent (#B44DFF). */
-      :root { --bg: #000; --fg: #f1ead9; --mute: #9a958a; --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff; color-scheme: dark; }
+      /* bAdvertisingX v2 (23 Oct 2026): an ad studio you order by talking to b. House look: warm black, cream, gold b; violet only on the X. */
+      :root {
+        --bg: #0b0a09; --bg2: #121110; --fg: #f3ecdc; --mute: #a39d90; --dim: #6f6a60;
+        --line: rgba(243,236,220,.09); --line2: rgba(243,236,220,.16);
+        --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff;
+        --r: 18px; --ease: cubic-bezier(.2,.8,.2,1);
+        color-scheme: dark;
+      }
       * { box-sizing: border-box; }
-      html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; }
-      main { min-height: calc(100svh - 36px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px max(16px, env(safe-area-inset-left)) 40px; }
-      .mk { height: 96px; width: auto; filter: drop-shadow(0 0 40px rgba(245,184,0,.35)); animation: glow 6s ease-in-out infinite; }
-      @keyframes glow { 0%,100% { filter: drop-shadow(0 0 30px rgba(245,184,0,.3)); } 50% { filter: drop-shadow(0 0 60px rgba(245,184,0,.7)); } }
-      h1 { margin: 26px 0 0; display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; gap: 0 .04em; font: 700 clamp(2.4rem, 9vw, 5.6rem) / 1 'Space Grotesk', sans-serif; letter-spacing: -.045em; }
-      h1 img { height: 1em; width: .74em; margin-top: .02em; }
-      h1 i { font-style: normal; color: var(--x); }
-      .line { margin: 18px 0 0; font: 500 clamp(1.15rem, 3vw, 1.6rem) 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
-      .line em { font-style: normal; color: var(--gold-hi); }
-      p.body { max-width: 600px; margin: 22px auto 0; color: #cfc6b0; line-height: 1.7; }
-      .status { display: inline-block; margin-top: 26px; padding: 6px 12px; border: 1px solid #ffffff33; border-radius: 999px; font: 500 .78rem 'IBM Plex Mono', monospace; letter-spacing: .08em; color: var(--mute); }
-      .row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 28px; }
-      .go { padding: 15px 30px; border-radius: 999px; background: linear-gradient(180deg, #ffd24d, #f5b800); color: #0b0a08; font: 700 1rem 'Space Grotesk', sans-serif; text-decoration: none; box-shadow: 0 12px 40px rgba(245,184,0,.3); }
-      .ln { padding: 14px 26px; border-radius: 999px; border: 1px solid #ffffff99; color: #fff; font: 500 .82rem 'Space Grotesk', sans-serif; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
-      .foot { margin-top: 48px; font-size: .78rem; color: #6a6458; }
-      .foot a { color: #8a8273; }
-      .svc { width: 100%; max-width: 900px; margin: 46px auto 0; text-align: left; }
-      .svc h2 { font: 700 clamp(1.6rem, 4vw, 2.2rem) 'Space Grotesk', sans-serif; letter-spacing: -.03em; margin: 0 0 6px; }
-      .svc .sub { color: var(--mute); margin: 0 0 18px; }
-      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
-      .c { border: 1px solid #ffffff1a; border-radius: 18px; overflow: hidden; background: #0b0b0d; }
-      .c img { display: block; width: 100%; aspect-ratio: 1200/630; object-fit: cover; }
-      .c .in { padding: 16px 18px 18px; }
-      .c h3 { margin: 0 0 6px; font: 700 1.25rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
-      .c p { margin: 0 0 12px; color: #cfc6b0; line-height: 1.6; font-size: .95rem; }
-      .c .tag { display: inline-block; font: 600 .72rem 'IBM Plex Mono', monospace; letter-spacing: .06em; padding: 3px 9px; border-radius: 999px; background: var(--gold); color: #000; margin-bottom: 10px; }
-      .c a { color: var(--gold-hi); }
-      @media (prefers-reduced-motion: reduce) { .mk { animation: none; } }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.035em; margin: 0; }
+      i.x { font-style: normal; color: var(--x); }
+      .eyebrow { font: 500 .78rem 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); margin: 0 0 18px; }
+
+      /* nav */
+      nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+      .brand { display: flex; align-items: center; gap: 3px; font-weight: 700; font-size: 1.3rem; text-decoration: none; }
+      .brand img { height: 1.2em; margin-right: 2px; }
+      nav .links { display: flex; gap: 26px; align-items: center; font-size: .92rem; color: var(--mute); }
+      nav .links a { text-decoration: none; transition: color .16s var(--ease); }
+      nav .links a:hover { color: var(--fg); }
+      @media (max-width: 720px) { nav .links a:not(.btn) { display: none; } }
+
+      /* buttons */
+      .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; font: 600 1rem 'Space Grotesk', sans-serif; letter-spacing: -.01em; text-decoration: none; transition: transform .16s var(--ease), box-shadow .2s var(--ease), background .2s; }
+      .btn.gold { background: linear-gradient(180deg, #ffd96a, #f5b800); color: #120f05; box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 10px 30px -8px rgba(245,184,0,.55); }
+      .btn.gold:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 16px 40px -8px rgba(245,184,0,.7); }
+      .btn.ghost { border: 1px solid var(--line2); color: var(--fg); }
+      .btn.ghost:hover { background: rgba(243,236,220,.05); }
+      .btn.sm { padding: 9px 16px; font-size: .9rem; }
+      .btn:focus-visible, a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+      .btn svg { width: 18px; height: 18px; }
+
+      /* hero */
+      .hero { position: relative; padding: 72px 0 40px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+      .hero::before { content: ''; position: absolute; inset: -120px -40% auto auto; width: 820px; height: 620px; background: radial-gradient(closest-side, rgba(245,184,0,.16), transparent 70%); pointer-events: none; z-index: -1; }
+      h1 { font-size: clamp(2.7rem, 5.6vw, 4.6rem); line-height: .98; font-weight: 700; letter-spacing: -.05em; }
+      h1 em { font-style: normal; color: var(--gold-hi); }
+      .lede { font-size: clamp(1.08rem, 1.6vw, 1.25rem); color: #cfc7b6; max-width: 34ch; margin: 24px 0 32px; line-height: 1.55; }
+      .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+      .note { margin-top: 18px; font-size: .86rem; color: var(--dim); }
+
+      /* hero work stack */
+      .stack { position: relative; aspect-ratio: 1.05; }
+      .stack a { position: absolute; width: 78%; border-radius: 14px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4); transition: transform .4s var(--ease); }
+      .stack img { display: block; width: 100%; aspect-ratio: 1200/630; object-fit: cover; }
+      .stack a:nth-child(1) { top: 0; right: 0; transform: rotate(3deg); }
+      .stack a:nth-child(2) { top: 30%; left: 0; transform: rotate(-4deg); z-index: 2; }
+      .stack a:nth-child(3) { bottom: 0; right: 4%; transform: rotate(1.5deg); z-index: 3; }
+      .stack a:hover { transform: rotate(0) scale(1.03); z-index: 5; }
+      @media (max-width: 860px) { .hero { grid-template-columns: 1fr; padding-top: 40px; } .stack { max-width: 520px; width: 100%; margin: 8px auto 0; } }
+
+      /* sections */
+      section.s { padding: 96px 0 0; }
+      .s h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.04; font-weight: 700; max-width: 18ch; }
+      .s .sub { color: var(--mute); max-width: 56ch; margin: 16px 0 0; }
+
+      /* work */
+      .work { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .work a { text-decoration: none; display: block; }
+      .work .img { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+      .work img { display: block; width: 100%; aspect-ratio: 1200/630; object-fit: cover; transition: transform .5s var(--ease); }
+      .work a:hover img { transform: scale(1.04); }
+      .work h3 { font-size: 1.15rem; margin: 16px 0 4px; }
+      .work p { margin: 0; color: var(--mute); font-size: .95rem; }
+      .work .arrow { color: var(--gold-hi); }
+      @media (max-width: 860px) { .work { grid-template-columns: 1fr; } }
+
+      /* how: chat */
+      .how { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; margin-top: 8px; }
+      .steps { list-style: none; padding: 0; margin: 32px 0 0; counter-reset: s; }
+      .steps li { counter-increment: s; position: relative; padding: 0 0 22px 52px; }
+      .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line2); display: grid; place-items: center; font: 600 .9rem 'Space Grotesk', sans-serif; color: var(--gold-hi); }
+      .steps b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.08rem; letter-spacing: -.01em; }
+      .steps span { color: var(--mute); font-size: .95rem; }
+      .phone { justify-self: center; width: min(360px, 100%); border-radius: 36px; padding: 10px; background: #1b1916; border: 1px solid var(--line2); box-shadow: 0 40px 80px -30px rgba(0,0,0,.9), 0 0 120px -40px rgba(245,184,0,.25); }
+      .screen { border-radius: 28px; background: #070707; padding: 18px 14px 16px; }
+      .chathead { display: flex; align-items: center; gap: 10px; padding: 0 4px 14px; border-bottom: 1px solid var(--line); margin-bottom: 14px; font: 600 .95rem 'Space Grotesk', sans-serif; }
+      .chathead img { width: 28px; height: 28px; padding: 4px; border-radius: 50%; background: #1a1712; }
+      .chathead small { display: block; font: 400 .72rem 'IBM Plex Sans', sans-serif; color: var(--dim); }
+      .msg { max-width: 84%; padding: 10px 13px; border-radius: 16px; font-size: .88rem; line-height: 1.45; margin: 0 0 9px; }
+      .msg.me { margin-left: auto; background: #2a2620; border-bottom-right-radius: 5px; }
+      .msg.b { background: #15130f; border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+      .quote { border: 1px solid rgba(245,184,0,.35); background: linear-gradient(180deg, rgba(245,184,0,.08), rgba(245,184,0,.02)); border-radius: 14px; padding: 12px 13px; margin: 0 0 9px; max-width: 88%; font-size: .85rem; }
+      .quote .row { display: flex; justify-content: space-between; color: var(--mute); }
+      .quote .row b { color: var(--fg); font-family: 'Space Grotesk', sans-serif; }
+      .quote .pay { margin-top: 10px; text-align: center; padding: 9px; border-radius: 999px; background: var(--gold); color: #120f05; font: 600 .85rem 'Space Grotesk', sans-serif; }
+      .caption { text-align: center; font-size: .8rem; color: var(--dim); margin-top: 14px; }
+      @media (max-width: 860px) { .how { grid-template-columns: 1fr; } }
+
+      /* menu */
+      .menu { margin-top: 40px; border-top: 1px solid var(--line); }
+      .menu .item { display: grid; grid-template-columns: 1fr 2fr auto; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+      .menu h3 { font-size: 1.35rem; }
+      .menu p { margin: 0; color: var(--mute); }
+      .menu .when { font: 500 .8rem 'IBM Plex Mono', monospace; color: var(--dim); white-space: nowrap; }
+      @media (max-width: 720px) { .menu .item { grid-template-columns: 1fr; gap: 6px; } }
+
+      /* agents */
+      .agents { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+      pre { margin: 0; padding: 22px; border-radius: var(--r); background: var(--bg2); border: 1px solid var(--line); white-space: pre-wrap; font: 500 .84rem/1.7 'IBM Plex Mono', monospace; color: #d9d1bf; }
+      pre .c { color: var(--dim); } pre .k { color: var(--gold-hi); }
+      @media (max-width: 860px) { .agents { grid-template-columns: 1fr; } }
+
+      /* status */
+      .status { margin-top: 32px; display: grid; gap: 10px; max-width: 640px; }
+      .status div { display: flex; gap: 12px; align-items: baseline; color: #cfc7b6; }
+      .status .t { font: 600 .72rem 'IBM Plex Mono', monospace; letter-spacing: .06em; padding: 3px 8px; border-radius: 6px; flex: none; }
+      .status .live { background: rgba(52,199,89,.14); color: #6fe08f; }
+      .status .soon { background: rgba(243,236,220,.07); color: var(--mute); }
+
+      /* final */
+      .final { margin: 120px 0 0; padding: 72px 24px; text-align: center; border-radius: 28px; border: 1px solid var(--line); background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,.14), transparent 70%), var(--bg2); }
+      .final h2 { margin: 0 auto; max-width: 16ch; }
+      .final .cta { justify-content: center; margin-top: 30px; }
+      footer { padding: 48px 0 56px; color: var(--dim); font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      footer a { color: var(--mute); text-decoration: none; } footer a:hover { color: var(--fg); }
+
+      /* motion */
+      .rise { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+      .rise.in { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) { .rise { opacity: 1; transform: none; transition: none; } .stack a, .work img, .btn { transition: none; } }
     </style>
   </head>
   <body>
@@ -71,24 +164,118 @@
 </style>
 <aside class="bwx-strip" aria-label="bWalletX"><a href="https://bwalletx.com"><svg viewBox="23 8 74 100" aria-hidden="true" focusable="false"><defs><linearGradient id="bwx-g" gradientUnits="userSpaceOnUse" x1="0" y1="12" x2="0" y2="105"><stop offset="0" stop-color="#FFE58A"/><stop offset=".55" stop-color="#FFD24D"/><stop offset="1" stop-color="#C98F00"/></linearGradient><mask id="bwx-m"><rect width="140" height="140" fill="#fff"/><circle cx="60" cy="72" r="15" fill="#000"/></mask></defs><g fill="url(#bwx-g)" mask="url(#bwx-m)"><polygon points="45,12 45,72 27,72 27,30"/><circle cx="60" cy="72" r="33"/></g></svg><span>Part of <b>bWalletX</b></span><span class="bwx-go" aria-hidden="true">&rarr;</span></a></aside>
 <!-- /Part of bWalletX strip -->
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
+        <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a></div>
+      </nav>
 
-    <main>
-      <img class="mk" src="/logo.svg" alt="" width="71" height="96" />
-      <h1><img src="/logo.svg" alt="b" /><span>Advertising<i>X</i></span></h1>
-      <p class="line">Advertising, paid in Bitcoin. <em>For people and their agents.</em></p>
-      <p class="body">Promote a post, a room or a whole business, and pay in tiny amounts from your wallet, with a receipt for every payment. Your agent can run the campaign for you, inside the budget you set. Most of the money goes to the people who actually see and engage, not just to us.</p>
-      <span class="status">THE STUDIO IS OPEN · AD PLACEMENT IS IN PLANNING</span>
-      <div class="row"><a class="go" href="/account">Sign in with bWalletX</a><a class="ln" href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a></div>
-      <section class="svc" id="studio">
-        <h2>The studio</h2>
-        <p class="sub">b, our agent, makes the ads. Sign in with bWalletX and send a brief. We reply with a quote; prices are per job, paid in Bitcoin.</p>
-        <div class="cards">
-          <div class="c"><img src="/samples/acme-coffee-film/og.jpg" alt="Sample ad film for a coffee brand" loading="lazy" /><div class="in"><span class="tag">AVAILABLE</span><h3>Ad films</h3><p>A short animated film for your brand: script, scenes, music, your call to action, a share image, and checks on desktop and phone. Like <a href="https://bwalletx.com/b-is-for-business">b is for business</a>.</p><a href="/samples/acme-coffee-film/">See a sample: Acme Coffee</a></div></div>
-          <div class="c"><img src="/samples/acme-coffee-brand/out/og-brand-v2.jpg" alt="Sample brand kit for a coffee brand" loading="lazy" /><div class="in"><span class="tag">AVAILABLE</span><h3>Brand kits</h3><p>Your logo and identity, colours, type, voice and rules, with a public brand page, a full guide and a download kit. Like <a href="https://bwalletx.com/brand">the bWalletX brand</a>.</p><a href="/samples/acme-coffee-brand/brand">See a sample: Acme Coffee</a></div></div>
+      <header class="hero">
+        <div>
+          <p class="eyebrow">An ad studio in your pocket</p>
+          <h1>Tell b about your business. <em>Get the ad.</em></h1>
+          <p class="lede">b is the agent in your bWalletX. Describe what you sell and b makes the film, the logo or the whole brand, then quotes one fixed price in Bitcoin before it starts.</p>
+          <div class="cta">
+            <a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn ghost" href="#work">See the work</a>
+          </div>
+          <p class="note">No wallet yet? <a href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a>, free, in a minute.</p>
         </div>
-        <p class="sub" style="margin-top:14px">Acme Coffee is a made-up brand used to test the studio. Your brand keeps its own look: we never put our logo on yours.</p>
+        <div class="stack" aria-label="Recent work">
+          <a href="https://bwalletx.com/brand"><img src="/work/og-brand-v2.jpg" alt="The bWalletX brand guide" /></a>
+          <a href="https://bwalletx.com/b-is-for-business"><img src="/work/og-b-is-for-business-v3.jpg" alt="b is for business, a 46-second ad film" /></a>
+          <a href="https://bwalletx.com/b-family"><img src="/work/og-b-family-v1.jpg" alt="The b family, a colour system for 25 services" /></a>
+        </div>
+      </header>
+
+      <section class="s rise" id="work">
+        <p class="eyebrow">Work</p>
+        <h2>Our first client was us.</h2>
+        <p class="sub">Everything here was made by b for the bWalletX family: films, a full brand system, colours for 25 services. Your brand keeps its own look. We never put our logo on yours.</p>
+        <div class="work">
+          <a href="https://bwalletx.com/b-is-for-business"><div class="img"><img src="/work/og-b-is-for-business-v3.jpg" alt="" loading="lazy" /></div><h3>b is for business <span class="arrow">→</span></h3><p>Ad film · 46 seconds · music by VexVoid</p></a>
+          <a href="https://bwalletx.com/brand"><div class="img"><img src="/work/og-brand-v2.jpg" alt="" loading="lazy" /></div><h3>The bWalletX brand <span class="arrow">→</span></h3><p>Brand kit · logo, colour, type, voice, download pack</p></a>
+          <a href="https://bwalletx.com/b-family"><div class="img"><img src="/work/og-b-family-v1.jpg" alt="" loading="lazy" /></div><h3>The b family <span class="arrow">→</span></h3><p>Colour system · one accent for each of 25 services</p></a>
+        </div>
       </section>
-      <p class="foot">Part of <a href="https://bwalletx.com">bWalletX</a> · Made by The Bitcoin Corporation Ltd</p>
-    </main>
+
+      <section class="s rise" id="how">
+        <div class="how">
+          <div>
+            <p class="eyebrow">How it works</p>
+            <h2>No forms. No agency. Just b.</h2>
+            <ol class="steps">
+              <li><b>Say what you need</b><span>Open b in your wallet and describe your business in a sentence.</span></li>
+              <li><b>Get one price</b><span>b asks a question or two, then quotes a fixed price. No hourly rates.</span></li>
+              <li><b>Pay with one tap</b><span>From your wallet, half up front. Nothing moves until you approve it.</span></li>
+              <li><b>Get the work in the chat</b><span>Drafts, two rounds of changes, then the final files and a page to share.</span></li>
+            </ol>
+          </div>
+          <div>
+            <div class="phone" aria-label="Example conversation with b">
+              <div class="screen">
+                <div class="chathead"><img src="/logo.svg" alt="" /><div>b<small>your agent</small></div></div>
+                <p class="msg me">I run Acme Coffee, a small roastery. Can you make me a short ad?</p>
+                <p class="msg b">Lovely. Where should people go after watching: your shop, or ordering online?</p>
+                <p class="msg me">Online, to our shop.</p>
+                <div class="quote"><div class="row"><span>Ad film, about 45s</span><b>Fixed price</b></div><div class="row"><span>2 rounds of changes</span><span>5 days</span></div><div class="pay">Approve in wallet</div></div>
+              </div>
+            </div>
+            <p class="caption">An example conversation. The business is made up.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="s rise" id="menu">
+        <p class="eyebrow">What b makes</p>
+        <h2>Fixed jobs, fixed prices.</h2>
+        <p class="sub">b quotes the price in chat before any work starts.</p>
+        <div class="menu">
+          <div class="item"><h3>Ad film</h3><p>A short animated film with your story, licensed music and a clear call to action, plus its own page and share image.</p><span class="when">~5 DAYS</span></div>
+          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when">~3 DAYS</span></div>
+          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when">~2 DAYS</span></div>
+          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when">SAME DAY</span></div>
+        </div>
+      </section>
+
+      <section class="s rise" id="agents">
+        <div class="agents">
+          <div>
+            <p class="eyebrow">For agents</p>
+            <h2>Your agent can order too.</h2>
+            <p class="sub">Agents are customers like anyone else: same jobs, same prices, paid from a wallet with a spending limit you set. The limit is your consent.</p>
+          </div>
+<pre><span class="c"># your agent, to b</span>
+<span class="k">ask</span>  "45s ad film for Acme Coffee,
+      send viewers to the shop"
+<span class="k">b</span>    quote: fixed price, 5 days
+<span class="k">pay</span>  from capped wallet  <span class="c"># your limit</span>
+<span class="k">b</span>    drafts → final files → share page</pre>
+        </div>
+      </section>
+
+      <section class="s rise">
+        <p class="eyebrow">Where we are</p>
+        <h2>Honest status.</h2>
+        <div class="status">
+          <div><span class="t live">LIVE</span>The studio: films, brand kits and share images, made for the bWalletX family</div>
+          <div><span class="t live">LIVE</span>Talk to b in your wallet</div>
+          <div><span class="t soon">NEXT</span>b quotes and takes payment for ad jobs in chat</div>
+          <div><span class="t soon">NEXT</span>Agents order through b's API</div>
+          <div><span class="t soon">LATER</span>Placing your ads across bChatX and the b family, paid per view</div>
+        </div>
+      </section>
+
+      <div class="final rise">
+        <h2>Your business deserves a good ad.</h2>
+        <div class="cta"><a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b to make your ad</a><a class="btn ghost" href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a></div>
+      </div>
+
+      <footer><span>b<b style="font-weight:600">Advertising</b><i class="x">X</i> · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd</span><span><a href="/samples/acme-coffee-film/">Sample film</a> · <a href="/samples/acme-coffee-brand/brand">Sample brand kit</a></span></footer>
+    </div>
+    <script>
+      const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+      document.querySelectorAll('.rise').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
+    </script>
   </body>
 </html>
