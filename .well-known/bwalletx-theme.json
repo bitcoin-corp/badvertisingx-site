@@ -1,0 +1,11 @@
+{
+  "v": 2,
+  "name": "bAdvertisingX",
+  "mode": "dark",
+  "accent": "#F5B800",
+  "accentHi": "#FFD24D",
+  "bg": "#0B0A09",
+  "surface": "#121110",
+  "text": "#F3ECDC",
+  "logo": "/logo.svg"
+}
