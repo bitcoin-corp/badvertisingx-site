@@ -189,7 +189,7 @@
       <div class="wrap">
       <nav>
         <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
-        <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a href="/guide">Guide</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a></div>
+        <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a href="/guide">Guide</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a><span data-bwx-connect data-fg="#f5b800"></span></div>
       </nav>
       </div>
       <div class="stage wrap">
@@ -352,5 +352,7 @@
       const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
       document.querySelectorAll('.rise').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
     </script>
-  </body>
+  <script src="/connect/bwalletx-connect.global.js"></script>
+<script src="/bwx-connect.js"></script>
+</body>
 </html>
