@@ -64,6 +64,15 @@
       dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
       dt { color: var(--mute); font-size: .9rem; } dd { margin: 0; overflow-wrap: anywhere; }
       .sum { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
+      h3 { font: 700 1.1rem 'Space Grotesk', sans-serif; margin: 28px 0 4px; }
+      .tag { font: 500 .7rem 'IBM Plex Mono', monospace; font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-hi); border: 1px solid #f5b80066; border-radius: 999px; padding: 3px 10px; }
+      .price { font: 500 1.4rem 'IBM Plex Mono', monospace; color: var(--gold-hi); }
+      .price s { color: var(--mute); font-size: .9rem; margin-left: 8px; }
+      .camps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+      .camps li { display: grid; grid-template-columns: 72px 1fr; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 10px; min-width: 0; }
+      .camps li.small { display: block; }
+      .camps .th { width: 72px; height: 72px; border-radius: 10px; background: #0b0b0d; object-fit: cover; display: block; }
+      .camps .meta { min-width: 0; overflow-wrap: anywhere; }
       [hidden] { display: none !important; }
     </style>
   </head>
@@ -77,7 +86,7 @@
       <p>Square ads on bChatX and the sites in its network. Write a short brief, get three AI drafts, pick one and polish it.</p>
 
       <section class="step">
-        <h2><span>1</span>Prices</h2>
+        <h2><span>1</span>Prices <em class="tag" id="draftTag" hidden>Draft prices</em></h2>
         <ul class="prices" id="prices"><li class="small">Loading prices…</li></ul>
       </section>
 
@@ -85,13 +94,10 @@
         <h2><span>2</span>Your brief</h2>
         <form id="brief">
           <label>Slot
-            <select name="product">
-              <option value="square7">Square, 7 days</option>
-              <option value="square30">Square, 30 days</option>
-              <option value="takeover24">Takeover, 24 hours</option>
-              <option value="cpm">Per 1,000 views (CPM)</option>
-            </select>
+            <select name="product" id="product"><option value="">Loading…</option></select>
           </label>
+          <label id="budgetBox" hidden>Budget in USD <input name="budget" type="number" inputmode="decimal" step="1" min="1" placeholder="10" /><span class="small" id="budgetNote"></span></label>
+          <label>Start date (optional) <input name="startAt" type="date" /></label>
           <label>Rating
             <select name="rating">
               <option value="pg">PG: everyone</option>
@@ -119,6 +125,12 @@
           <p class="wide row"><button class="go" type="submit" id="make">Make 3 drafts</button> <span class="small">Your brief is saved on this device.</span></p>
           <p class="err wide" id="err1"></p>
         </form>
+        <div id="gamesBox" hidden>
+          <h3>Or start from a bGamesX card</h3>
+          <p class="small">Got a game on bGamesX? Use its square card as your ad.</p>
+          <div class="row"><select id="game" style="flex:1;min-width:0;max-width:420px"></select> <button type="button" class="ln" id="useGame">Use this card</button></div>
+          <p class="err" id="errG"></p>
+        </div>
       </section>
 
       <section class="step" id="s3" hidden>
@@ -142,50 +154,82 @@
           <div class="frame" id="sumArt"></div>
           <div>
             <dl id="sumList"></dl>
-            <p style="margin-top:24px"><button class="go" disabled>Checkout opens soon</button></p>
+            <div id="signin" style="margin-top:24px">
+              <p class="row"><button class="go" type="button" id="connect">Sign in with your wallet</button></p>
+              <p class="small">Your wallet signs a short message. It does not spend anything.</p>
+            </div>
+            <div id="acct" hidden style="margin-top:24px">
+              <p class="small row">Signed in as <b id="who"></b> <button type="button" class="ln" id="out">Sign out</button></p>
+              <p class="row"><button class="go" type="button" id="saveC">Save campaign</button></p>
+              <p id="saved"></p>
+            </div>
+            <p class="err" id="err3"></p>
+            <p style="margin-top:16px"><button class="go" disabled>Checkout opens soon</button></p>
             <p class="small">Nothing is charged on this page.</p>
           </div>
         </div>
       </section>
+
+      <section class="step" id="s6" hidden>
+        <h2><span>6</span>My campaigns</h2>
+        <ul class="camps" id="camps"><li class="small">Loading…</li></ul>
+      </section>
     </main>
 
+    <script src="/connect/bwalletx-connect.global.js"></script>
     <script>
       const $ = (id) => document.getElementById(id);
       const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-      const NAMES = { square7: 'Square, 7 days', square30: 'Square, 30 days', takeover24: 'Takeover, 24 hours', cpm: 'Per 1,000 views' };
+      const NAMES = { square7: 'Square, 7 days', square30: 'Square, 30 days', takeover24: 'Takeover, 24 hours', cpm: 'Per 1,000 views', ai_bad: 'AI-made bAd' };
       const RATES = { pg: 'PG', '17': '17+', '18': '18+' };
       const KEY = 'bads-buy-draft-v1', MAX = 400 * 1024;
       const store = { get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; } }, set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} } };
 
-      // 1. Prices: live from bChatX, never hardcoded.
-      (async () => {
+      // 1. Prices: live from bChatX, never hardcoded. Disabled rows hidden; the brief's slot list = enabled placements.
+      const API = 'https://www.bchatx.com/api/bads', API_HOST = 'https://www.bchatx.com';
+      const ADDONS = ['ai_bad']; // priced extras, not placements (added by the server when aiMade is true)
+      let PRICES = [];
+      const usd = (n) => '$' + Number(n).toFixed(Number(n) % 1 ? 2 : 0);
+      const pricesReady = (async () => {
         try {
-          const res = await fetch('https://www.bchatx.com/api/bads/prices');
+          const res = await fetch(API + '/prices');
           if (!res.ok) throw 0;
           const data = await res.json();
-          const list = Array.isArray(data) ? data : (data.prices || []);
+          const list = (Array.isArray(data) ? data : (data.prices || [])).filter((p) => p && !p.disabled);
           if (!list.length) throw 0;
-          $('prices').innerHTML = list.map((p) => `<li><b>${esc(NAMES[p.product] || p.label || p.product)}</b><span class="p">${p.priceUsd != null ? '$' + esc(Number(p.priceUsd).toFixed(2)) : ''}</span>${p.priceSats != null ? `<br><span class="small">${esc(Number(p.priceSats).toLocaleString())} sats</span>` : ''}</li>`).join('');
+          PRICES = list;
+          $('draftTag').hidden = !list.every((p) => p.draft);
+          $('prices').innerHTML = list.map((p) => `<li><b>${esc(p.label || NAMES[p.product] || p.product)}</b><span class="p">${p.priceUsd != null ? esc(usd(p.priceUsd)) : ''}</span>${p.cpmUsd != null ? `<br><span class="small">${esc(usd(p.cpmUsd))} per 1,000 views${p.minUsd != null ? `, from ${esc(usd(p.minUsd))}` : ''}</span>` : ''}${p.days ? `<br><span class="small">${esc(p.days)} day${p.days > 1 ? 's' : ''}</span>` : ''}</li>`).join('');
         } catch { $('prices').innerHTML = '<li><b>Prices coming soon</b><span class="small">Write your brief and make drafts now.</span></li>'; }
+        const slots = PRICES.filter((p) => !ADDONS.includes(p.product));
+        const sel = form.elements.product, want = (store.get() || {}).product;
+        sel.innerHTML = slots.length ? slots.map((p) => `<option value="${esc(p.product)}">${esc(p.label || NAMES[p.product] || p.product)}</option>`).join('') : '<option value="">No slots open yet</option>';
+        if (want && slots.some((p) => p.product === want)) sel.value = want;
+        syncSites(); render();
       })();
 
       // 2. Brief, saved on this device.
       const form = $('brief');
       let logo = null; // data URL, ≤512 px
-      const state = { drafts: [[], [], []], view: [0, 0, 0], pick: null, busy: [false, false, false] };
+      const state = { drafts: [[], [], [], []], view: [0, 0, 0, 0], pick: null, busy: [false, false, false, false], game: null }; // slot 3 = bGamesX card
       function brief() {
         const f = Object.fromEntries(new FormData(form));
-        return { product: f.product, rating: f.rating, sites: f.sitesMode === 'list' ? f.sites.split(',').map((s) => s.trim()).filter(Boolean) : 'network', sitesMode: f.sitesMode, sitesText: f.sites || '', link: f.link, headline: f.headline, sell: f.sell, colour: f.useColour ? f.colour : '', colourPick: f.colour };
+        return { product: f.product, rating: f.rating, sites: f.sitesMode === 'list' ? f.sites.split(',').map((s) => s.trim()).filter(Boolean) : 'network', sitesMode: f.sitesMode, sitesText: f.sites || '', budget: f.budget || '', startAt: f.startAt || '', link: f.link, headline: f.headline, sell: f.sell, colour: f.useColour ? f.colour : '', colourPick: f.colour };
       }
       function save() { store.set({ ...brief(), logo }); }
       function restore() {
         const d = store.get(); if (!d) return;
-        for (const [k, v] of Object.entries({ product: d.product, rating: d.rating, sitesMode: d.sitesMode, sites: d.sitesText, link: d.link, headline: d.headline, sell: d.sell, colour: d.colourPick || '#f5b800' })) if (v != null && form.elements[k]) form.elements[k].value = v;
+        for (const [k, v] of Object.entries({ product: d.product, rating: d.rating, sitesMode: d.sitesMode, sites: d.sitesText, budget: d.budget, startAt: d.startAt, link: d.link, headline: d.headline, sell: d.sell, colour: d.colourPick || '#f5b800' })) if (v != null && form.elements[k]) form.elements[k].value = v;
         form.elements.useColour.checked = !!d.colour;
         if (typeof d.logo === 'string' && d.logo.startsWith('data:image/')) { logo = d.logo; $('logoNote').textContent = 'Logo saved from last time.'; }
       }
       restore();
-      const syncSites = () => { $('sitesBox').hidden = form.elements.sitesMode.value !== 'list'; };
+      const syncSites = () => {
+        $('sitesBox').hidden = form.elements.sitesMode.value !== 'list';
+        const p = PRICES.find((x) => x.product === form.elements.product.value);
+        $('budgetBox').hidden = !(p && p.product === 'cpm');
+        if (p && p.product === 'cpm') { form.elements.budget.min = p.minUsd || 1; $('budgetNote').textContent = p.minUsd ? `At least ${usd(p.minUsd)}.` : ''; }
+      };
       syncSites();
       form.addEventListener('input', () => { syncSites(); save(); });
       form.addEventListener('change', () => { syncSites(); save(); });
@@ -232,18 +276,19 @@
         }
         return null;
       }
-      async function recordLoop(art, logoImg, b) {
+      const recordLoop = (art, logoImg, b) => recordWith((ctx, t) => drawFrame(ctx, art, logoImg, b, t));
+      async function recordWith(drawAt) {
         if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) return null;
         const mime = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((m) => MediaRecorder.isTypeSupported(m));
         if (!mime) return null;
         const c = document.createElement('canvas'); c.width = c.height = 1080; const ctx = c.getContext('2d');
-        await drawFrame(ctx, art, logoImg, b, 0.001);
+        await drawAt(ctx, 0.001);
         const rec = new MediaRecorder(c.captureStream(30), { mimeType: mime, videoBitsPerSecond: 420_000 }), chunks = [];
         rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
         const done = new Promise((r) => (rec.onstop = r));
         rec.start(500);
         const t0 = performance.now();
-        await new Promise((r) => { const tick = () => { const t = (performance.now() - t0) / 6000; if (t >= 1) return r(); drawFrame(ctx, art, logoImg, b, t); requestAnimationFrame(tick); }; tick(); });
+        await new Promise((r) => { const tick = () => { const t = (performance.now() - t0) / 6000; if (t >= 1) return r(); drawAt(ctx, t); requestAnimationFrame(tick); }; tick(); });
         rec.stop(); await done;
         const blob = new Blob(chunks, { type: 'video/webm' });
         return blob.size && blob.size <= MAX ? blob : null;
@@ -278,25 +323,29 @@
       const kb = (n) => Math.round(n / 1024) + ' KB';
       function render() {
         $('s3').hidden = !state.drafts.some((d) => d.length) && !state.busy.some(Boolean);
-        $('drafts').innerHTML = [0, 1, 2].map((i) => {
+        $('drafts').innerHTML = [0, 1, 2, 3].filter((i) => i < 3 || state.drafts[3].length || state.busy[3]).map((i) => {
           const list = state.drafts[i], v = list[state.view[i]];
-          const art = state.busy[i] ? 'Drawing…' : v ? (v.loopUrl ? `<video src="${v.loopUrl}" poster="${v.stillUrl}" autoplay muted loop playsinline></video>` : `<img src="${v.stillUrl}" alt="Draft ${i + 1}" />`) : 'No draft yet';
+          const art = state.busy[i] ? 'Drawing…' : v ? (v.loopUrl ? `<video src="${v.loopUrl}" poster="${v.stillUrl}" autoplay muted loop playsinline></video>` : `<img src="${v.stillUrl}" alt="${esc(slotName(i))}" />`) : 'No draft yet';
           const vers = list.map((_, j) => `<button type="button" data-slot="${i}" data-v="${j}" class="${j === state.view[i] ? 'on' : ''}">v${j + 1}</button>`).join('');
           return `<div class="draft ${state.pick === i ? 'on' : ''}"><div class="frame">${art}</div>
-            <div class="row" style="justify-content:space-between"><b style="font-family:'Space Grotesk'">Draft ${i + 1}</b><span class="vers">${vers}</span></div>
+            <div class="row" style="justify-content:space-between"><b style="font-family:'Space Grotesk'">${esc(slotName(i))}</b><span class="vers">${vers}</span></div>
             ${v ? `<span class="small">Still ${kb(v.still.size)}${v.loop ? ` · loop ${kb(v.loop.size)}` : ''}${v.note ? ` · “${esc(v.note)}”` : ''}</span>` : ''}
             <button type="button" class="ln" data-pick="${i}" ${v && !state.busy[i] ? '' : 'disabled'}>${state.pick === i ? 'Picked' : 'Pick this one'}</button></div>`;
         }).join('');
         const p = state.pick, v = p != null ? state.drafts[p][state.view[p]] : null;
-        $('s4').hidden = $('s5').hidden = !v;
+        $('s5').hidden = !v; $('s4').hidden = !v || p === 3;
         $('redo').disabled = p == null || state.busy[p];
         if (v) {
           const b = brief();
           $('sumArt').innerHTML = `<img src="${v.stillUrl}" alt="Your ad" />`;
-          const rows = [['Slot', NAMES[b.product]], ['Where', b.sites === 'network' ? 'The whole network' : b.sites.join(', ') || 'No sites listed'], ['Rating', RATES[b.rating]], ['Link', b.link], ['Headline', b.headline], ['Ad', `Draft ${p + 1}, v${state.view[p] + 1} · still ${kb(v.still.size)}${v.loop ? `, loop ${kb(v.loop.size)}` : ''}`]];
+          const pr = PRICES.find((x) => x.product === b.product);
+          const rows = [['Slot', pr ? pr.label || NAMES[b.product] : NAMES[b.product]], ...(b.product === 'cpm' ? [['Budget', b.budget ? usd(b.budget) : '—']] : []), ...(b.startAt ? [['Starts', b.startAt]] : []), ['Where', b.sites === 'network' ? 'The whole network' : b.sites.join(', ') || 'No sites listed'], ['Rating', RATES[b.rating]], ['Link', b.link], ['Headline', b.headline], ['Ad', `${slotName(p)}, v${state.view[p] + 1} · still ${kb(v.still.size)}${v.loop ? `, loop ${kb(v.loop.size)}` : ''}`]];
           $('sumList').innerHTML = rows.map(([k, val]) => `<dt>${k}</dt><dd>${esc(val || '—')}</dd>`).join('');
         }
+        $('saveC').disabled = !v || saving || !b0().product;
       }
+      const slotName = (i) => i === 3 ? (state.game ? state.game.title : 'bGamesX card') : `Draft ${i + 1}`;
+      const b0 = () => brief();
       $('drafts').onclick = (ev) => {
         const t = ev.target.closest('button'); if (!t) return;
         if (t.dataset.pick != null) state.pick = +t.dataset.pick;
@@ -316,7 +365,139 @@
         const err = await make(state.pick, ev.target.elements.note.value.trim());
         if (err) $('err2').textContent = err; else ev.target.reset();
       };
-      render();
+
+      // bGamesX card: games.json + card.js are served with CORS (*), so the real square renderer draws it here.
+      const BGX_HOST = 'https://bgamesx.com';
+      let GAMES = [];
+      fetch(BGX_HOST + '/bgamesx/games.json').then((r) => (r.ok ? r.json() : [])).then((list) => {
+        GAMES = (Array.isArray(list) ? list : []).filter((g) => g && g.id && g.title && g.keyArt);
+        if (!GAMES.length) return;
+        $('game').innerHTML = GAMES.map((g, i) => `<option value="${i}">${esc(g.title)}${g.genre ? ' · ' + esc(g.genre) : ''}</option>`).join('');
+        $('gamesBox').hidden = false;
+      }).catch(() => {});
+      let bgxReady = null;
+      const loadBGX = () => bgxReady || (bgxReady = new Promise((ok, no) => {
+        if (window.BGX) return ok(window.BGX);
+        const sc = document.createElement('script'); sc.src = BGX_HOST + '/bgamesx/card.js';
+        sc.onload = () => (window.BGX ? ok(window.BGX) : no(new Error('The card renderer did not load.')));
+        sc.onerror = () => { bgxReady = null; no(new Error('The card renderer did not load.')); };
+        document.head.appendChild(sc);
+      }));
+      const abs = (u) => /^https?:/.test(u) ? u : BGX_HOST + (u.startsWith('/') ? '' : '/') + u;
+      const loadCors = (src) => new Promise((ok, no) => { const i = new Image(); i.crossOrigin = 'anonymous'; i.onload = () => ok(i); i.onerror = no; i.src = src; });
+      $('useGame').onclick = async () => {
+        const g = GAMES[+$('game').value]; if (!g) return;
+        $('errG').textContent = ''; $('useGame').disabled = true; state.busy[3] = true; state.game = g; render();
+        try {
+          const [BGX, art] = await Promise.all([loadBGX(), loadCors(abs(g.keyArt))]);
+          await Promise.all([BGX.fontsReady(), document.fonts.ready]);
+          const c = document.createElement('canvas'); c.width = c.height = 1080;
+          BGX.drawSquare(c.getContext('2d'), g, art, 1);
+          const still = await toLimit(c);
+          if (!still) throw new Error('Could not fit the card under 400 KB.');
+          const v = { still, stillUrl: URL.createObjectURL(still), note: '', at: Date.now(), alt: `${g.title}: ${g.oneLine || g.genre || 'a game on bGamesX'}`.slice(0, 200) };
+          for (const old of state.drafts[3]) { URL.revokeObjectURL(old.stillUrl); if (old.loopUrl) URL.revokeObjectURL(old.loopUrl); }
+          state.drafts[3] = [v]; state.view[3] = 0; state.pick = 3; state.busy[3] = false; render();
+          $('s3').scrollIntoView({ behavior: 'smooth' });
+          recordWith((ctx, t) => BGX.drawSquare(ctx, g, art, t)).then((loop) => { if (loop) { v.loop = loop; v.loopUrl = URL.createObjectURL(loop); render(); } }).catch(() => {});
+        } catch (e) { state.busy[3] = false; render(); $('errG').textContent = e.message || 'That card could not be drawn.'; }
+        finally { $('useGame').disabled = false; }
+      };
+
+      // Sign in with your wallet (bAds session: BRC-100 createSignature over the server's message → 1 h Bearer token).
+      const TKEY = 'bads-session-v1';
+      const tok = {
+        get() { try { const t = JSON.parse(sessionStorage.getItem(TKEY) || 'null'); return t && t.token && Date.parse(t.expiresAt) > Date.now() + 30e3 ? t : null; } catch { return null; } },
+        set(v) { try { v ? sessionStorage.setItem(TKEY, JSON.stringify(v)) : sessionStorage.removeItem(TKEY); } catch {} },
+      };
+      let session = tok.get(), saving = false;
+      const SOON = 'Ad bookings open soon. Your brief and drafts stay here on this device.';
+      async function call(path, opts = {}) {
+        const res = await fetch(API + path, opts);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw Object.assign(new Error(data.error || `Something went wrong (${res.status})`), { status: res.status, code: data.code });
+        return data;
+      }
+      async function signIn() {
+        const bwx = window.bWalletXConnect;
+        if (!bwx) throw new Error('The wallet connector did not load. Refresh and try again.');
+        let issued = null;
+        const r = await bwx.signInWithBwalletX({
+          challenge: async () => { issued = await call('/session', { method: 'POST' }); return { protocolID: issued.protocolID, keyID: issued.keyID || issued.nonce, message: issued.message, nonce: issued.nonce }; },
+          pairing: bwx.pairingModal(),
+        });
+        const v = await call('/session/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ challenge: issued.challenge, identityKey: r.identityKey, signature: r.signature }) });
+        session = { token: v.token, expiresAt: v.expiresAt || new Date(Date.now() + 3600e3).toISOString(), identityKey: v.identityKey || r.identityKey };
+        tok.set(session); showAcct();
+      }
+      // Buyer route: Bearer token; on 401 sign in again once and retry.
+      async function buyer(path, opts = {}, retried = false) {
+        if (!session) await signIn();
+        try { return await call(path, { ...opts, headers: { ...(opts.headers || {}), authorization: 'Bearer ' + session.token } }); }
+        catch (e) { if (e.status === 401 && !retried) { session = null; tok.set(null); showAcct(); return buyer(path, opts, true); } throw e; }
+      }
+      const say = (e) => (e && e.code === 'store_not_ready') || (e && e.status === 503) ? SOON : e && e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : (e && e.message) || 'Something went wrong.';
+      function showAcct() {
+        const on = !!session;
+        $('signin').hidden = on; $('acct').hidden = !on; $('s6').hidden = !on;
+        $('who').textContent = on ? session.identityKey.slice(0, 8) + '…' + session.identityKey.slice(-4) : '';
+        if (on) loadCamps(); render();
+      }
+      $('connect').onclick = async () => {
+        $('connect').disabled = true; $('err3').textContent = '';
+        try { await signIn(); } catch (e) { $('err3').textContent = say(e); } finally { $('connect').disabled = false; }
+      };
+      $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; showAcct(); };
+
+      // Save campaign: create (once per brief + draft kind), then upload the picked still + loop. Re-saving re-posts the creative.
+      let saved = null; // { id, sig, priceUsd, listUsd }
+      function campaignBody() {
+        const b = brief(), body = { product: b.product, sites: b.sites, rating: b.rating, link: b.link, aiMade: state.pick !== 3 };
+        if (b.startAt) body.startAt = new Date(b.startAt + 'T00:00:00').toISOString();
+        if (b.product === 'cpm' && b.budget) body.cpmBudgetUsd = Number(b.budget);
+        return body;
+      }
+      $('saveC').onclick = async () => {
+        const p = state.pick, v = p != null ? state.drafts[p][state.view[p]] : null; if (!v) return;
+        if (!form.elements.link.reportValidity()) return;
+        saving = true; render(); $('err3').textContent = ''; $('saveC').textContent = 'Saving…';
+        try {
+          const body = campaignBody(), sig = JSON.stringify(body);
+          if (!saved || saved.sig !== sig) { const c = await buyer('/campaigns', { method: 'POST', headers: { 'content-type': 'application/json' }, body: sig }); saved = { ...c, sig }; }
+          const fd = new FormData();
+          fd.append('still', v.still, 'still.' + (v.still.type === 'image/webp' ? 'webp' : 'jpg'));
+          if (v.loop) fd.append('loop', v.loop, 'loop.webm');
+          fd.append('alt', (v.alt || brief().headline || 'bAd').slice(0, 200));
+          await buyer(`/campaigns/${encodeURIComponent(saved.id)}/creative`, { method: 'POST', body: fd });
+          const strike = saved.listUsd != null && Number(saved.listUsd) !== Number(saved.priceUsd);
+          $('saved').innerHTML = `<span class="small">Saved as a draft campaign.</span><br><span class="price">${esc(usd(saved.priceUsd))}${strike ? `<s>${esc(usd(saved.listUsd))}</s>` : ''}</span>`;
+          loadCamps();
+        } catch (e) { $('err3').textContent = say(e); }
+        finally { saving = false; $('saveC').textContent = 'Save campaign'; render(); }
+      };
+
+      // My campaigns: list + each one's creative thumbnail and stats.
+      const STATUS = { draft: 'Draft', awaiting_payment: 'Awaiting payment', pending_review: 'In review', live: 'Live', ended: 'Ended', rejected: 'Not approved' };
+      async function loadCamps() {
+        try {
+          const { campaigns = [] } = await buyer('/campaigns?mine=1');
+          if (!campaigns.length) { $('camps').innerHTML = '<li class="small">No campaigns yet.</li>'; return; }
+          const rows = await Promise.all(campaigns.map(async (c) => {
+            const [full, st] = await Promise.all([buyer(`/campaigns/${encodeURIComponent(c.id)}`).catch(() => c), buyer(`/campaigns/${encodeURIComponent(c.id)}/stats`).catch(() => null)]);
+            return { c: { ...c, ...full }, st };
+          }));
+          $('camps').innerHTML = rows.map(({ c, st }) => {
+            const cr = (c.creatives || []).slice(-1)[0], thumb = cr && cr.still ? (/^https?:/.test(cr.still) ? cr.still : API_HOST + cr.still) : '';
+            const views = st ? Number(st.views) || 0 : null, clicks = st ? Number(st.clicks) || 0 : null;
+            const ctr = st ? (views ? (clicks / views) * 100 : 0) : null;
+            const pr = PRICES.find((x) => x.product === c.product);
+            return `<li>${thumb ? `<img class="th" src="${esc(thumb)}" alt="${esc(cr.alt || 'Ad')}" loading="lazy" />` : '<span class="th"></span>'}
+              <span class="meta"><b>${esc(pr ? pr.label : NAMES[c.product] || c.product)}</b> <span class="tag">${esc(STATUS[c.status] || c.status)}</span><br>
+              <span class="small">${c.priceUsd != null ? esc(usd(c.priceUsd)) + ' · ' : ''}${st ? `${views.toLocaleString()} views · ${clicks.toLocaleString()} clicks · ${ctr.toFixed(2)}% CTR` : 'No stats yet'}</span></span></li>`;
+          }).join('');
+        } catch (e) { $('camps').innerHTML = `<li class="small">${esc(say(e))}</li>`; }
+      }
+      showAcct();
     </script>
   </body>
 </html>
