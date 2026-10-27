@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buy a bAd · bAdvertisingX</title>
+    <link rel="canonical" href="https://badvertisingx.com/buy" />
+    <meta name="description" content="Pick a bAds slot on bChatX, write a short brief and get three AI drafts of your square ad." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badvertisingx.com/buy" />
+    <meta property="og:site_name" content="bAdvertisingX" />
+    <meta property="og:title" content="bAdvertisingX · Buy a bAd" />
+    <meta property="og:description" content="Write a brief, get three AI drafts of your square ad." />
+    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" />
+    <style>
+      /* bAds storefront (27 Oct 2026): prices, brief, AI drafts, pick + revise, summary. Checkout not open yet. */
+      :root { --bg: #000; --fg: #f1ead9; --mute: #9a958a; --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff; --line: #ffffff1f; color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; }
+      header { display: flex; align-items: center; justify-content: space-between; max-width: 1080px; margin: 0 auto; padding: 18px 16px; }
+      header a.home { display: flex; align-items: center; gap: 4px; color: var(--fg); text-decoration: none; font: 700 1.3rem 'Space Grotesk', sans-serif; letter-spacing: -.03em; }
+      header a.home img { height: 1.15em; }
+      header a.home i { font-style: normal; color: var(--x); }
+      main { max-width: 1080px; margin: 0 auto; padding: 8px 16px 60px; }
+      h1 { font: 700 clamp(2rem, 6vw, 3rem) / 1.05 'Space Grotesk', sans-serif; letter-spacing: -.04em; margin: 24px 0 10px; }
+      h2 { font: 700 1.4rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; margin: 0 0 12px; display: flex; gap: 10px; align-items: center; }
+      h2 span { font: 600 .75rem 'IBM Plex Mono', monospace; color: #0b0a08; background: var(--gold); border-radius: 999px; width: 1.8em; height: 1.8em; display: inline-grid; place-items: center; flex: none; }
+      section.step { border-top: 1px solid var(--line); padding: 32px 0; }
+      p { line-height: 1.65; color: #cfc6b0; }
+      .go { display: inline-block; border: 0; cursor: pointer; padding: 15px 30px; border-radius: 999px; background: linear-gradient(180deg, #ffd24d, #f5b800); color: #0b0a08; font: 700 1rem 'Space Grotesk', sans-serif; box-shadow: 0 12px 40px rgba(245,184,0,.3); }
+      .go:disabled { opacity: .55; cursor: default; box-shadow: none; }
+      .ln { background: none; border: 1px solid #ffffff66; color: #fff; border-radius: 999px; padding: 9px 16px; font: 500 .78rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+      .ln:disabled { opacity: .45; cursor: default; }
+      .small { font-size: .85rem; color: var(--mute); }
+      .err { color: #ff8a80; min-height: 1.2em; }
+      form { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+      form .wide { grid-column: 1 / -1; }
+      label { display: grid; gap: 6px; font: 500 .9rem 'Space Grotesk', sans-serif; min-width: 0; }
+      input, select, textarea { width: 100%; background: #0b0b0d; color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 400 1rem 'IBM Plex Sans', sans-serif; }
+      input[type=color] { padding: 4px; height: 48px; }
+      textarea { min-height: 110px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold-hi); outline-offset: 1px; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+      .prices { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+      .prices li { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+      .prices b { font-family: 'Space Grotesk', sans-serif; display: block; }
+      .prices .p { font: 500 1.1rem 'IBM Plex Mono', monospace; color: var(--gold-hi); }
+      .drafts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+      .draft { border: 2px solid var(--line); border-radius: 16px; padding: 10px; display: grid; gap: 10px; min-width: 0; }
+      .draft.on { border-color: var(--gold); }
+      .frame { aspect-ratio: 1; width: 100%; border-radius: 10px; background: #0b0b0d; display: grid; place-items: center; overflow: hidden; color: var(--mute); font-size: .9rem; text-align: center; padding: 0; }
+      .frame img, .frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .vers { display: flex; gap: 6px; flex-wrap: wrap; }
+      .vers button { background: #ffffff14; color: var(--fg); border: 1px solid transparent; border-radius: 999px; padding: 4px 10px; font: 500 .75rem 'IBM Plex Mono', monospace; cursor: pointer; }
+      .vers button.on { border-color: var(--gold-hi); color: var(--gold-hi); }
+      dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+      dt { color: var(--mute); font-size: .9rem; } dd { margin: 0; overflow-wrap: anywhere; }
+      .sum { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="home" href="/"><img src="/logo.svg" alt="b" />Advertising<i>X</i></a>
+      <a class="ln" href="/guide" style="text-decoration:none">Guide</a>
+    </header>
+    <main>
+      <h1>Buy a bAd</h1>
+      <p>Square ads on bChatX and the sites in its network. Write a short brief, get three AI drafts, pick one and polish it.</p>
+
+      <section class="step">
+        <h2><span>1</span>Prices</h2>
+        <ul class="prices" id="prices"><li class="small">Loading prices…</li></ul>
+      </section>
+
+      <section class="step">
+        <h2><span>2</span>Your brief</h2>
+        <form id="brief">
+          <label>Slot
+            <select name="product">
+              <option value="square7">Square, 7 days</option>
+              <option value="square30">Square, 30 days</option>
+              <option value="takeover24">Takeover, 24 hours</option>
+              <option value="cpm">Per 1,000 views (CPM)</option>
+            </select>
+          </label>
+          <label>Rating
+            <select name="rating">
+              <option value="pg">PG: everyone</option>
+              <option value="17">17+</option>
+              <option value="18">18+</option>
+            </select>
+          </label>
+          <label>Where it shows
+            <select name="sitesMode">
+              <option value="network">The whole network</option>
+              <option value="list">Only the sites I list</option>
+            </select>
+          </label>
+          <label id="sitesBox" hidden>Sites (comma separated) <input name="sites" maxlength="400" placeholder="bchatx.com, bwalletx.com" /></label>
+          <label>Link people go to <input name="link" type="url" maxlength="500" placeholder="https://" required /></label>
+          <label>Headline <input name="headline" maxlength="60" required placeholder="Short and clear" /></label>
+          <label class="wide">What you sell <textarea name="sell" maxlength="600" required placeholder="What it is, who it's for, and the feel you want."></textarea></label>
+          <label>Brand colour (optional)
+            <span class="row"><input type="checkbox" name="useColour" style="width:auto" /> <input type="color" name="colour" value="#f5b800" style="flex:1" /></span>
+          </label>
+          <label>Logo (optional, PNG/JPG/WebP)
+            <input type="file" id="logoFile" accept="image/png,image/jpeg,image/webp" />
+            <span class="small" id="logoNote"></span>
+          </label>
+          <p class="wide row"><button class="go" type="submit" id="make">Make 3 drafts</button> <span class="small">Your brief is saved on this device.</span></p>
+          <p class="err wide" id="err1"></p>
+        </form>
+      </section>
+
+      <section class="step" id="s3" hidden>
+        <h2><span>3</span>Drafts</h2>
+        <p class="small">Each draft is a 1080×1080 still under 400 KB, plus a 6-second loop when your browser can record one. Tap a draft to pick it.</p>
+        <div class="drafts" id="drafts"></div>
+      </section>
+
+      <section class="step" id="s4" hidden>
+        <h2><span>4</span>Revise your pick</h2>
+        <form id="rev">
+          <label class="wide">What should change? <input name="note" maxlength="300" placeholder="e.g. brighter, show the product closer, more blue" required /></label>
+          <p class="wide row"><button class="go" type="submit" id="redo">Redo this draft</button> <span class="small">We keep the last 3 versions.</span></p>
+          <p class="err wide" id="err2"></p>
+        </form>
+      </section>
+
+      <section class="step" id="s5" hidden>
+        <h2><span>5</span>Summary</h2>
+        <div class="sum">
+          <div class="frame" id="sumArt"></div>
+          <div>
+            <dl id="sumList"></dl>
+            <p style="margin-top:24px"><button class="go" disabled>Checkout opens soon</button></p>
+            <p class="small">Nothing is charged on this page.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+      const NAMES = { square7: 'Square, 7 days', square30: 'Square, 30 days', takeover24: 'Takeover, 24 hours', cpm: 'Per 1,000 views' };
+      const RATES = { pg: 'PG', '17': '17+', '18': '18+' };
+      const KEY = 'bads-buy-draft-v1', MAX = 400 * 1024;
+      const store = { get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; } }, set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} } };
+
+      // 1. Prices: live from bChatX, never hardcoded.
+      (async () => {
+        try {
+          const res = await fetch('https://www.bchatx.com/api/bads/prices');
+          if (!res.ok) throw 0;
+          const data = await res.json();
+          const list = Array.isArray(data) ? data : (data.prices || []);
+          if (!list.length) throw 0;
+          $('prices').innerHTML = list.map((p) => `<li><b>${esc(NAMES[p.product] || p.label || p.product)}</b><span class="p">${p.priceUsd != null ? '$' + esc(Number(p.priceUsd).toFixed(2)) : ''}</span>${p.priceSats != null ? `<br><span class="small">${esc(Number(p.priceSats).toLocaleString())} sats</span>` : ''}</li>`).join('');
+        } catch { $('prices').innerHTML = '<li><b>Prices coming soon</b><span class="small">Write your brief and make drafts now.</span></li>'; }
+      })();
+
+      // 2. Brief, saved on this device.
+      const form = $('brief');
+      let logo = null; // data URL, ≤512 px
+      const state = { drafts: [[], [], []], view: [0, 0, 0], pick: null, busy: [false, false, false] };
+      function brief() {
+        const f = Object.fromEntries(new FormData(form));
+        return { product: f.product, rating: f.rating, sites: f.sitesMode === 'list' ? f.sites.split(',').map((s) => s.trim()).filter(Boolean) : 'network', sitesMode: f.sitesMode, sitesText: f.sites || '', link: f.link, headline: f.headline, sell: f.sell, colour: f.useColour ? f.colour : '', colourPick: f.colour };
+      }
+      function save() { store.set({ ...brief(), logo }); }
+      function restore() {
+        const d = store.get(); if (!d) return;
+        for (const [k, v] of Object.entries({ product: d.product, rating: d.rating, sitesMode: d.sitesMode, sites: d.sitesText, link: d.link, headline: d.headline, sell: d.sell, colour: d.colourPick || '#f5b800' })) if (v != null && form.elements[k]) form.elements[k].value = v;
+        form.elements.useColour.checked = !!d.colour;
+        if (typeof d.logo === 'string' && d.logo.startsWith('data:image/')) { logo = d.logo; $('logoNote').textContent = 'Logo saved from last time.'; }
+      }
+      restore();
+      const syncSites = () => { $('sitesBox').hidden = form.elements.sitesMode.value !== 'list'; };
+      syncSites();
+      form.addEventListener('input', () => { syncSites(); save(); });
+      form.addEventListener('change', () => { syncSites(); save(); });
+
+      const loadImg = (src) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+      $('logoFile').onchange = async (ev) => {
+        const file = ev.target.files[0]; if (!file) return;
+        try {
+          const url = URL.createObjectURL(file), img = await loadImg(url); URL.revokeObjectURL(url);
+          const s = Math.min(1, 512 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+          c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          logo = c.toDataURL('image/png'); $('logoNote').textContent = 'Logo added.'; save();
+        } catch { $('logoNote').textContent = 'That file could not be read.'; }
+      };
+
+      // Compose: AI art + headline + logo → 1080×1080 canvas.
+      function wrap(ctx, text, max) {
+        const words = text.split(/\s+/), lines = []; let line = '';
+        for (const w of words) { const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > max && line) { lines.push(line); line = w; } else line = t; }
+        if (line) lines.push(line); return lines.slice(0, 3);
+      }
+      async function drawFrame(ctx, art, logoImg, b, t) {
+        // t in [0,1]: 0 = still. Slow push-in and headline rise for the loop.
+        const S = 1080, z = 1 + 0.06 * Math.sin(Math.PI * t);
+        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, S, S);
+        ctx.drawImage(art, (S - S * z) / 2, (S - S * z) / 2, S * z, S * z);
+        const g = ctx.createLinearGradient(0, 0, 0, S * 0.45); g.addColorStop(0, 'rgba(0,0,0,.65)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, S, S * 0.45);
+        const rise = t ? Math.max(0, 1 - t * 4) * 30 : 0;
+        ctx.globalAlpha = t ? Math.min(1, t * 4) : 1;
+        ctx.fillStyle = '#fff'; ctx.font = '700 84px "Space Grotesk", sans-serif'; ctx.textBaseline = 'top';
+        wrap(ctx, b.headline, S - 140).forEach((l, i) => ctx.fillText(l, 70, 70 + rise + i * 92));
+        ctx.globalAlpha = 1;
+        if (b.colour) { ctx.fillStyle = b.colour; ctx.fillRect(0, S - 14, S, 14); }
+        if (logoImg) { const h = 110, w = Math.min(260, logoImg.width * (h / logoImg.height)); ctx.drawImage(logoImg, S - w - 50, S - h - 50, w, h); }
+      }
+      async function toLimit(canvas) {
+        for (const [type, qs] of [['image/webp', [0.86, 0.78, 0.68, 0.56, 0.45]], ['image/jpeg', [0.8, 0.65, 0.5, 0.38]]]) {
+          for (const q of qs) {
+            const blob = await new Promise((r) => canvas.toBlob(r, type, q));
+            if (blob && blob.type === type && blob.size <= MAX) return blob;
+          }
+        }
+        return null;
+      }
+      async function recordLoop(art, logoImg, b) {
+        if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) return null;
+        const mime = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((m) => MediaRecorder.isTypeSupported(m));
+        if (!mime) return null;
+        const c = document.createElement('canvas'); c.width = c.height = 1080; const ctx = c.getContext('2d');
+        await drawFrame(ctx, art, logoImg, b, 0.001);
+        const rec = new MediaRecorder(c.captureStream(30), { mimeType: mime, videoBitsPerSecond: 420_000 }), chunks = [];
+        rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+        const done = new Promise((r) => (rec.onstop = r));
+        rec.start(500);
+        const t0 = performance.now();
+        await new Promise((r) => { const tick = () => { const t = (performance.now() - t0) / 6000; if (t >= 1) return r(); drawFrame(ctx, art, logoImg, b, t); requestAnimationFrame(tick); }; tick(); });
+        rec.stop(); await done;
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        return blob.size && blob.size <= MAX ? blob : null;
+      }
+      async function compose(src, b) {
+        const art = await loadImg(src), logoImg = logo ? await loadImg(logo).catch(() => null) : null;
+        await document.fonts.ready;
+        const c = document.createElement('canvas'); c.width = c.height = 1080;
+        await drawFrame(c.getContext('2d'), art, logoImg, b, 0);
+        const still = await toLimit(c);
+        if (!still) throw new Error('Could not fit the still under 400 KB.');
+        return { still, stillUrl: URL.createObjectURL(still), art, logoImg };
+      }
+
+      // 3 & 4. Drafts and revisions (last 3 versions per draft).
+      async function make(slot, note) {
+        state.busy[slot] = true; render();
+        const b = brief();
+        try {
+          const res = await fetch('/api/drafts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...b, slot, note, logo }) });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || `Something went wrong (${res.status})`);
+          const v = await compose(data.image, b);
+          v.note = note || ''; v.at = Date.now();
+          const list = state.drafts[slot]; list.push(v);
+          while (list.length > 3) { const old = list.shift(); URL.revokeObjectURL(old.stillUrl); if (old.loopUrl) URL.revokeObjectURL(old.loopUrl); }
+          state.view[slot] = list.length - 1; state.busy[slot] = false; render();
+          recordLoop(v.art, v.logoImg, b).then((loop) => { if (loop) { v.loop = loop; v.loopUrl = URL.createObjectURL(loop); render(); } }).catch(() => {});
+          return null;
+        } catch (e) { state.busy[slot] = false; render(); return e.message; }
+      }
+      const kb = (n) => Math.round(n / 1024) + ' KB';
+      function render() {
+        $('s3').hidden = !state.drafts.some((d) => d.length) && !state.busy.some(Boolean);
+        $('drafts').innerHTML = [0, 1, 2].map((i) => {
+          const list = state.drafts[i], v = list[state.view[i]];
+          const art = state.busy[i] ? 'Drawing…' : v ? (v.loopUrl ? `<video src="${v.loopUrl}" poster="${v.stillUrl}" autoplay muted loop playsinline></video>` : `<img src="${v.stillUrl}" alt="Draft ${i + 1}" />`) : 'No draft yet';
+          const vers = list.map((_, j) => `<button type="button" data-slot="${i}" data-v="${j}" class="${j === state.view[i] ? 'on' : ''}">v${j + 1}</button>`).join('');
+          return `<div class="draft ${state.pick === i ? 'on' : ''}"><div class="frame">${art}</div>
+            <div class="row" style="justify-content:space-between"><b style="font-family:'Space Grotesk'">Draft ${i + 1}</b><span class="vers">${vers}</span></div>
+            ${v ? `<span class="small">Still ${kb(v.still.size)}${v.loop ? ` · loop ${kb(v.loop.size)}` : ''}${v.note ? ` · “${esc(v.note)}”` : ''}</span>` : ''}
+            <button type="button" class="ln" data-pick="${i}" ${v && !state.busy[i] ? '' : 'disabled'}>${state.pick === i ? 'Picked' : 'Pick this one'}</button></div>`;
+        }).join('');
+        const p = state.pick, v = p != null ? state.drafts[p][state.view[p]] : null;
+        $('s4').hidden = $('s5').hidden = !v;
+        $('redo').disabled = p == null || state.busy[p];
+        if (v) {
+          const b = brief();
+          $('sumArt').innerHTML = `<img src="${v.stillUrl}" alt="Your ad" />`;
+          const rows = [['Slot', NAMES[b.product]], ['Where', b.sites === 'network' ? 'The whole network' : b.sites.join(', ') || 'No sites listed'], ['Rating', RATES[b.rating]], ['Link', b.link], ['Headline', b.headline], ['Ad', `Draft ${p + 1}, v${state.view[p] + 1} · still ${kb(v.still.size)}${v.loop ? `, loop ${kb(v.loop.size)}` : ''}`]];
+          $('sumList').innerHTML = rows.map(([k, val]) => `<dt>${k}</dt><dd>${esc(val || '—')}</dd>`).join('');
+        }
+      }
+      $('drafts').onclick = (ev) => {
+        const t = ev.target.closest('button'); if (!t) return;
+        if (t.dataset.pick != null) state.pick = +t.dataset.pick;
+        if (t.dataset.v != null) state.view[+t.dataset.slot] = +t.dataset.v;
+        render();
+      };
+      form.onsubmit = async (ev) => {
+        ev.preventDefault(); $('err1').textContent = ''; save();
+        const btn = $('make'); btn.disabled = true; state.pick = null;
+        const errs = (await Promise.all([0, 1, 2].map((i) => make(i)))).filter(Boolean);
+        if (errs.length) $('err1').textContent = errs[0];
+        btn.disabled = false; $('s3').scrollIntoView({ behavior: 'smooth' });
+      };
+      $('rev').onsubmit = async (ev) => {
+        ev.preventDefault(); $('err2').textContent = '';
+        if (state.pick == null) return;
+        const err = await make(state.pick, ev.target.elements.note.value.trim());
+        if (err) $('err2').textContent = err; else ev.target.reset();
+      };
+      render();
+    </script>
+  </body>
+</html>
