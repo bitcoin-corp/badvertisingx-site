@@ -452,7 +452,7 @@
       // Save campaign: create (once per brief + draft kind), then upload the picked still + loop. Re-saving re-posts the creative.
       let saved = null; // { id, sig, priceUsd, listUsd }
       function campaignBody() {
-        const b = brief(), body = { product: b.product, sites: b.sites, rating: b.rating, link: b.link, aiMade: state.pick !== 3 };
+        const b = brief(), body = { product: b.product, sites: b.sites, rating: b.rating, link: b.link, aiMade: state.pick !== 3, source: { kind: 'storefront', ref: 'badvertisingx' } };
         if (b.startAt) body.startAt = new Date(b.startAt + 'T00:00:00').toISOString();
         if (b.product === 'cpm' && b.budget) body.cpmBudgetUsd = Number(b.budget);
         return body;
