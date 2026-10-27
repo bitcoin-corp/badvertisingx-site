@@ -84,7 +84,7 @@
   <body>
     <header>
       <a class="home" href="/"><img src="/logo.svg" alt="b" />Advertising<i>X</i></a>
-      <a class="ln" href="/guide" style="text-decoration:none">Guide</a>
+      <span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end"><a class="ln" href="/guide" style="text-decoration:none">Guide</a><button class="go" type="button" id="hdrConnect" style="min-height:36px;padding:0 14px;font-size:14px;max-width:44vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Connect</button></span>
     </header>
     <main>
       <h1>Buy a bAd</h1>
@@ -462,11 +462,17 @@
         const on = !!session;
         $('signin').hidden = on; $('acct').hidden = !on; $('s6').hidden = !on;
         $('who').textContent = on ? session.identityKey.slice(0, 8) + '…' + session.identityKey.slice(-4) : '';
+        $('hdrConnect').textContent = on ? '● ' + $('who').textContent : 'Connect';
         if (on) loadCamps(); render();
       }
       $('connect').onclick = async () => {
         $('connect').disabled = true; $('err3').textContent = '';
         try { await signIn(); } catch (e) { $('err3').textContent = say(e); } finally { $('connect').disabled = false; }
+      };
+      $('hdrConnect').onclick = async () => {
+        if (session) { $('acct').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        $('hdrConnect').disabled = true;
+        try { await signIn(); } catch (e) { alert(say(e)); } finally { $('hdrConnect').disabled = false; }
       };
       $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; wallet = null; resetPay(); showAcct(); };
 
