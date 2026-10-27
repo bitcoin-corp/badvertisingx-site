@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buy a bAd · bAdvertisingX</title>
+    <link rel="canonical" href="https://badvertisingx.com/buy" />
+    <meta name="description" content="Pick a bAds slot on bChatX, write a short brief and get three AI drafts of your square ad." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badvertisingx.com/buy" />
+    <meta property="og:site_name" content="bAdvertisingX" />
+    <meta property="og:title" content="bAdvertisingX · Buy a bAd" />
+    <meta property="og:description" content="Write a brief, get three AI drafts of your square ad." />
+    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" />
+    <style>
+      /* bAds storefront (27 Oct 2026): prices, brief, AI drafts, pick + revise, summary. Checkout not open yet. */
+      :root { --bg: #000; --fg: #f1ead9; --mute: #9a958a; --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff; --line: #ffffff1f; color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; }
+      header { display: flex; align-items: center; justify-content: space-between; max-width: 1080px; margin: 0 auto; padding: 18px 16px; }
+      header a.home { display: flex; align-items: center; gap: 4px; color: var(--fg); text-decoration: none; font: 700 1.3rem 'Space Grotesk', sans-serif; letter-spacing: -.03em; }
+      header a.home img { height: 1.15em; }
+      header a.home i { font-style: normal; color: var(--x); }
+      main { max-width: 1080px; margin: 0 auto; padding: 8px 16px 60px; }
+      h1 { font: 700 clamp(2rem, 6vw, 3rem) / 1.05 'Space Grotesk', sans-serif; letter-spacing: -.04em; margin: 24px 0 10px; }
+      h2 { font: 700 1.4rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; margin: 0 0 12px; display: flex; gap: 10px; align-items: center; }
+      h2 span { font: 600 .75rem 'IBM Plex Mono', monospace; color: #0b0a08; background: var(--gold); border-radius: 999px; width: 1.8em; height: 1.8em; display: inline-grid; place-items: center; flex: none; }
+      section.step { border-top: 1px solid var(--line); padding: 32px 0; }
+      p { line-height: 1.65; color: #cfc6b0; }
+      .go { display: inline-block; border: 0; cursor: pointer; padding: 15px 30px; border-radius: 999px; background: linear-gradient(180deg, #ffd24d, #f5b800); color: #0b0a08; font: 700 1rem 'Space Grotesk', sans-serif; box-shadow: 0 12px 40px rgba(245,184,0,.3); }
+      .go:disabled { opacity: .55; cursor: default; box-shadow: none; }
+      .ln { background: none; border: 1px solid #ffffff66; color: #fff; border-radius: 999px; padding: 9px 16px; font: 500 .78rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+      .ln:disabled { opacity: .45; cursor: default; }
+      .small { font-size: .85rem; color: var(--mute); }
+      .err { color: #ff8a80; min-height: 1.2em; }
+      .policy { margin-top: 20px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; font-size: .9rem; overflow-wrap: anywhere; }
+      .policy ul { margin: 8px 0 10px; padding-left: 18px; }
+      .policy li { margin: 3px 0; }
+      .tick { display: flex; gap: 10px; align-items: center; justify-content: flex-start; cursor: pointer; font-weight: 600; }
+      .tick input { width: 20px; height: 20px; padding: 0; flex: none; accent-color: #f5b800; }
+      form { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+      form .wide { grid-column: 1 / -1; }
+      label { display: grid; gap: 6px; font: 500 .9rem 'Space Grotesk', sans-serif; min-width: 0; }
+      input, select, textarea { width: 100%; background: #0b0b0d; color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font: 400 1rem 'IBM Plex Sans', sans-serif; }
+      input[type=color] { padding: 4px; height: 48px; }
+      textarea { min-height: 110px; resize: vertical; }
+      input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold-hi); outline-offset: 1px; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+      .prices { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+      .prices li { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+      .prices b { font-family: 'Space Grotesk', sans-serif; display: block; }
+      .prices .p { font: 500 1.1rem 'IBM Plex Mono', monospace; color: var(--gold-hi); }
+      .drafts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+      .draft { border: 2px solid var(--line); border-radius: 16px; padding: 10px; display: grid; gap: 10px; min-width: 0; }
+      .draft.on { border-color: var(--gold); }
+      .frame { aspect-ratio: 1; width: 100%; border-radius: 10px; background: #0b0b0d; display: grid; place-items: center; overflow: hidden; color: var(--mute); font-size: .9rem; text-align: center; padding: 0; }
+      .frame img, .frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .vers { display: flex; gap: 6px; flex-wrap: wrap; }
+      .vers button { background: #ffffff14; color: var(--fg); border: 1px solid transparent; border-radius: 999px; padding: 4px 10px; font: 500 .75rem 'IBM Plex Mono', monospace; cursor: pointer; }
+      .vers button.on { border-color: var(--gold-hi); color: var(--gold-hi); }
+      dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+      dt { color: var(--mute); font-size: .9rem; } dd { margin: 0; overflow-wrap: anywhere; }
+      .sum { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
+      h3 { font: 700 1.1rem 'Space Grotesk', sans-serif; margin: 28px 0 4px; }
+      .tag { font: 500 .7rem 'IBM Plex Mono', monospace; font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-hi); border: 1px solid #f5b80066; border-radius: 999px; padding: 3px 10px; }
+      .price { font: 500 1.4rem 'IBM Plex Mono', monospace; color: var(--gold-hi); }
+      .price s { color: var(--mute); font-size: .9rem; margin-left: 8px; }
+      .camps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+      .camps li { display: grid; grid-template-columns: 72px 1fr; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 10px; min-width: 0; }
+      .camps li.small { display: block; }
+      .camps .th { width: 72px; height: 72px; border-radius: 10px; background: #0b0b0d; object-fit: cover; display: block; }
+      .camps .meta { min-width: 0; overflow-wrap: anywhere; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="home" href="/"><img src="/logo.svg" alt="b" />Advertising<i>X</i></a>
+      <a class="ln" href="/guide" style="text-decoration:none">Guide</a>
+    </header>
+    <main>
+      <h1>Buy a bAd</h1>
+      <p>Square ads on bChatX and the sites in its network. Write a short brief, get three AI drafts, pick one and polish it.</p>
+
+      <section class="step">
+        <h2><span>1</span>Prices <em class="tag" id="draftTag" hidden>Draft prices</em></h2>
+        <ul class="prices" id="prices"><li class="small">Loading prices…</li></ul>
+      </section>
+
+      <section class="step">
+        <h2><span>2</span>Your brief</h2>
+        <form id="brief">
+          <label>Slot
+            <select name="product" id="product"><option value="">Loading…</option></select>
+          </label>
+          <label id="budgetBox" hidden>Budget in USD <input name="budget" type="number" inputmode="decimal" step="1" min="1" placeholder="10" /><span class="small" id="budgetNote"></span></label>
+          <label>Start date (optional) <input name="startAt" type="date" /></label>
+          <label>Rating
+            <select name="rating">
+              <option value="pg">PG: everyone</option>
+              <option value="17">17+</option>
+              <option value="18">18+</option>
+            </select>
+          </label>
+          <label>Where it shows
+            <select name="sitesMode">
+              <option value="network">The whole network</option>
+              <option value="list">Only the sites I list</option>
+            </select>
+          </label>
+          <label id="sitesBox" hidden>Sites (comma separated) <input name="sites" maxlength="400" placeholder="bchatx.com, bwalletx.com" /></label>
+          <label>Link people go to <input name="link" type="url" maxlength="500" placeholder="https://" required /></label>
+          <label>Headline <input name="headline" maxlength="60" required placeholder="Short and clear" /></label>
+          <label class="wide">What you sell <textarea name="sell" maxlength="600" required placeholder="What it is, who it's for, and the feel you want."></textarea></label>
+          <label>Brand colour (optional)
+            <span class="row"><input type="checkbox" name="useColour" style="width:auto" /> <input type="color" name="colour" value="#f5b800" style="flex:1" /></span>
+          </label>
+          <label>Logo (optional, PNG/JPG/WebP)
+            <input type="file" id="logoFile" accept="image/png,image/jpeg,image/webp" />
+            <span class="small" id="logoNote"></span>
+          </label>
+          <p class="wide row"><button class="go" type="submit" id="make">Make 3 drafts</button> <span class="small">Your brief is saved on this device.</span></p>
+          <p class="err wide" id="err1"></p>
+        </form>
+        <div id="gamesBox" hidden>
+          <h3>Or start from a bGamesX card</h3>
+          <p class="small">Got a game on bGamesX? Use its square card as your ad.</p>
+          <div class="row"><select id="game" style="flex:1;min-width:0;max-width:420px"></select> <button type="button" class="ln" id="useGame">Use this card</button></div>
+          <p class="err" id="errG"></p>
+        </div>
+      </section>
+
+      <section class="step" id="s3" hidden>
+        <h2><span>3</span>Drafts</h2>
+        <p class="small">Each draft is a 1080×1080 still under 400 KB, plus a 6-second loop when your browser can record one. Tap a draft to pick it.</p>
+        <div class="drafts" id="drafts"></div>
+      </section>
+
+      <section class="step" id="s4" hidden>
+        <h2><span>4</span>Revise your pick</h2>
+        <form id="rev">
+          <label class="wide">What should change? <input name="note" maxlength="300" placeholder="e.g. brighter, show the product closer, more blue" required /></label>
+          <p class="wide row"><button class="go" type="submit" id="redo">Redo this draft</button> <span class="small">We keep the last 3 versions.</span></p>
+          <p class="err wide" id="err2"></p>
+        </form>
+      </section>
+
+      <section class="step" id="s5" hidden>
+        <h2><span>5</span>Summary</h2>
+        <div class="sum">
+          <div class="frame" id="sumArt"></div>
+          <div>
+            <dl id="sumList"></dl>
+            <div id="signin" style="margin-top:24px">
+              <p class="row"><button class="go" type="button" id="connect">Sign in with your wallet</button></p>
+              <p class="small">Your wallet signs a short message. It does not spend anything.</p>
+            </div>
+            <div id="acct" hidden style="margin-top:24px">
+              <p class="small row">Signed in as <b id="who"></b> <button type="button" class="ln" id="out">Sign out</button></p>
+              <p class="row"><button class="go" type="button" id="saveC">Save campaign</button></p>
+              <p id="saved"></p>
+            </div>
+            <p class="err" id="err3"></p>
+            <div class="policy">
+              <b>Ad policy</b>
+              <ul>
+                <li>No financial promotions: no tokens or NFTs sold as investments, no returns or price claims, no trading or exchange ads.</li>
+                <li>No gambling.</li>
+                <li>Adult content runs only on 18+ pages.</li>
+                <li>Nothing illegal, and no pretending to be someone else.</li>
+                <li>Every ad is reviewed before it runs.</li>
+                <li>Unspent per-1,000-views balance is refunded in BSV on request.</li>
+              </ul>
+              <label class="tick"><input type="checkbox" id="policyOk" /> I accept the ad policy</label>
+            </div>
+            <div id="quote" class="small" style="margin-top:10px" hidden></div>
+            <p style="margin-top:16px"><button class="go" type="button" id="payBtn" disabled>Checkout opens soon</button></p>
+            <p class="small" id="payNote">Nothing is charged on this page.</p>
+            <p class="err" id="errPay"></p>
+            <p id="paidMsg" hidden><b>Paid. Your bAd is in review.</b><br><span class="small">Its status shows in My campaigns.</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="step" id="s6" hidden>
+        <h2><span>6</span>My campaigns</h2>
+        <ul class="camps" id="camps"><li class="small">Loading…</li></ul>
+      </section>
+    </main>
+
+    <script src="/connect/bwalletx-connect.global.js"></script>
+    <script>
+      const CHECKOUT_ON = true; // Off switch: false = button stays "Checkout opens soon" and /checkout is never called.
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+      const NAMES = { square7: 'Square, 7 days', square30: 'Square, 30 days', takeover24: 'Takeover, 24 hours', cpm: 'Per 1,000 views', ai_bad: 'AI-made bAd' };
+      const RATES = { pg: 'PG', '17': '17+', '18': '18+' };
+      const KEY = 'bads-buy-draft-v1', MAX = 400 * 1024;
+      const store = { get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { return null; } }, set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} } };
+
+      // 1. Prices: live from bChatX, never hardcoded. Disabled rows hidden; the brief's slot list = enabled placements.
+      const API = 'https://www.bchatx.com/api/bads', API_HOST = 'https://www.bchatx.com';
+      const ADDONS = ['ai_bad']; // priced extras, not placements (added by the server when aiMade is true)
+      let PRICES = [];
+      const usd = (n) => '$' + Number(n).toFixed(Number(n) % 1 ? 2 : 0);
+      const pricesReady = (async () => {
+        try {
+          const res = await fetch(API + '/prices');
+          if (!res.ok) throw 0;
+          const data = await res.json();
+          const list = (Array.isArray(data) ? data : (data.prices || [])).filter((p) => p && !p.disabled);
+          if (!list.length) throw 0;
+          PRICES = list;
+          $('draftTag').hidden = !list.every((p) => p.draft);
+          $('prices').innerHTML = list.map((p) => `<li><b>${esc(p.label || NAMES[p.product] || p.product)}</b><span class="p">${p.priceUsd != null ? esc(usd(p.priceUsd)) : ''}</span>${p.cpmUsd != null ? `<br><span class="small">${esc(usd(p.cpmUsd))} per 1,000 views${p.minUsd != null ? `, from ${esc(usd(p.minUsd))}` : ''}</span>` : ''}${p.days ? `<br><span class="small">${esc(p.days)} day${p.days > 1 ? 's' : ''}</span>` : ''}</li>`).join('');
+        } catch { $('prices').innerHTML = '<li><b>Prices coming soon</b><span class="small">Write your brief and make drafts now.</span></li>'; }
+        const slots = PRICES.filter((p) => !ADDONS.includes(p.product));
+        const sel = form.elements.product, want = (store.get() || {}).product;
+        sel.innerHTML = slots.length ? slots.map((p) => `<option value="${esc(p.product)}">${esc(p.label || NAMES[p.product] || p.product)}</option>`).join('') : '<option value="">No slots open yet</option>';
+        if (want && slots.some((p) => p.product === want)) sel.value = want;
+        syncSites(); render();
+      })();
+
+      // 2. Brief, saved on this device.
+      const form = $('brief');
+      let logo = null; // data URL, ≤512 px
+      const state = { drafts: [[], [], [], []], view: [0, 0, 0, 0], pick: null, busy: [false, false, false, false], game: null }; // slot 3 = bGamesX card
+      function brief() {
+        const f = Object.fromEntries(new FormData(form));
+        return { product: f.product, rating: f.rating, sites: f.sitesMode === 'list' ? f.sites.split(',').map((s) => s.trim()).filter(Boolean) : 'network', sitesMode: f.sitesMode, sitesText: f.sites || '', budget: f.budget || '', startAt: f.startAt || '', link: f.link, headline: f.headline, sell: f.sell, colour: f.useColour ? f.colour : '', colourPick: f.colour };
+      }
+      function save() { store.set({ ...brief(), logo }); }
+      function restore() {
+        const d = store.get(); if (!d) return;
+        for (const [k, v] of Object.entries({ product: d.product, rating: d.rating, sitesMode: d.sitesMode, sites: d.sitesText, budget: d.budget, startAt: d.startAt, link: d.link, headline: d.headline, sell: d.sell, colour: d.colourPick || '#f5b800' })) if (v != null && form.elements[k]) form.elements[k].value = v;
+        form.elements.useColour.checked = !!d.colour;
+        if (typeof d.logo === 'string' && d.logo.startsWith('data:image/')) { logo = d.logo; $('logoNote').textContent = 'Logo saved from last time.'; }
+      }
+      restore();
+      const syncSites = () => {
+        $('sitesBox').hidden = form.elements.sitesMode.value !== 'list';
+        const p = PRICES.find((x) => x.product === form.elements.product.value);
+        $('budgetBox').hidden = !(p && p.product === 'cpm');
+        if (p && p.product === 'cpm') { form.elements.budget.min = p.minUsd || 1; $('budgetNote').textContent = p.minUsd ? `At least ${usd(p.minUsd)}.` : ''; }
+      };
+      syncSites();
+      form.addEventListener('input', () => { syncSites(); save(); });
+      form.addEventListener('change', () => { syncSites(); save(); });
+
+      const loadImg = (src) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+      $('logoFile').onchange = async (ev) => {
+        const file = ev.target.files[0]; if (!file) return;
+        try {
+          const url = URL.createObjectURL(file), img = await loadImg(url); URL.revokeObjectURL(url);
+          const s = Math.min(1, 512 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+          c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          logo = c.toDataURL('image/png'); $('logoNote').textContent = 'Logo added.'; save();
+        } catch { $('logoNote').textContent = 'That file could not be read.'; }
+      };
+
+      // Compose: AI art + headline + logo → 1080×1080 canvas.
+      function wrap(ctx, text, max) {
+        const words = text.split(/\s+/), lines = []; let line = '';
+        for (const w of words) { const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > max && line) { lines.push(line); line = w; } else line = t; }
+        if (line) lines.push(line); return lines.slice(0, 3);
+      }
+      async function drawFrame(ctx, art, logoImg, b, t) {
+        // t in [0,1]: 0 = still. Slow push-in and headline rise for the loop.
+        const S = 1080, z = 1 + 0.06 * Math.sin(Math.PI * t);
+        ctx.fillStyle = '#000'; ctx.fillRect(0, 0, S, S);
+        ctx.drawImage(art, (S - S * z) / 2, (S - S * z) / 2, S * z, S * z);
+        const g = ctx.createLinearGradient(0, 0, 0, S * 0.45); g.addColorStop(0, 'rgba(0,0,0,.65)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, S, S * 0.45);
+        const rise = t ? Math.max(0, 1 - t * 4) * 30 : 0;
+        ctx.globalAlpha = t ? Math.min(1, t * 4) : 1;
+        ctx.fillStyle = '#fff'; ctx.font = '700 84px "Space Grotesk", sans-serif'; ctx.textBaseline = 'top';
+        wrap(ctx, b.headline, S - 140).forEach((l, i) => ctx.fillText(l, 70, 70 + rise + i * 92));
+        ctx.globalAlpha = 1;
+        if (b.colour) { ctx.fillStyle = b.colour; ctx.fillRect(0, S - 14, S, 14); }
+        if (logoImg) { const h = 110, w = Math.min(260, logoImg.width * (h / logoImg.height)); ctx.drawImage(logoImg, S - w - 50, S - h - 50, w, h); }
+      }
+      async function toLimit(canvas) {
+        for (const [type, qs] of [['image/webp', [0.86, 0.78, 0.68, 0.56, 0.45]], ['image/jpeg', [0.8, 0.65, 0.5, 0.38]]]) {
+          for (const q of qs) {
+            const blob = await new Promise((r) => canvas.toBlob(r, type, q));
+            if (blob && blob.type === type && blob.size <= MAX) return blob;
+          }
+        }
+        return null;
+      }
+      const recordLoop = (art, logoImg, b) => recordWith((ctx, t) => drawFrame(ctx, art, logoImg, b, t));
+      async function recordWith(drawAt) {
+        if (!window.MediaRecorder || !HTMLCanvasElement.prototype.captureStream) return null;
+        const mime = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find((m) => MediaRecorder.isTypeSupported(m));
+        if (!mime) return null;
+        const c = document.createElement('canvas'); c.width = c.height = 1080; const ctx = c.getContext('2d');
+        await drawAt(ctx, 0.001);
+        const rec = new MediaRecorder(c.captureStream(30), { mimeType: mime, videoBitsPerSecond: 420_000 }), chunks = [];
+        rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+        const done = new Promise((r) => (rec.onstop = r));
+        rec.start(500);
+        const t0 = performance.now();
+        await new Promise((r) => { const tick = () => { const t = (performance.now() - t0) / 6000; if (t >= 1) return r(); drawAt(ctx, t); requestAnimationFrame(tick); }; tick(); });
+        rec.stop(); await done;
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        return blob.size && blob.size <= MAX ? blob : null;
+      }
+      async function compose(src, b) {
+        const art = await loadImg(src), logoImg = logo ? await loadImg(logo).catch(() => null) : null;
+        await document.fonts.ready;
+        const c = document.createElement('canvas'); c.width = c.height = 1080;
+        await drawFrame(c.getContext('2d'), art, logoImg, b, 0);
+        const still = await toLimit(c);
+        if (!still) throw new Error('Could not fit the still under 400 KB.');
+        return { still, stillUrl: URL.createObjectURL(still), art, logoImg };
+      }
+
+      // 3 & 4. Drafts and revisions (last 3 versions per draft).
+      async function make(slot, note) {
+        state.busy[slot] = true; render();
+        const b = brief();
+        try {
+          const res = await fetch('/api/drafts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...b, slot, note, logo }) });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || `Something went wrong (${res.status})`);
+          const v = await compose(data.image, b);
+          v.note = note || ''; v.at = Date.now();
+          const list = state.drafts[slot]; list.push(v);
+          while (list.length > 3) { const old = list.shift(); URL.revokeObjectURL(old.stillUrl); if (old.loopUrl) URL.revokeObjectURL(old.loopUrl); }
+          state.view[slot] = list.length - 1; state.busy[slot] = false; render();
+          recordLoop(v.art, v.logoImg, b).then((loop) => { if (loop) { v.loop = loop; v.loopUrl = URL.createObjectURL(loop); render(); } }).catch(() => {});
+          return null;
+        } catch (e) { state.busy[slot] = false; render(); return e.message; }
+      }
+      const kb = (n) => Math.round(n / 1024) + ' KB';
+      function render() {
+        $('s3').hidden = !state.drafts.some((d) => d.length) && !state.busy.some(Boolean);
+        $('drafts').innerHTML = [0, 1, 2, 3].filter((i) => i < 3 || state.drafts[3].length || state.busy[3]).map((i) => {
+          const list = state.drafts[i], v = list[state.view[i]];
+          const art = state.busy[i] ? 'Drawing…' : v ? (v.loopUrl ? `<video src="${v.loopUrl}" poster="${v.stillUrl}" autoplay muted loop playsinline></video>` : `<img src="${v.stillUrl}" alt="${esc(slotName(i))}" />`) : 'No draft yet';
+          const vers = list.map((_, j) => `<button type="button" data-slot="${i}" data-v="${j}" class="${j === state.view[i] ? 'on' : ''}">v${j + 1}</button>`).join('');
+          return `<div class="draft ${state.pick === i ? 'on' : ''}"><div class="frame">${art}</div>
+            <div class="row" style="justify-content:space-between"><b style="font-family:'Space Grotesk'">${esc(slotName(i))}</b><span class="vers">${vers}</span></div>
+            ${v ? `<span class="small">Still ${kb(v.still.size)}${v.loop ? ` · loop ${kb(v.loop.size)}` : ''}${v.note ? ` · “${esc(v.note)}”` : ''}</span>` : ''}
+            <button type="button" class="ln" data-pick="${i}" ${v && !state.busy[i] ? '' : 'disabled'}>${state.pick === i ? 'Picked' : 'Pick this one'}</button></div>`;
+        }).join('');
+        const p = state.pick, v = p != null ? state.drafts[p][state.view[p]] : null;
+        $('s5').hidden = !v; $('s4').hidden = !v || p === 3;
+        $('redo').disabled = p == null || state.busy[p];
+        if (v) {
+          const b = brief();
+          $('sumArt').innerHTML = `<img src="${v.stillUrl}" alt="Your ad" />`;
+          const pr = PRICES.find((x) => x.product === b.product);
+          const rows = [['Slot', pr ? pr.label || NAMES[b.product] : NAMES[b.product]], ...(b.product === 'cpm' ? [['Budget', b.budget ? usd(b.budget) : '—']] : []), ...(b.startAt ? [['Starts', b.startAt]] : []), ['Where', b.sites === 'network' ? 'The whole network' : b.sites.join(', ') || 'No sites listed'], ['Rating', RATES[b.rating]], ['Link', b.link], ['Headline', b.headline], ['Ad', `${slotName(p)}, v${state.view[p] + 1} · still ${kb(v.still.size)}${v.loop ? `, loop ${kb(v.loop.size)}` : ''}`]];
+          $('sumList').innerHTML = rows.map(([k, val]) => `<dt>${k}</dt><dd>${esc(val || '—')}</dd>`).join('');
+        }
+        $('saveC').disabled = !v || saving || !b0().product;
+      }
+      const slotName = (i) => i === 3 ? (state.game ? state.game.title : 'bGamesX card') : `Draft ${i + 1}`;
+      const b0 = () => brief();
+      $('drafts').onclick = (ev) => {
+        const t = ev.target.closest('button'); if (!t) return;
+        if (t.dataset.pick != null) state.pick = +t.dataset.pick;
+        if (t.dataset.v != null) state.view[+t.dataset.slot] = +t.dataset.v;
+        render();
+      };
+      form.onsubmit = async (ev) => {
+        ev.preventDefault(); $('err1').textContent = ''; save();
+        const btn = $('make'); btn.disabled = true; state.pick = null;
+        const errs = (await Promise.all([0, 1, 2].map((i) => make(i)))).filter(Boolean);
+        if (errs.length) $('err1').textContent = errs[0];
+        btn.disabled = false; $('s3').scrollIntoView({ behavior: 'smooth' });
+      };
+      $('rev').onsubmit = async (ev) => {
+        ev.preventDefault(); $('err2').textContent = '';
+        if (state.pick == null) return;
+        const err = await make(state.pick, ev.target.elements.note.value.trim());
+        if (err) $('err2').textContent = err; else ev.target.reset();
+      };
+
+      // bGamesX card: games.json + card.js are served with CORS (*), so the real square renderer draws it here.
+      const BGX_HOST = 'https://bgamesx.com';
+      let GAMES = [];
+      fetch(BGX_HOST + '/bgamesx/games.json').then((r) => (r.ok ? r.json() : [])).then((list) => {
+        GAMES = (Array.isArray(list) ? list : []).filter((g) => g && g.id && g.title && g.keyArt);
+        if (!GAMES.length) return;
+        $('game').innerHTML = GAMES.map((g, i) => `<option value="${i}">${esc(g.title)}${g.genre ? ' · ' + esc(g.genre) : ''}</option>`).join('');
+        $('gamesBox').hidden = false;
+      }).catch(() => {});
+      let bgxReady = null;
+      const loadBGX = () => bgxReady || (bgxReady = new Promise((ok, no) => {
+        if (window.BGX) return ok(window.BGX);
+        const sc = document.createElement('script'); sc.src = BGX_HOST + '/bgamesx/card.js';
+        sc.onload = () => (window.BGX ? ok(window.BGX) : no(new Error('The card renderer did not load.')));
+        sc.onerror = () => { bgxReady = null; no(new Error('The card renderer did not load.')); };
+        document.head.appendChild(sc);
+      }));
+      const abs = (u) => /^https?:/.test(u) ? u : BGX_HOST + (u.startsWith('/') ? '' : '/') + u;
+      const loadCors = (src) => new Promise((ok, no) => { const i = new Image(); i.crossOrigin = 'anonymous'; i.onload = () => ok(i); i.onerror = no; i.src = src; });
+      $('useGame').onclick = async () => {
+        const g = GAMES[+$('game').value]; if (!g) return;
+        $('errG').textContent = ''; $('useGame').disabled = true; state.busy[3] = true; state.game = g; render();
+        try {
+          const [BGX, art] = await Promise.all([loadBGX(), loadCors(abs(g.keyArt))]);
+          await Promise.all([BGX.fontsReady(), document.fonts.ready]);
+          const c = document.createElement('canvas'); c.width = c.height = 1080;
+          BGX.drawSquare(c.getContext('2d'), g, art, 1);
+          const still = await toLimit(c);
+          if (!still) throw new Error('Could not fit the card under 400 KB.');
+          const v = { still, stillUrl: URL.createObjectURL(still), note: '', at: Date.now(), alt: `${g.title}: ${g.oneLine || g.genre || 'a game on bGamesX'}`.slice(0, 200) };
+          for (const old of state.drafts[3]) { URL.revokeObjectURL(old.stillUrl); if (old.loopUrl) URL.revokeObjectURL(old.loopUrl); }
+          state.drafts[3] = [v]; state.view[3] = 0; state.pick = 3; state.busy[3] = false; render();
+          $('s3').scrollIntoView({ behavior: 'smooth' });
+          recordWith((ctx, t) => BGX.drawSquare(ctx, g, art, t)).then((loop) => { if (loop) { v.loop = loop; v.loopUrl = URL.createObjectURL(loop); render(); } }).catch(() => {});
+        } catch (e) { state.busy[3] = false; render(); $('errG').textContent = e.message || 'That card could not be drawn.'; }
+        finally { $('useGame').disabled = false; }
+      };
+
+      // Sign in with your wallet (bAds session: BRC-100 createSignature over the server's message → 1 h Bearer token).
+      const TKEY = 'bads-session-v1';
+      const tok = {
+        get() { try { const t = JSON.parse(sessionStorage.getItem(TKEY) || 'null'); return t && t.token && Date.parse(t.expiresAt) > Date.now() + 30e3 ? t : null; } catch { return null; } },
+        set(v) { try { v ? sessionStorage.setItem(TKEY, JSON.stringify(v)) : sessionStorage.removeItem(TKEY); } catch {} },
+      };
+      let session = tok.get(), saving = false, wallet = null;
+      const SOON = 'Ad bookings open soon. Your brief and drafts stay here on this device.';
+      async function call(path, opts = {}) {
+        const res = await fetch(API + path, opts);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw Object.assign(new Error(data.error || `Something went wrong (${res.status})`), { status: res.status, code: data.code });
+        return data;
+      }
+      async function signIn() {
+        const bwx = window.bWalletXConnect;
+        if (!bwx) throw new Error('The wallet connector did not load. Refresh and try again.');
+        let issued = null;
+        const r = await bwx.signInWithBwalletX({
+          challenge: async () => { issued = await call('/session', { method: 'POST' }); return { protocolID: issued.protocolID, keyID: issued.keyID || issued.nonce, message: issued.message, nonce: issued.nonce }; },
+          pairing: bwx.pairingModal(),
+        });
+        const v = await call('/session/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ challenge: issued.challenge, identityKey: r.identityKey, signature: r.signature }) });
+        session = { token: v.token, expiresAt: v.expiresAt || new Date(Date.now() + 3600e3).toISOString(), identityKey: v.identityKey || r.identityKey };
+        wallet = r.wallet || null; tok.set(session); showAcct();
+      }
+      // Buyer route: Bearer token; on 401 sign in again once and retry.
+      async function buyer(path, opts = {}, retried = false) {
+        if (!session) await signIn();
+        try { return await call(path, { ...opts, headers: { ...(opts.headers || {}), authorization: 'Bearer ' + session.token } }); }
+        catch (e) { if (e.status === 401 && !retried) { session = null; tok.set(null); showAcct(); return buyer(path, opts, true); } throw e; }
+      }
+      const say = (e) => (e && e.code === 'store_not_ready') || (e && e.status === 503) ? SOON : e && e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : (e && e.message) || 'Something went wrong.';
+      function showAcct() {
+        const on = !!session;
+        $('signin').hidden = on; $('acct').hidden = !on; $('s6').hidden = !on;
+        $('who').textContent = on ? session.identityKey.slice(0, 8) + '…' + session.identityKey.slice(-4) : '';
+        if (on) loadCamps(); render();
+      }
+      $('connect').onclick = async () => {
+        $('connect').disabled = true; $('err3').textContent = '';
+        try { await signIn(); } catch (e) { $('err3').textContent = say(e); } finally { $('connect').disabled = false; }
+      };
+      $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; wallet = null; resetPay(); showAcct(); };
+
+      // Save campaign: create (once per brief + draft kind), then upload the picked still + loop. Re-saving re-posts the creative.
+      let saved = null; // { id, sig, priceUsd, listUsd }
+      function campaignBody() {
+        const b = brief(), body = { product: b.product, sites: b.sites, rating: b.rating, link: b.link, aiMade: state.pick !== 3, source: { kind: 'storefront', ref: 'badvertisingx' } };
+        if (b.startAt) body.startAt = new Date(b.startAt + 'T00:00:00').toISOString();
+        if (b.product === 'cpm' && b.budget) body.cpmBudgetUsd = Number(b.budget);
+        return body;
+      }
+      $('saveC').onclick = async () => {
+        const p = state.pick, v = p != null ? state.drafts[p][state.view[p]] : null; if (!v) return;
+        if (!form.elements.link.reportValidity()) return;
+        saving = true; render(); $('err3').textContent = ''; $('saveC').textContent = 'Saving…';
+        try {
+          const body = campaignBody(), sig = JSON.stringify(body);
+          if (!saved || saved.sig !== sig) { const c = await buyer('/campaigns', { method: 'POST', headers: { 'content-type': 'application/json' }, body: sig }); saved = { ...c, sig }; }
+          const fd = new FormData();
+          fd.append('still', v.still, 'still.' + (v.still.type === 'image/webp' ? 'webp' : 'jpg'));
+          if (v.loop) fd.append('loop', v.loop, 'loop.webm');
+          fd.append('alt', (v.alt || brief().headline || 'bAd').slice(0, 200));
+          await buyer(`/campaigns/${encodeURIComponent(saved.id)}/creative`, { method: 'POST', body: fd });
+          const strike = saved.listUsd != null && Number(saved.listUsd) !== Number(saved.priceUsd);
+          $('saved').innerHTML = `<span class="small">Saved as a draft campaign.</span><br><span class="price">${esc(usd(saved.priceUsd))}${strike ? `<s>${esc(usd(saved.listUsd))}</s>` : ''}</span>`;
+          resetPay(); loadCamps();
+        } catch (e) { $('err3').textContent = say(e); }
+        finally { saving = false; $('saveC').textContent = 'Save campaign'; render(); }
+      };
+
+
+      // Checkout (behind CHECKOUT_ON): quote → buyer's BRC-100 wallet pays the exact outputs → send the BEEF to /paid.
+      // createAction is never retried automatically (no double-pay); only /paid is retried.
+      let quote = null, paying = false, paid = false, tick = null, pending = null; // pending = a sent payment awaiting /paid
+      const sats = (n) => Number(n).toLocaleString() + ' sats';
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      function resetPay() { if (pending) return; quote = null; paid = false; clearInterval(tick); $('quote').hidden = true; $('paidMsg').hidden = true; $('errPay').textContent = ''; payUi(); }
+      function payUi() {
+        const btn = $('payBtn'), ok = $('policyOk').checked;
+        if (!CHECKOUT_ON) { btn.textContent = 'Checkout opens soon'; btn.disabled = true; return; }
+        $('payNote').textContent = 'Your wallet shows the exact amount before anything is sent.';
+        const price = saved ? usd(saved.priceUsd) : '';
+        btn.textContent = paying ? 'Paying…' : paid ? 'Paid' : pending ? 'Check payment again' : saved ? `Pay ${price} with your wallet` : 'Save your campaign first';
+        btn.disabled = paying || paid || !saved || (!ok && !pending);
+      }
+      function showQuote() {
+        clearInterval(tick);
+        const draw = () => {
+          if (!quote) return;
+          const left = Math.max(0, Math.round((Date.parse(quote.expiresAt) - Date.now()) / 1000));
+          $('quote').hidden = false;
+          $('quote').innerHTML = `Price: <b>${esc(usd(saved.priceUsd))}</b> = ${esc(sats(quote.priceSats))} · price held for ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+          if (!left) { clearInterval(tick); $('quote').textContent = 'The price hold ran out. Press pay again for a fresh price.'; quote = null; }
+        };
+        draw(); tick = setInterval(draw, 1000);
+      }
+      async function getQuote() {
+        const q = await buyer(`/campaigns/${encodeURIComponent(saved.id)}/checkout`, { method: 'POST' });
+        if (q.free) return q;
+        quote = q; showQuote(); return q;
+      }
+      async function sendPaid(body) {
+        for (let i = 0; ; i++) {
+          try { return await buyer(`/campaigns/${encodeURIComponent(saved.id)}/paid`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }); }
+          catch (e) { if (e.status === 409 && e.code === 'not_seen' && i < 5) { await wait(1500 * 2 ** i); continue; } throw e; }
+        }
+      }
+      function done() { paid = true; clearInterval(tick); $('quote').hidden = true; $('paidMsg').hidden = false; loadCamps(); }
+      $('policyOk').onchange = payUi;
+      $('payBtn').onclick = async () => {
+        if (!CHECKOUT_ON || paying || paid || !saved || !$('policyOk').checked) return;
+        paying = true; payUi(); $('errPay').textContent = '';
+        try {
+          if (pending) { await sendPaid(pending); pending = null; done(); return; } // wallet already paid: only re-check
+          if (!quote || Date.parse(quote.expiresAt) < Date.now() + 15e3) { const q = await getQuote(); if (q.free) { done(); return; } }
+          if (!wallet) wallet = (await window.bWalletXConnect.connectBwalletX({ pairing: window.bWalletXConnect.pairingModal() })).wallet;
+          const q = quote;
+          let r;
+          try {
+            r = await wallet.createAction({ description: `bAds campaign ${saved.id}`, outputs: q.payTo.map((o) => ({ lockingScript: o.lockingScript, satoshis: o.sats, outputDescription: 'bAds' })), options: { randomizeOutputs: false } });
+          } catch (e) { throw Object.assign(new Error('Payment cancelled in your wallet. Nothing was sent.'), { refused: true }); }
+          if (!r || (!r.tx && !r.txid)) throw new Error('Your wallet did not return a payment. Nothing was sent.');
+          pending = r.tx ? { quoteId: q.quoteId, beef: Array.from(r.tx) } : { quoteId: q.quoteId, txid: r.txid };
+          await sendPaid(pending); pending = null; done();
+        } catch (e) {
+          $('errPay').textContent = pending ? `Your payment was sent but is not confirmed yet (${say(e)}). Press the button again to re-check. You will not be charged twice.` : say(e);
+        } finally { paying = false; payUi(); }
+      };
+
+      // My campaigns: list + each one's creative thumbnail and stats.
+      const STATUS = { draft: 'Draft', awaiting_payment: 'Awaiting payment', pending_review: 'In review', live: 'Live', ended: 'Ended', rejected: 'Not approved' };
+      async function loadCamps() {
+        try {
+          const { campaigns = [] } = await buyer('/campaigns?mine=1');
+          if (!campaigns.length) { $('camps').innerHTML = '<li class="small">No campaigns yet.</li>'; return; }
+          const rows = await Promise.all(campaigns.map(async (c) => {
+            const [full, st] = await Promise.all([buyer(`/campaigns/${encodeURIComponent(c.id)}`).catch(() => c), buyer(`/campaigns/${encodeURIComponent(c.id)}/stats`).catch(() => null)]);
+            return { c: { ...c, ...full }, st };
+          }));
+          $('camps').innerHTML = rows.map(({ c, st }) => {
+            const cr = (c.creatives || []).slice(-1)[0], thumb = cr && cr.still ? (/^https?:/.test(cr.still) ? cr.still : API_HOST + cr.still) : '';
+            const views = st ? Number(st.views) || 0 : null, clicks = st ? Number(st.clicks) || 0 : null;
+            const ctr = st ? (views ? (clicks / views) * 100 : 0) : null;
+            const pr = PRICES.find((x) => x.product === c.product);
+            return `<li>${thumb ? `<img class="th" src="${esc(thumb)}" alt="${esc(cr.alt || 'Ad')}" loading="lazy" />` : '<span class="th"></span>'}
+              <span class="meta"><b>${esc(pr ? pr.label : NAMES[c.product] || c.product)}</b> <span class="tag">${esc(STATUS[c.status] || c.status)}</span><br>
+              <span class="small">${c.priceUsd != null ? esc(usd(c.priceUsd)) + ' · ' : ''}${st ? `${views.toLocaleString()} views · ${clicks.toLocaleString()} clicks · ${ctr.toFixed(2)}% CTR` : 'No stats yet'}</span></span></li>`;
+          }).join('');
+        } catch (e) { $('camps').innerHTML = `<li class="small">${esc(say(e))}</li>`; }
+      }
+      payUi(); showAcct();
+    </script>
+  </body>
+</html>
