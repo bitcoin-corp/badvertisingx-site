@@ -41,6 +41,11 @@
       .ln:disabled { opacity: .45; cursor: default; }
       .small { font-size: .85rem; color: var(--mute); }
       .err { color: #ff8a80; min-height: 1.2em; }
+      .policy { margin-top: 20px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; font-size: .9rem; overflow-wrap: anywhere; }
+      .policy ul { margin: 8px 0 10px; padding-left: 18px; }
+      .policy li { margin: 3px 0; }
+      .tick { display: flex; gap: 10px; align-items: center; justify-content: flex-start; cursor: pointer; font-weight: 600; }
+      .tick input { width: 20px; height: 20px; padding: 0; flex: none; accent-color: #f5b800; }
       form { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
       form .wide { grid-column: 1 / -1; }
       label { display: grid; gap: 6px; font: 500 .9rem 'Space Grotesk', sans-serif; min-width: 0; }
@@ -164,8 +169,23 @@
               <p id="saved"></p>
             </div>
             <p class="err" id="err3"></p>
-            <p style="margin-top:16px"><button class="go" disabled>Checkout opens soon</button></p>
-            <p class="small">Nothing is charged on this page.</p>
+            <div class="policy">
+              <b>Ad policy</b>
+              <ul>
+                <li>No financial promotions: no tokens or NFTs sold as investments, no returns or price claims, no trading or exchange ads.</li>
+                <li>No gambling.</li>
+                <li>Adult content runs only on 18+ pages.</li>
+                <li>Nothing illegal, and no pretending to be someone else.</li>
+                <li>Every ad is reviewed before it runs.</li>
+                <li>Unspent per-1,000-views balance is refunded in BSV on request.</li>
+              </ul>
+              <label class="tick"><input type="checkbox" id="policyOk" /> I accept the ad policy</label>
+            </div>
+            <div id="quote" class="small" style="margin-top:10px" hidden></div>
+            <p style="margin-top:16px"><button class="go" type="button" id="payBtn" disabled>Checkout opens soon</button></p>
+            <p class="small" id="payNote">Nothing is charged on this page.</p>
+            <p class="err" id="errPay"></p>
+            <p id="paidMsg" hidden><b>Paid. Your bAd is in review.</b><br><span class="small">Its status shows in My campaigns.</span></p>
           </div>
         </div>
       </section>
@@ -178,6 +198,7 @@
 
     <script src="/connect/bwalletx-connect.global.js"></script>
     <script>
+      const CHECKOUT_ON = false; // Off switch: false = button stays "Checkout opens soon" and /checkout is never called.
       const $ = (id) => document.getElementById(id);
       const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
       const NAMES = { square7: 'Square, 7 days', square30: 'Square, 30 days', takeover24: 'Takeover, 24 hours', cpm: 'Per 1,000 views', ai_bad: 'AI-made bAd' };
@@ -410,7 +431,7 @@
         get() { try { const t = JSON.parse(sessionStorage.getItem(TKEY) || 'null'); return t && t.token && Date.parse(t.expiresAt) > Date.now() + 30e3 ? t : null; } catch { return null; } },
         set(v) { try { v ? sessionStorage.setItem(TKEY, JSON.stringify(v)) : sessionStorage.removeItem(TKEY); } catch {} },
       };
-      let session = tok.get(), saving = false;
+      let session = tok.get(), saving = false, wallet = null;
       const SOON = 'Ad bookings open soon. Your brief and drafts stay here on this device.';
       async function call(path, opts = {}) {
         const res = await fetch(API + path, opts);
@@ -428,7 +449,7 @@
         });
         const v = await call('/session/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ challenge: issued.challenge, identityKey: r.identityKey, signature: r.signature }) });
         session = { token: v.token, expiresAt: v.expiresAt || new Date(Date.now() + 3600e3).toISOString(), identityKey: v.identityKey || r.identityKey };
-        tok.set(session); showAcct();
+        wallet = r.wallet || null; tok.set(session); showAcct();
       }
       // Buyer route: Bearer token; on 401 sign in again once and retry.
       async function buyer(path, opts = {}, retried = false) {
@@ -447,7 +468,7 @@
         $('connect').disabled = true; $('err3').textContent = '';
         try { await signIn(); } catch (e) { $('err3').textContent = say(e); } finally { $('connect').disabled = false; }
       };
-      $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; showAcct(); };
+      $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; wallet = null; resetPay(); showAcct(); };
 
       // Save campaign: create (once per brief + draft kind), then upload the picked still + loop. Re-saving re-posts the creative.
       let saved = null; // { id, sig, priceUsd, listUsd }
@@ -471,9 +492,68 @@
           await buyer(`/campaigns/${encodeURIComponent(saved.id)}/creative`, { method: 'POST', body: fd });
           const strike = saved.listUsd != null && Number(saved.listUsd) !== Number(saved.priceUsd);
           $('saved').innerHTML = `<span class="small">Saved as a draft campaign.</span><br><span class="price">${esc(usd(saved.priceUsd))}${strike ? `<s>${esc(usd(saved.listUsd))}</s>` : ''}</span>`;
-          loadCamps();
+          resetPay(); loadCamps();
         } catch (e) { $('err3').textContent = say(e); }
         finally { saving = false; $('saveC').textContent = 'Save campaign'; render(); }
+      };
+
+
+      // Checkout (behind CHECKOUT_ON): quote → buyer's BRC-100 wallet pays the exact outputs → send the BEEF to /paid.
+      // createAction is never retried automatically (no double-pay); only /paid is retried.
+      let quote = null, paying = false, paid = false, tick = null, pending = null; // pending = a sent payment awaiting /paid
+      const sats = (n) => Number(n).toLocaleString() + ' sats';
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      function resetPay() { if (pending) return; quote = null; paid = false; clearInterval(tick); $('quote').hidden = true; $('paidMsg').hidden = true; $('errPay').textContent = ''; payUi(); }
+      function payUi() {
+        const btn = $('payBtn'), ok = $('policyOk').checked;
+        if (!CHECKOUT_ON) { btn.textContent = 'Checkout opens soon'; btn.disabled = true; return; }
+        $('payNote').textContent = 'Your wallet shows the exact amount before anything is sent.';
+        const price = saved ? usd(saved.priceUsd) : '';
+        btn.textContent = paying ? 'Paying…' : paid ? 'Paid' : pending ? 'Check payment again' : saved ? `Pay ${price} with your wallet` : 'Save your campaign first';
+        btn.disabled = paying || paid || !saved || (!ok && !pending);
+      }
+      function showQuote() {
+        clearInterval(tick);
+        const draw = () => {
+          if (!quote) return;
+          const left = Math.max(0, Math.round((Date.parse(quote.expiresAt) - Date.now()) / 1000));
+          $('quote').hidden = false;
+          $('quote').innerHTML = `Price: <b>${esc(usd(saved.priceUsd))}</b> = ${esc(sats(quote.priceSats))} · price held for ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+          if (!left) { clearInterval(tick); $('quote').textContent = 'The price hold ran out. Press pay again for a fresh price.'; quote = null; }
+        };
+        draw(); tick = setInterval(draw, 1000);
+      }
+      async function getQuote() {
+        const q = await buyer(`/campaigns/${encodeURIComponent(saved.id)}/checkout`, { method: 'POST' });
+        if (q.free) return q;
+        quote = q; showQuote(); return q;
+      }
+      async function sendPaid(body) {
+        for (let i = 0; ; i++) {
+          try { return await buyer(`/campaigns/${encodeURIComponent(saved.id)}/paid`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }); }
+          catch (e) { if (e.status === 409 && e.code === 'not_seen' && i < 5) { await wait(1500 * 2 ** i); continue; } throw e; }
+        }
+      }
+      function done() { paid = true; clearInterval(tick); $('quote').hidden = true; $('paidMsg').hidden = false; loadCamps(); }
+      $('policyOk').onchange = payUi;
+      $('payBtn').onclick = async () => {
+        if (!CHECKOUT_ON || paying || paid || !saved || !$('policyOk').checked) return;
+        paying = true; payUi(); $('errPay').textContent = '';
+        try {
+          if (pending) { await sendPaid(pending); pending = null; done(); return; } // wallet already paid: only re-check
+          if (!quote || Date.parse(quote.expiresAt) < Date.now() + 15e3) { const q = await getQuote(); if (q.free) { done(); return; } }
+          if (!wallet) wallet = (await window.bWalletXConnect.connectBwalletX({ pairing: window.bWalletXConnect.pairingModal() })).wallet;
+          const q = quote;
+          let r;
+          try {
+            r = await wallet.createAction({ description: `bAds campaign ${saved.id}`, outputs: q.payTo.map((o) => ({ lockingScript: o.lockingScript, satoshis: o.sats, outputDescription: 'bAds' })), options: { randomizeOutputs: false } });
+          } catch (e) { throw Object.assign(new Error('Payment cancelled in your wallet. Nothing was sent.'), { refused: true }); }
+          if (!r || (!r.tx && !r.txid)) throw new Error('Your wallet did not return a payment. Nothing was sent.');
+          pending = r.tx ? { quoteId: q.quoteId, beef: Array.from(r.tx) } : { quoteId: q.quoteId, txid: r.txid };
+          await sendPaid(pending); pending = null; done();
+        } catch (e) {
+          $('errPay').textContent = pending ? `Your payment was sent but is not confirmed yet (${say(e)}). Press the button again to re-check. You will not be charged twice.` : say(e);
+        } finally { paying = false; payUi(); }
       };
 
       // My campaigns: list + each one's creative thumbnail and stats.
@@ -497,7 +577,7 @@
           }).join('');
         } catch (e) { $('camps').innerHTML = `<li class="small">${esc(say(e))}</li>`; }
       }
-      showAcct();
+      payUi(); showAcct();
     </script>
   </body>
 </html>
