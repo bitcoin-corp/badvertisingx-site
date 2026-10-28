@@ -124,19 +124,21 @@
       }
 
       $('connect').onclick = async () => {
-        const btn = $('connect'); btn.disabled = true; $('err1').textContent = '';
+        const btn = $('connect'), was = btn.textContent; btn.disabled = true; btn.textContent = 'Opening your wallet…'; $('err1').textContent = '';
         try {
           const { signInWithBwalletX, pairingModal } = window.bWalletXConnect;
           const r = await signInWithBwalletX({
             challenge: (identityKey) => api('/api/bwalletx/challenge', { identityKey }),
             pairing: pairingModal(),
+            onStatus: (st) => { btn.textContent = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; },
           });
           await api('/api/bwalletx/verify', { identityKey: r.identityKey, nonce: r.nonce, signature: r.signature });
           show(await api('/api/bwalletx/session').catch(() => ({ identityKey: r.identityKey })));
         } catch (e) {
           $('err1').textContent = e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : e.message;
-        } finally { btn.disabled = false; }
+        } finally { btn.disabled = false; btn.textContent = was; }
       };
+      if (window.bWalletXConnect && window.bWalletXConnect.bindPrewarm) window.bWalletXConnect.bindPrewarm($('connect'));
 
       $('out').onclick = async () => { await api('/api/bwalletx/logout', {}).catch(() => {}); show(null); };
 
