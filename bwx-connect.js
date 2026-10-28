@@ -22,16 +22,17 @@
   // Brand colour for the button: <span data-bwx-connect data-fg="#5ab8ff" data-on="#000"></span> (default gold).
   slots.forEach((s) => { if (s.dataset.fg) s.style.setProperty('--bwxc-fg', s.dataset.fg); if (s.dataset.on) s.style.setProperty('--bwxc-on', s.dataset.on); if (s.dataset.fg) s.style.setProperty('--bwxc-edge', s.dataset.fg + '73'); });
 
-  let key = null, handle = null, busy = false;
+  let key = null, handle = null, busy = false, label = 'Opening your wallet…';
   const draw = () => slots.forEach((s) => {
     s.innerHTML = '';
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'bwxc' + (key ? ' on' : '');
-    b.innerHTML = key ? `<i></i>${esc(handle || short(key))}` : busy ? 'Connecting…' : 'Connect<span class="w"> bWalletX</span>';
+    b.innerHTML = key ? `<i></i>${esc(handle || short(key))}` : busy ? esc(label) : 'Connect<span class="w"> bWalletX</span>';
     b.title = key ? 'Connected to bWalletX. Click to disconnect.' : 'Connect your bWalletX';
     b.disabled = busy;
     b.onclick = key ? disconnect : () => connect(true);
+    if (!key && C.bindPrewarm) C.bindPrewarm(b); // wake a sleeping extension worker before the click
     s.appendChild(b);
   });
   // Public, CORS-open lookup of the $handle (bWalletX paymail) for an identity key.
@@ -47,14 +48,15 @@
   // this browser is asked, quietly, so the theme comes back after a reload.
   async function connect(interactive) {
     let modal = null;
-    busy = interactive; draw();
+    busy = interactive; label = 'Opening your wallet…'; draw(); // feedback at once, before any await
+    const onStatus = (st) => { const t = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; if (busy && t !== label) { label = t; draw(); } };
     try {
       let wallet;
       if (interactive) {
         modal = C.pairingModal({ title: 'Connect bWalletX' });
-        ({ wallet } = await C.connectBwalletX({ pairing: modal }));
+        ({ wallet } = await C.connectBwalletX({ pairing: modal, onStatus }));
       } else {
-        const f = await C.discoverBwalletX(800);
+        const f = await C.discoverBwalletX(300);
         if (!f) return;
         wallet = f.wallet;
       }

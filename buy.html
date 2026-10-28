@@ -439,13 +439,14 @@
         if (!res.ok) throw Object.assign(new Error(data.error || `Something went wrong (${res.status})`), { status: res.status, code: data.code });
         return data;
       }
-      async function signIn() {
+      async function signIn(btn) {
         const bwx = window.bWalletXConnect;
         if (!bwx) throw new Error('The wallet connector did not load. Refresh and try again.');
         let issued = null;
         const r = await bwx.signInWithBwalletX({
           challenge: async () => { issued = await call('/session', { method: 'POST' }); return { protocolID: issued.protocolID, keyID: issued.keyID || issued.nonce, message: issued.message, nonce: issued.nonce }; },
           pairing: bwx.pairingModal(),
+          onStatus: (st) => { if (btn) btn.textContent = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; },
         });
         const v = await call('/session/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ challenge: issued.challenge, identityKey: r.identityKey, signature: r.signature }) });
         session = { token: v.token, expiresAt: v.expiresAt || new Date(Date.now() + 3600e3).toISOString(), identityKey: v.identityKey || r.identityKey };
@@ -465,14 +466,17 @@
         $('hdrConnect').textContent = on ? '● ' + $('who').textContent : 'Connect';
         if (on) loadCamps(); render();
       }
+      // Feedback the moment it is clicked; hover/focus wakes a sleeping extension worker (prewarm).
+      const busyBtn = (b) => { const was = b.textContent; b.disabled = true; b.textContent = 'Opening your wallet…'; return () => { b.disabled = false; if (b.textContent !== was && !session) b.textContent = was; }; };
+      if (window.bWalletXConnect && window.bWalletXConnect.bindPrewarm) { window.bWalletXConnect.bindPrewarm($('connect')); window.bWalletXConnect.bindPrewarm($('hdrConnect')); }
       $('connect').onclick = async () => {
-        $('connect').disabled = true; $('err3').textContent = '';
-        try { await signIn(); } catch (e) { $('err3').textContent = say(e); } finally { $('connect').disabled = false; }
+        $('err3').textContent = ''; const done = busyBtn($('connect'));
+        try { await signIn($('connect')); } catch (e) { $('err3').textContent = say(e); } finally { done(); }
       };
       $('hdrConnect').onclick = async () => {
         if (session) { $('acct').scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-        $('hdrConnect').disabled = true;
-        try { await signIn(); } catch (e) { alert(say(e)); } finally { $('hdrConnect').disabled = false; }
+        const done = busyBtn($('hdrConnect'));
+        try { await signIn($('hdrConnect')); } catch (e) { alert(say(e)); } finally { done(); }
       };
       $('out').onclick = () => { session = null; tok.set(null); saved = null; $('saved').innerHTML = ''; wallet = null; resetPay(); showAcct(); };
 
