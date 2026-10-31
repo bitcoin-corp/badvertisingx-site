@@ -81,6 +81,8 @@
         -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); mask-image: linear-gradient(180deg, #000 60%, transparent); }
       .ticker div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: tick 12s linear infinite; }
       .ticker em { font-style: normal; color: var(--red); }
+      .ticker a { color: var(--acid); text-decoration: none; } .ticker a:hover { text-decoration: underline; }
+      .ticker:hover div { animation-play-state: paused; }
       @keyframes tick { from { transform: translateY(0); } to { transform: translateY(-50%); } }
       @media (prefers-reduced-motion: reduce) { .ticker div { animation: none; } }
       .ticker-note { font: 500 11px/1.4 var(--mf); color: var(--muted); margin-top: 8px; letter-spacing: .06em; }
@@ -131,7 +133,7 @@
           </div>
           <div>
             <div class="ticker" id="ticker" aria-hidden="true"></div>
-            <div class="ticker-note">Illustration of the stream. Live counts are on bsv.lol.</div>
+            <div class="ticker-note" id="tnote">Illustration of the stream. Live counts are on bsv.lol.</div>
           </div>
         </div>
       </section>
@@ -141,13 +143,26 @@
       <footer><span>A b<b style="font-weight:600">Advertising</b>X campaign · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd</span><span><a href="https://tokenblaster.lol/arcade/terrornode">Play TERRORNODE</a></span></footer>
     </div>
     <script>
-      // Decorative ticker: random hex in a terrornode OP_RETURN shape. Not real txids (the blasts API has no CORS for this origin).
+      // Live ticker: recent terrornode txids from TokenBlaster (CORS allowed for this origin).
+      // If the fetch fails, fall back to a labelled illustration (random hex, not real txids).
       (function () {
-        var t = document.getElementById('ticker'), h = '0123456789abcdef', rows = [];
+        var t = document.getElementById('ticker'), note = document.getElementById('tnote'), h = '0123456789abcdef';
         function hex(n) { var s = ''; for (var i = 0; i < n; i++) s += h[Math.floor(Math.random() * 16)]; return s; }
-        for (var i = 0; i < 24; i++) rows.push('<em>TN</em> ' + hex(16) + '… · terrornode · 1 sat');
-        rows = rows.concat(rows);
-        t.innerHTML = '<div>' + rows.join('<br>') + '</div>';
+        function fill(rows) { rows = rows.concat(rows); t.innerHTML = '<div>' + rows.join('<br>') + '</div>'; }
+        function fake() { var r = []; for (var i = 0; i < 24; i++) r.push('<em>TN</em> ' + hex(16) + '… · terrornode · 1 sat'); fill(r); note.textContent = 'Illustration of the stream. Live counts are on bsv.lol.'; }
+        fake();
+        fetch('https://www.tokenblaster.lol/api/blasts/recent?game=terrornode&limit=24', { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+          .then(function (d) {
+            var items = (d && d.items || []).filter(function (x) { return x && /^[0-9a-f]{64}$/.test(x.txid); });
+            if (!items.length) return;
+            fill(items.map(function (x) {
+              return '<em>TN</em> <a href="https://whatsonchain.com/tx/' + x.txid + '" target="_blank" rel="noopener">' + x.txid.slice(0, 16) + '…</a> · terrornode';
+            }));
+            t.removeAttribute('aria-hidden');
+            note.textContent = 'Live: recent terrornode transactions. Tap one to see it on WhatsOnChain.';
+          })
+          .catch(function () {});
       })();
     </script>
   </body>
