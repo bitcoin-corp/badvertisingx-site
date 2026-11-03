@@ -1,11 +1,21 @@
 {
-  "v": 2,
-  "name": "bAdvertisingX",
-  "mode": "dark",
+  "v": 1,
+  "id": "badvertisingx",
+  "label": "bAds",
+  "blurb": "Gold b on warm black",
+  "scheme": "dark",
   "accent": "#F5B800",
-  "accentHi": "#FFD24D",
+  "hi": "#FFD24D",
+  "lo": "#C99700",
+  "on": "#120F05",
   "bg": "#0B0A09",
   "surface": "#121110",
+  "surface2": "#1A1816",
+  "nav": "#0B0A09",
   "text": "#F3ECDC",
-  "logo": "/logo.svg"
+  "muted": "#A39D90",
+  "line": "#2A2724",
+  "success": "#5FD38A",
+  "danger": "#F97066",
+  "livery": { "display": "Space Grotesk", "label": "IBM Plex Mono" }
 }
