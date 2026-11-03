@@ -1,6 +1,6 @@
 // Live BSV equivalents under the fixed USD/GBP prices (CEO, 3 Nov 2026). The USD/GBP figure is the price; BSV is
 // just a way to pay it, at 10% off. Same rate feed as bWalletX (CoinGecko bitcoin-cash-sv/usd). Shown to 2 dp as
-// approximate; b quotes an exact BSV amount, locked for 15 minutes, at checkout.
+// approximate; b confirms the exact BSV amount before you pay (15-minute lock: add to the page once live).
 (function () {
   var els = [].slice.call(document.querySelectorAll('.bsv[data-usd]'));
   if (!els.length) return;
