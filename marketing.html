@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ad films · bAdvertisingX</title>
+    <link rel="canonical" href="https://badvertisingx.com/marketing" />
+    <meta name="description" content="Every ad film b has made: for bWalletX, Kintsugi, bAdvertisingX and our campaigns. Order your own: an ad film for $499, made by b in about 5 days." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badvertisingx.com/marketing" />
+    <meta property="og:site_name" content="bAdvertisingX" />
+    <meta property="og:title" content="Ad films, made by b" />
+    <meta property="og:description" content="Every ad film b has made, in one place. Yours could be next." />
+    <meta property="og:image" content="https://badvertisingx.com/og-marketing-v1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ad films, made by b: three frames from our films behind the words b films." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bWalletX" />
+    <meta name="twitter:title" content="Ad films, made by b" />
+    <meta name="twitter:description" content="Every ad film b has made, in one place. Yours could be next." />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-marketing-v1.jpg" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+    <style>
+      /* /marketing (3 Nov 2026): every ad film b has made, then the fixed prices. Same tokens as the homepage. */
+      /* bAdvertisingX v2 (23 Oct 2026): an ad studio you order by talking to b. House look: warm black, cream, gold b; violet only on the X. */
+      :root {
+        --bg: #0b0a09; --bg2: #121110; --fg: #f3ecdc; --mute: #a39d90; --dim: #6f6a60;
+        --line: rgba(243,236,220,.09); --line2: rgba(243,236,220,.16);
+        --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff;
+        --r: 18px; --ease: cubic-bezier(.2,.8,.2,1);
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.035em; margin: 0; }
+      i.x { font-style: normal; color: var(--x); }
+      .eyebrow { font: 500 .78rem 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); margin: 0 0 18px; }
+
+      /* nav */
+      nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+      .brand { display: flex; align-items: center; gap: 3px; font-weight: 700; font-size: 1.3rem; text-decoration: none; }
+      .brand img { height: 1.2em; margin-right: 2px; }
+      nav .links { display: flex; gap: 26px; align-items: center; font-size: .92rem; color: var(--mute); }
+      nav .links a { text-decoration: none; transition: color .16s var(--ease); }
+      nav .links a:hover { color: var(--fg); }
+      @media (max-width: 720px) { nav .links a:not(.btn) { display: none; } }
+
+      /* buttons */
+      .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; font: 600 1rem 'Space Grotesk', sans-serif; letter-spacing: -.01em; text-decoration: none; transition: transform .16s var(--ease), box-shadow .2s var(--ease), background .2s; }
+      .btn.gold { background: linear-gradient(180deg, #ffd96a, #f5b800); color: #120f05; box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 10px 30px -8px rgba(245,184,0,.55); }
+      .btn.gold:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 16px 40px -8px rgba(245,184,0,.7); }
+      .btn.ghost { border: 1px solid var(--line2); color: var(--fg); }
+      .btn.ghost:hover { background: rgba(243,236,220,.05); }
+      .btn.sm { padding: 9px 16px; font-size: .9rem; }
+      .btn:focus-visible, a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+      .btn svg { width: 18px; height: 18px; }
+
+      .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+      .note { font-size: .86rem; color: var(--dim); }
+      /* sections */
+      section.s { padding: 96px 0 0; }
+      .s h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.04; font-weight: 700; max-width: 18ch; }
+      .s .sub { color: var(--mute); max-width: 56ch; margin: 16px 0 0; }
+
+      /* menu */
+      .menu { margin-top: 40px; border-top: 1px solid var(--line); }
+      .menu .item { display: grid; grid-template-columns: 1fr 2fr auto; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+      .menu h3 { font-size: 1.35rem; }
+      .menu p { margin: 0; color: var(--mute); }
+      .menu .when { font: 500 .8rem 'IBM Plex Mono', monospace; color: var(--dim); white-space: nowrap; }
+      @media (max-width: 720px) { .menu .item { grid-template-columns: 1fr; gap: 6px; } }
+      /* final */
+      .final { margin: 120px 0 0; padding: 72px 24px; text-align: center; border-radius: 28px; border: 1px solid var(--line); background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,.14), transparent 70%), var(--bg2); }
+      .final h2 { margin: 0 auto; max-width: 16ch; }
+      .final .cta { justify-content: center; margin-top: 30px; }
+      footer { padding: 48px 0 56px; color: var(--dim); font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      footer a { color: var(--mute); text-decoration: none; } footer a:hover { color: var(--fg); }
+
+      /* motion */
+      .rise { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+      .rise.in { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) { .rise { opacity: 1; transform: none; transition: none; } .stack a, .work img, .btn { transition: none; } }
+      header.top { border-bottom: 1px solid var(--line); }
+      .intro { padding: 72px 0 0; }
+      .intro h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; font-weight: 700; max-width: 14ch; }
+      .intro h1 em { font-style: normal; color: var(--gold-hi); }
+      .intro .sub { color: var(--mute); max-width: 56ch; margin: 18px 0 0; font-size: 1.08rem; }
+      .intro .cta { margin-top: 28px; }
+
+      /* film gallery */
+      .films { list-style: none; padding: 0; margin: 48px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 22px; }
+      .film .poster { position: relative; display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
+      .film .poster img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; transition: transform .5s var(--ease); }
+      .film .poster:hover img { transform: scale(1.04); }
+      .film .poster::after { content: ''; position: absolute; left: 10px; bottom: 10px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,.5) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l9 5-9 5z' fill='%23ffd24d'/%3E%3C/svg%3E") center/18px no-repeat; border: 1px solid rgba(255,210,77,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: .9; transition: transform .2s var(--ease), opacity .2s; }
+      .film .poster:hover::after { transform: scale(1.08); opacity: 1; }
+      .film .len { position: absolute; right: 10px; bottom: 10px; padding: 4px 8px; border-radius: 6px; background: rgba(0,0,0,.72); font: 600 .74rem 'IBM Plex Mono', monospace; letter-spacing: .04em; color: #f3ecdc; }
+      .film h3 { font-size: 1.15rem; margin: 16px 0 2px; }
+      .film h3 a { text-decoration: none; }
+      .film .arrow { color: var(--gold-hi); }
+      .film p { margin: 0; }
+      .film .who { color: var(--fg); font-size: .95rem; }
+      .film.sample .who { color: var(--gold-hi); }
+      .film .mus { color: var(--dim); font-size: .85rem; margin-top: 4px; }
+      .film .vo { color: var(--mute); }
+      @media (max-width: 960px) { .films { grid-template-columns: 1fr 1fr; } }
+      @media (max-width: 600px) { .films { grid-template-columns: 1fr; } }
+
+      /* prices */
+      .menu .when { text-align: right; }
+      .menu .price { display: block; font: 700 1.2rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; color: var(--fg); margin-bottom: 4px; }
+      .terms { margin: 22px 0 0; color: var(--mute); font-size: .95rem; max-width: 70ch; }
+      .terms b { color: var(--fg); font-weight: 500; }
+      @media (max-width: 720px) { .menu .when { text-align: left; } }
+    </style>
+  </head>
+  <body>
+<!-- Part of bWalletX strip (shared snippet, same on every bWalletX product site; source: bwalletx-site/brand/part-of-bwalletx.html) -->
+<style>
+.bwx-strip{background:#0a0a0b;border-bottom:1px solid rgba(255,210,77,.16);font:500 13px/1 'IBM Plex Sans',system-ui,-apple-system,sans-serif}
+.bwx-strip a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 16px;color:#cfcabd;text-decoration:none;letter-spacing:.01em}
+.bwx-strip svg{width:12px;height:16px;flex:none;display:block}
+.bwx-strip b{color:#ffd24d;font-weight:600}
+.bwx-strip .bwx-go{color:#7c7a73;transition:transform .16s cubic-bezier(.2,.8,.2,1),color .16s}
+.bwx-strip a:hover{color:#f4f1e8}
+.bwx-strip a:hover .bwx-go{color:#ffd24d;transform:translateX(2px)}
+.bwx-strip a:focus-visible{outline:2px solid #ffd24d;outline-offset:-4px;border-radius:8px}
+@media (prefers-reduced-motion:reduce){.bwx-strip .bwx-go{transition:none}}
+</style>
+<aside class="bwx-strip" aria-label="bWalletX"><a href="https://bwalletx.com"><svg viewBox="23 8 74 100" aria-hidden="true" focusable="false"><defs><linearGradient id="bwx-g" gradientUnits="userSpaceOnUse" x1="0" y1="12" x2="0" y2="105"><stop offset="0" stop-color="#FFE58A"/><stop offset=".55" stop-color="#FFD24D"/><stop offset="1" stop-color="#C98F00"/></linearGradient><mask id="bwx-m"><rect width="140" height="140" fill="#fff"/><circle cx="60" cy="72" r="15" fill="#000"/></mask></defs><g fill="url(#bwx-g)" mask="url(#bwx-m)"><polygon points="45,12 45,72 27,72 27,30"/><circle cx="60" cy="72" r="33"/></g></svg><span>Part of <b>bWalletX</b></span><span class="bwx-go" aria-hidden="true">&rarr;</span></a></aside>
+<!-- /Part of bWalletX strip -->
+    <header class="top">
+      <div class="wrap">
+      <nav>
+        <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
+        <div class="links"><a href="/marketing" aria-current="page">Films</a><a href="/#how">How it works</a><a href="/#menu">What b makes</a><a href="/guide">Guide</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20film%20for%20my%20business.">Ask b</a></div>
+      </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <section class="intro">
+        <p class="eyebrow">Ad films</p>
+        <h1>Films, <em>made by b.</em></h1>
+        <p class="sub">Every ad film and campaign b has made so far, for the b family and our campaigns, plus one sample for a made-up coffee shop. Most are short animated films with licensed music and their own page to share. Yours could be next.</p>
+        <div class="cta"><a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20film%20for%20my%20business.">Order an ad film, $499</a><a class="btn ghost" href="#prices">See all prices</a></div>
+      </section>
+
+      <section aria-label="Our films">
+        <ul class="films">
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-is-for-business"><img src="/media/films/b-is-for-business.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:40</span></a><h3><a href="https://bwalletx.com/b-is-for-business">b is for business <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX for business</p><p class="mus">Music: Phantom Echoes by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-is-for-shopkeepers"><img src="/media/films/b-is-for-shopkeepers.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:45</span></a><h3><a href="https://bwalletx.com/b-is-for-shopkeepers">b is for shopkeepers <span class="arrow">&rarr;</span></a></h3><p class="who">bMarketX, for shopkeepers</p><p class="mus">Music: Echoes Silent Blade by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-paid"><img src="/media/films/b-paid.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">1:30</span></a><h3><a href="https://bwalletx.com/b-paid">b paid <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX payments</p><p class="mus">Music: Whispers in the Wind by VexVoid. <a class="vo" href="https://bwalletx.com/b-paid-voice">With voice-over</a></p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-kintsugi"><img src="/media/films/b-kintsugi.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">1:23</span></a><h3><a href="https://bwalletx.com/b-kintsugi">b Kintsugi <span class="arrow">&rarr;</span></a></h3><p class="who">Kintsugi, the builder behind b</p><p class="mus">Music: Whispers in the Wind by VexVoid. <a class="vo" href="https://bwalletx.com/b-kintsugi-voice">With voice-over</a></p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/talk-to-b"><img src="/media/films/talk-to-b.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:47</span></a><h3><a href="https://bwalletx.com/talk-to-b">Talk to b <span class="arrow">&rarr;</span></a></h3><p class="who">b, the help inside bWalletX</p><p class="mus">Music: Insect Groove by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="/film/"><img src="/media/films/house-film.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:46</span></a><h3><a href="/film/">bAdvertisingX <span class="arrow">&rarr;</span></a></h3><p class="who">bAdvertisingX (that&rsquo;s us)</p><p class="mus">Music: shadCN-1 by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/be-on-b"><img src="/media/films/be-on-b.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:46</span></a><h3><a href="https://bwalletx.com/be-on-b">be on b <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX and the BSV apps</p><p class="mus">Music: Phantom Echoes by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/be-on-b-2"><img src="/media/films/be-on-b-2.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:33</span></a><h3><a href="https://bwalletx.com/be-on-b-2">be on b 2 <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX and the BSV apps: the fast cut</p><p class="mus">Music: Shattered Circuits by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/be-on-b-3"><img src="/media/films/be-on-b-3.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:33</span></a><h3><a href="https://bwalletx.com/be-on-b-3">be on b 3 <span class="arrow">&rarr;</span></a></h3><p class="who">bChatX: bring your posts</p><p class="mus">Music: Shattered Circuits and Phantom Echoes (Alt) by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/just-b"><img src="/media/films/just-b.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">Looping film</span></a><h3><a href="https://bwalletx.com/just-b">Just b <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX (brand)</p><p class="mus">Music: Echoes of Dust by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/just-b-2"><img src="/media/films/just-b-2.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:28</span></a><h3><a href="https://bwalletx.com/just-b-2">Just b 2 <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX (brand): less noise</p><p class="mus">Music: Four Ton Shadows by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-cool"><img src="/media/films/b-cool.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">Looping film</span></a><h3><a href="https://bwalletx.com/b-cool">b cool <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX (brand)</p><p class="mus">Music: Echoes in the Fog by VexVoid.</p></li>
+          <li class="film"><a class="poster" href="https://bwalletx.com/b-creative"><img src="/media/films/b-creative.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:41</span></a><h3><a href="https://bwalletx.com/b-creative">b Creative <span class="arrow">&rarr;</span></a></h3><p class="who">bWalletX themes and editions</p><p class="mus">Music: Score made in the browser.</p></li>
+          <li class="film"><a class="poster" href="/campaign/terrornode"><img src="/media/films/terrornode.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">Campaign page</span></a><h3><a href="/campaign/terrornode">TERRORNODE <span class="arrow">&rarr;</span></a></h3><p class="who">Ninja Punk Girls / KWEGWONG</p><p class="mus">No soundtrack on the page. The album is on bMusicX.</p></li>
+          <li class="film sample"><a class="poster" href="/samples/acme-coffee-film/"><img src="/media/films/acme-coffee.jpg" alt="" width="960" height="540" loading="lazy" decoding="async" /><span class="len">0:12</span></a><h3><a href="/samples/acme-coffee-film/">Acme Coffee <span class="arrow">&rarr;</span></a></h3><p class="who">Sample: a made-up business</p><p class="mus">A silent sample.</p></li>
+        </ul>
+      </section>
+
+      <section class="s rise" id="prices">
+        <p class="eyebrow">Prices</p>
+        <h2>Fixed jobs, fixed prices.</h2>
+        <p class="sub">Tell b what you need. b confirms the job in chat before any work starts.</p>
+        <div class="menu">
+          <div class="item"><h3>Ad film</h3><p>A short animated film, about 45 seconds, with your story, licensed music and a clear call to action, plus its own page and share image.</p><span class="when"><span class="price">$499 / &pound;399</span>~5 DAYS</span></div>
+          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when"><span class="price">$299 / &pound;249</span>~3 DAYS</span></div>
+          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when"><span class="price">$149 / &pound;119</span>~2 DAYS</span></div>
+          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when"><span class="price">$49 / &pound;39</span>SAME DAY</span></div>
+        </div>
+        <p class="terms"><b>Every job:</b> two rounds of changes, paid half up front and half when you approve the final files.</p>
+        <p class="terms">For businesses. Prices exclude VAT; if we become VAT-registered, VAT will be added.</p>
+      </section>
+
+      <div class="final rise">
+        <h2>Your business deserves a bAd.</h2>
+        <div class="cta"><a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20film%20for%20my%20business.">Ask b to make your film</a><a class="btn ghost" href="https://bwalletx.com/get?from=badvertisingx">Get bWalletX</a></div>
+      </div>
+
+      <footer><span>b<b style="font-weight:600">Advertising</b><i class="x">X</i> · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd, company no. 16735102</span><span><a href="/">Home</a> · <a href="/samples/acme-coffee-film/">Sample film</a> · <a href="/samples/acme-coffee-brand/brand">Sample brand kit</a> · <a href="/partners">Partners</a></span></footer>
+    </main>
+    <script>
+      const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+      document.querySelectorAll('.rise').forEach((el) => (io ? io.observe(el) : el.classList.add('in')));
+    </script>
+  </body>
+</html>

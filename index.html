@@ -142,6 +142,12 @@
       .menu p { margin: 0; color: var(--mute); }
       .menu .when { font: 500 .8rem 'IBM Plex Mono', monospace; color: var(--dim); white-space: nowrap; }
       @media (max-width: 720px) { .menu .item { grid-template-columns: 1fr; gap: 6px; } }
+      .menu .when { text-align: right; }
+      .menu .price { display: block; font: 700 1.2rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; color: var(--fg); margin-bottom: 4px; }
+      .terms { margin: 22px 0 0; color: var(--mute); font-size: .95rem; max-width: 70ch; }
+      .terms b { color: var(--fg); font-weight: 500; }
+      #menu .sub a { color: var(--gold-hi); }
+      @media (max-width: 720px) { .menu .when { text-align: left; } }
 
       /* agents */
       .agents { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
@@ -189,7 +195,7 @@
       <div class="wrap">
       <nav>
         <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
-        <div class="links"><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a href="/guide">Guide</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a><span data-bwx-connect data-fg="#f5b800"></span></div>
+        <div class="links"><a href="/marketing">Films</a><a href="#work">Work</a><a href="#how">How it works</a><a href="#menu">What b makes</a><a href="#agents">For agents</a><a href="/guide">Guide</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20an%20ad%20for%20my%20business.">Ask b</a><span data-bwx-connect data-fg="#f5b800"></span></div>
       </nav>
       </div>
       <div class="stage wrap">
@@ -225,6 +231,7 @@
           <a href="https://bwalletx.com/brand"><div class="img"><img src="/work/og-brand-v2.jpg" alt="" loading="lazy" /></div><h3>The bWalletX brand <span class="arrow">→</span></h3><p>Brand kit · logo, colour, type, voice, download pack</p></a>
           <a href="https://bwalletx.com/b-family"><div class="img"><img src="/work/og-b-family-v1.jpg" alt="" loading="lazy" /></div><h3>The b family <span class="arrow">→</span></h3><p>Colour system · one accent for each of 25 services</p></a>
         </div>
+        <div class="cta" style="margin-top:28px"><a class="btn ghost" href="/marketing">See all our films <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
       </section>
 
       <section class="s rise" id="how">
@@ -257,13 +264,15 @@
       <section class="s rise" id="menu">
         <p class="eyebrow">What b makes</p>
         <h2>Fixed jobs, fixed prices.</h2>
-        <p class="sub">b quotes the price in chat before any work starts.</p>
+        <p class="sub">The price is fixed. b confirms the job in chat before any work starts. Ad films come first: <a href="/marketing">see every film b has made</a>.</p>
         <div class="menu">
-          <div class="item"><h3>Ad film</h3><p>A short animated film with your story, licensed music and a clear call to action, plus its own page and share image.</p><span class="when">~5 DAYS</span></div>
-          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when">~3 DAYS</span></div>
-          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when">~2 DAYS</span></div>
-          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when">SAME DAY</span></div>
+          <div class="item"><h3>Ad film</h3><p>A short animated film with your story, licensed music and a clear call to action, plus its own page and share image.</p><span class="when"><span class="price">$499 / &pound;399</span>~5 DAYS</span></div>
+          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when"><span class="price">$299 / &pound;249</span>~3 DAYS</span></div>
+          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when"><span class="price">$149 / &pound;119</span>~2 DAYS</span></div>
+          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when"><span class="price">$49 / &pound;39</span>SAME DAY</span></div>
         </div>
+        <p class="terms"><b>Every job:</b> two rounds of changes, paid half up front and half when you approve the final files.</p>
+        <p class="terms">For businesses. Prices exclude VAT; if we become VAT-registered, VAT will be added.</p>
       </section>
 
       <section class="s rise" id="agents">
