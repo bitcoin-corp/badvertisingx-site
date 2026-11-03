@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campaigns · bAdvertisingX</title>
+    <link rel="canonical" href="https://badvertisingx.com/campaign" />
+    <meta name="description" content="Campaigns made by b, the agent in your bWalletX: TERRORNODE, be on b, the b is for… films and more. Every one is live. Ask b to run yours, priced in Bitcoin." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://badvertisingx.com/campaign" />
+    <meta property="og:site_name" content="bAdvertisingX" />
+    <meta property="og:title" content="Campaigns · bAdvertisingX" />
+    <meta property="og:description" content="Campaigns made by b. Every one is live. Ask b to run yours." />
+    <meta property="og:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bWalletX" />
+    <meta name="twitter:image" content="https://badvertisingx.com/og-badvertisingx-v4.jpg" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+    <style>
+      /* Campaigns index (3 Nov 2026), same tokens as the guide and partners pages. Warm black, cream, gold b; violet only on the X.
+         TERRORNODE keeps its own red/acid colours inside its card: a client's brand stays theirs. */
+      :root {
+        --bg: #0b0a09; --bg2: #121110; --fg: #f3ecdc; --mute: #a39d90; --dim: #6f6a60;
+        --line: rgba(243,236,220,.09); --line2: rgba(243,236,220,.16);
+        --gold: #f5b800; --gold-hi: #ffd24d; --x: #b44dff; --live: #5fd38a;
+        --r: 18px; --ease: cubic-bezier(.2,.8,.2,1);
+        color-scheme: dark;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 'IBM Plex Sans', system-ui, sans-serif; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+      a { color: var(--gold-hi); }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+      h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -.035em; margin: 0; }
+      i.x { font-style: normal; color: var(--x); }
+      .eyebrow { font: 500 .78rem 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); margin: 0 0 14px; }
+      nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+      .brand { display: flex; align-items: center; gap: 3px; font-weight: 700; font-size: 1.3rem; text-decoration: none; color: var(--fg); }
+      .brand img { height: 1.2em; margin-right: 2px; }
+      nav .links { display: flex; gap: 22px; align-items: center; font-size: .92rem; }
+      nav .links a { text-decoration: none; color: var(--mute); }
+      nav .links a:hover, nav .links a[aria-current] { color: var(--fg); }
+      .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; font: 600 1rem 'Space Grotesk', sans-serif; text-decoration: none; transition: transform .16s var(--ease); }
+      .btn:hover { transform: translateY(-1px); }
+      .btn.gold { background: linear-gradient(180deg, #ffd96a, #f5b800); color: #120f05 !important; }
+      .btn.ghost { border: 1px solid var(--line2); color: var(--fg); }
+      .btn.sm { padding: 8px 15px; font-size: .9rem; }
+      a:focus-visible, .btn:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+      @media (max-width: 640px) { nav .links a:not(.btn) { display: none; } }
+      .note { font-size: .86rem; color: var(--dim); }
+      .badge { display: inline-flex; align-items: center; gap: 6px; font: 600 .68rem 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; color: #06140b; background: var(--live); }
+      .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+      header.hero { padding: 72px 0 8px; text-align: center; }
+      header.hero h1 { font-size: clamp(3rem, 11vw, 7.2rem); line-height: .95; letter-spacing: -.055em; }
+      header.hero h1 .g { color: var(--gold-hi); }
+      header.hero .lede { color: #e2dbc9; font-size: clamp(1.05rem, 2vw, 1.2rem); max-width: 44ch; margin: 22px auto 0; }
+
+      section { padding: 72px 0 0; }
+      .sh { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin: 0 0 22px; }
+      .sh h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.05; }
+      .sh p { margin: 0; color: var(--mute); max-width: 46ch; font-size: .95rem; }
+
+      /* Featured: TERRORNODE, in its own colours. */
+      .feat { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; border-radius: 24px; overflow: hidden; text-decoration: none; color: #f2efe8; border: 1px solid #2a2726;
+        background: radial-gradient(ellipse 80% 70% at 30% 120%, rgba(255,42,26,.42), transparent 70%), radial-gradient(ellipse 50% 50% at 95% 0%, rgba(138,15,6,.45), transparent 70%), #050505; }
+      .feat::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 4px); }
+      .feat .rail { position: absolute; left: 0; right: 0; top: 0; height: 10px; background: repeating-linear-gradient(-45deg, #d4ff00 0 12px, #000 12px 24px); }
+      .feat .txt { position: relative; padding: 48px 40px 40px; display: flex; flex-direction: column; gap: 14px; }
+      .feat .code { font: 600 .74rem/1.6 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; color: #d4ff00; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .feat h3 { font: 700 clamp(2.6rem, 7vw, 5rem)/.85 'Space Grotesk', sans-serif; letter-spacing: -.06em; text-transform: uppercase;
+        background: linear-gradient(180deg, #fff 0%, #ffd9d4 45%, #ff2a1a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .feat .canon { margin: 0; font: 700 clamp(1rem, 2.2vw, 1.3rem)/1.15 'Space Grotesk', sans-serif; letter-spacing: -.02em; }
+      .feat .canon span { display: block; color: #ff2a1a; }
+      .feat p.d { margin: 0; color: #cfcac0; font-size: .98rem; max-width: 42ch; }
+      .feat .go { margin-top: auto; padding-top: 10px; font: 600 1rem 'Space Grotesk', sans-serif; color: #fff; }
+      .feat .go span { color: #ff2a1a; display: inline-block; transition: transform .16s var(--ease); }
+      .feat:hover .go span { transform: translateX(4px); }
+      /* The share image is shown whole (its own title is part of the art), framed inside the card. */
+      .feat .img { position: relative; align-self: center; margin: 40px 32px 32px 0; aspect-ratio: 1200 / 630; border-radius: 14px; border: 1px solid #3a3533; background: #000 url('/campaign/terrornode/og-terrornode-v1.jpg') center/cover no-repeat; box-shadow: 0 30px 80px rgba(255,42,26,.18); }
+      .feat .parts { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+      .feat .parts li { font: 500 .72rem 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; border: 1px solid #3a3533; border-radius: 999px; color: #e6e0d6; }
+      @media (max-width: 820px) {
+        .feat { grid-template-columns: 1fr; }
+        .feat .img { order: -1; margin: 22px 16px 0; }
+        .feat .txt { padding: 26px 22px 28px; }
+      }
+
+      /* The grid: one card per live campaign page, shown with its own share image. */
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; }
+      .c { display: flex; flex-direction: column; background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; text-decoration: none; color: var(--fg); transition: border-color .2s, transform .2s var(--ease); }
+      .c:hover { border-color: rgba(245,184,0,.45); transform: translateY(-2px); }
+      .c .pic { aspect-ratio: 1200 / 630; background: #000; overflow: hidden; }
+      .c .pic img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
+      .c:hover .pic img { transform: scale(1.03); }
+      .c .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+      .c .k { font: 500 .7rem 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+      .c h3 { font-size: 1.35rem; }
+      .c p { margin: 0; color: var(--mute); font-size: .93rem; }
+      .c .u { margin-top: auto; padding-top: 10px; font: 500 .78rem 'IBM Plex Mono', monospace; color: var(--gold-hi); overflow-wrap: anywhere; }
+
+      /* What a campaign is. */
+      .parts3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+      .parts3 div { background: var(--bg); padding: 24px 22px; }
+      .parts3 b { display: block; font: 700 1.25rem 'Space Grotesk', sans-serif; letter-spacing: -.03em; margin-bottom: 6px; }
+      .parts3 b em { font-style: normal; color: var(--gold-hi); }
+      .parts3 span { color: var(--mute); font-size: .94rem; }
+
+      .final { margin: 96px 0 0; padding: 64px 22px; text-align: center; border-radius: 28px; border: 1px solid var(--line); background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(245,184,0,.14), transparent 70%), var(--bg2); }
+      .final h2 { font-size: clamp(2rem, 6vw, 3.6rem); line-height: 1; letter-spacing: -.05em; }
+      .final h2 .g { color: var(--gold-hi); }
+      .final p { color: #e2dbc9; max-width: 46ch; margin: 16px auto 26px; }
+      .final .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      footer { padding: 56px 0; color: var(--dim); font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      footer a { color: var(--mute); text-decoration: none; }
+      @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="/"><img src="/logo.svg" alt="b" />Advertising<i class="x">X</i></a>
+        <div class="links"><a href="/campaign" aria-current="page">Campaigns</a><a href="/guide">Guide</a><a href="/partners">Partners</a><a class="btn gold sm" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20b%20to%20run%20a%20campaign%20for%20my%20business.">Ask b</a></div>
+      </nav>
+
+      <header class="hero">
+        <p class="eyebrow">Campaigns</p>
+        <h1>Made by <span class="g">b.</span></h1>
+        <p class="lede">Every campaign here was made by b, the agent in your bWalletX, and every one is live. Click through and see the real thing.</p>
+      </header>
+
+      <section id="now" aria-labelledby="now-h">
+        <div class="sh"><h2 id="now-h">Running now</h2><p>The game, the album, the chat and the token, in one place.</p></div>
+        <a class="feat" href="/campaign/terrornode">
+          <span class="rail" aria-hidden="true"></span>
+          <div class="txt">
+            <span class="code"><span class="badge">Live</span> Campaign 001 · Game</span>
+            <h3>Terror&shy;node</h3>
+            <p class="canon">Free Dr Kweg from the evil Erobotz<span>Storm nSlave Corporation</span></p>
+            <p class="d">A shooter where every shot is a real Bitcoin SV transaction. The campaign links the game, its album on bMusicX, its chat on bChatX and the live stress test on chain.</p>
+            <ul class="parts" aria-label="What's in it"><li>Game</li><li>Album</li><li>Chat</li><li>Token</li><li>On-chain ticker</li></ul>
+            <span class="go">Open the campaign <span aria-hidden="true">→</span></span>
+          </div>
+          <div class="img" role="img" aria-label="TERRORNODE share image"></div>
+        </a>
+      </section>
+
+      <section id="all" aria-labelledby="all-h">
+        <div class="sh"><h2 id="all-h">More campaigns</h2><p>Films and pages b made for bWalletX and the b family. Each opens its live page.</p></div>
+        <div class="grid">
+          <a class="c" href="https://bwalletx.com/be-on-b">
+            <div class="pic"><img src="https://bwalletx.com/og-be-on-b-v2.png" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Film · bWalletX</span><h3>be on b</h3><p>All your Bitcoin SV apps, together on b. Twetch, RelayX, Treechat, Yours and more.</p><span class="u">bwalletx.com/be-on-b →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/b-is-for-auteurs">
+            <div class="pic"><img src="https://bwalletx.com/og-b-is-for-auteurs-v3.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Film · bMovies</span><h3>b is for auteurs</h3><p>Make it. Keep the credit. Every film gets its own token and room.</p><span class="u">bwalletx.com/b-is-for-auteurs →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/b-is-for-business">
+            <div class="pic"><img src="https://bwalletx.com/og-b-is-for-business-v3.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Film · bWalletX</span><h3>b is for business</h3><p>Get paid in seconds, with a receipt anyone can check.</p><span class="u">bwalletx.com/b-is-for-business →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/b-is-for-shopkeepers">
+            <div class="pic"><img src="https://bwalletx.com/og-b-is-for-shopkeepers-v2.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Film · bMarketX</span><h3>b is for shopkeepers</h3><p>Bring your shop. Keep your stars. Own every listing.</p><span class="u">bwalletx.com/b-is-for-shopkeepers →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/just-b">
+            <div class="pic"><img src="https://bwalletx.com/og-just-b-v4.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Page · bWalletX</span><h3>Just b</h3><p>The first of the b series: one word, one feature, one call to action.</p><span class="u">bwalletx.com/just-b →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/b-cool">
+            <div class="pic"><img src="https://bwalletx.com/og-b-cool-v6.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Page · bWalletX</span><h3>b cool</h3><p>Less noise. More life.</p><span class="u">bwalletx.com/b-cool →</span></div>
+          </a>
+          <a class="c" href="https://bwalletx.com/bad">
+            <div class="pic"><img src="https://bwalletx.com/og-bads-v1.jpg" alt="" loading="lazy" width="1200" height="630" /></div>
+            <div class="body"><span class="k">Page · bAdvertisingX</span><h3>bAds</h3><p>Our own ad for our ads: made by b, the agent in your bWalletX.</p><span class="u">bwalletx.com/bad →</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section id="what" aria-labelledby="what-h">
+        <div class="sh"><h2 id="what-h">What b puts in a campaign</h2><p>A campaign is a home for everything you're launching, plus the ads that send people there.</p></div>
+        <div class="parts3">
+          <div><b>One <em>page.</em></b><span>A campaign page at badvertisingx.com/campaign/your-name, linking everything you're launching.</span></div>
+          <div><b>A <em>film.</em></b><span>A short animated ad, about 45 seconds, with a real music track and a share image.</span></div>
+          <div><b>Your <em>brand.</em></b><span>Your colours, logo and voice. We never put our b on your business.</span></div>
+          <div><b>One <em>price.</em></b><span>b quotes a fixed price in Bitcoin before anything starts.</span></div>
+        </div>
+      </section>
+
+      <div class="final">
+        <h2>Run yours <span class="g">with b.</span></h2>
+        <p>Tell b what you're launching: a game, an album, a shop, a film. b plans the campaign and quotes the price before anything starts.</p>
+        <div class="cta">
+          <a class="btn gold" href="https://web.bwalletx.com/m/ask-b?ask=I%27d%20like%20b%20to%20run%20a%20campaign%20for%20my%20business.">Ask b <span aria-hidden="true">→</span></a>
+          <a class="btn ghost" href="/account">Send b a brief</a>
+        </div>
+        <p class="note" style="margin:18px auto 0">No wallet yet? <a href="https://bwalletx.com/get?from=badvertisingx-campaign">Get bWalletX</a>, free.</p>
+      </div>
+
+      <footer><span>b<b style="font-weight:600">Advertising</b><i class="x">X</i> · part of <a href="https://bwalletx.com">bWalletX</a> · The Bitcoin Corporation Ltd</span><span><a href="/">bAds</a> · <a href="/guide">Guide</a> · <a href="/partners">Partners</a></span></footer>
+    </div>
+  </body>
+</html>
