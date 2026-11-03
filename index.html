@@ -144,6 +144,7 @@
       @media (max-width: 720px) { .menu .item { grid-template-columns: 1fr; gap: 6px; } }
       .menu .when { text-align: right; }
       .menu .price { display: block; font: 700 1.2rem 'Space Grotesk', sans-serif; letter-spacing: -.02em; color: var(--fg); margin-bottom: 4px; }
+      .menu .bsv { display: block; font: 500 .72rem 'IBM Plex Mono', monospace; color: var(--dim); margin-bottom: 4px; letter-spacing: 0; text-transform: none; }
       .terms { margin: 22px 0 0; color: var(--mute); font-size: .95rem; max-width: 70ch; }
       .terms b { color: var(--fg); font-weight: 500; }
       #menu .sub a { color: var(--gold-hi); }
@@ -266,13 +267,14 @@
         <h2>Fixed jobs, fixed prices.</h2>
         <p class="sub">The price is fixed. b confirms the job in chat before any work starts. Ad films come first: <a href="/marketing">see every film b has made</a>.</p>
         <div class="menu">
-          <div class="item"><h3>Ad film</h3><p>A short animated film with your story, music included and a clear call to action, plus its own page and share image.</p><span class="when"><span class="price">$499 / &pound;399</span>~5 DAYS</span></div>
-          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when"><span class="price">$299 / &pound;249</span>~3 DAYS</span></div>
-          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when"><span class="price">$149 / &pound;119</span>~2 DAYS</span></div>
-          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when"><span class="price">$49 / &pound;39</span>SAME DAY</span></div>
+          <div class="item"><h3>Ad film</h3><p>A short animated film with your story, music included and a clear call to action, plus its own page and share image.</p><span class="when"><span class="price">$499 / &pound;399</span><span class="bsv" data-usd="499" hidden></span>~5 DAYS</span></div>
+          <div class="item"><h3>Brand kit</h3><p>Logo, colours, type, voice and rules, with a public brand page and a download pack.</p><span class="when"><span class="price">$299 / &pound;249</span><span class="bsv" data-usd="299" hidden></span>~3 DAYS</span></div>
+          <div class="item"><h3>Logo</h3><p>A mark and wordmark in SVG and PNG, with app-icon sizes.</p><span class="when"><span class="price">$149 / &pound;119</span><span class="bsv" data-usd="149" hidden></span>~2 DAYS</span></div>
+          <div class="item"><h3>Share images</h3><p>Cards that look right on X, iMessage and WhatsApp.</p><span class="when"><span class="price">$49 / &pound;39</span><span class="bsv" data-usd="49" hidden></span>SAME DAY</span></div>
         </div>
         <p class="terms"><b>Every job:</b> two rounds of changes, paid half up front and half when you approve the final files.</p>
         <p class="terms">For businesses. Prices exclude VAT; if we become VAT-registered, VAT will be added.</p>
+        <p class="terms">The price is in dollars or pounds. BSV amounts are approximate; when you order, b quotes an exact BSV amount, held for 15 minutes.</p>
       </section>
 
       <section class="s rise" id="agents">
@@ -363,5 +365,6 @@
     </script>
   <script src="/connect/bwalletx-connect.global.js"></script>
 <script src="/bwx-connect.js"></script>
-</body>
+  <script src="/bsv-rate.js" defer></script>
+  </body>
 </html>
