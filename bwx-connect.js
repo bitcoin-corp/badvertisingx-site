@@ -1,5 +1,5 @@
 /* Connect bWalletX (client only, no server). Put <span data-bwx-connect></span> in the header and load this after
-   @bwalletx/connect's global build. Asks the wallet for your identity key over BRC-100: the bWalletX extension or
+   @bwalletx/connect's global build and /bwx-phone.js. Asks the wallet for your identity key over BRC-100: the bWalletX extension or
    the iPhone/Android app's in-app browser answer straight away; otherwise a QR pairs the phone app (or paste the
    link into web.bwalletx.com). Once connected, bWalletX wears this site's /.well-known/bwalletx-theme.json.
    It is a connection, not a sign-in: nothing here proves who you are to a server. */
@@ -46,13 +46,16 @@
 
   // interactive: the user clicked (pair by QR if no wallet is in this browser). Otherwise only a wallet already in
   // this browser is asked, quietly, so the theme comes back after a reload.
-  async function connect(interactive) {
+  // given: a wallet already in hand (bWalletX's return to this page on a phone, see bwx-phone.js).
+  async function connect(interactive, given) {
     let modal = null;
     busy = interactive; label = 'Opening your wallet…'; draw(); // feedback at once, before any await
     const onStatus = (st) => { const t = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; if (busy && t !== label) { label = t; draw(); } };
     try {
       let wallet;
-      if (interactive) {
+      if (given) {
+        wallet = given;
+      } else if (interactive) {
         modal = C.pairingModal({ title: 'Connect bWalletX' });
         ({ wallet } = await C.connectBwalletX({ pairing: modal, onStatus }));
       } else {
@@ -66,6 +69,7 @@
       document.dispatchEvent(new CustomEvent('bwalletx:connected', { detail: { identityKey: key } }));
     } catch (e) {
       if (interactive && e && e.code === 'NOT_FOUND') location.href = 'https://bwalletx.com/get';
+      else if (e && e.code === 'RETURNED_IN_ANOTHER_TAB') { /* bWalletX sent the user back to a new tab: it connects there */ }
       else if (interactive && !(e && e.name === 'AbortError')) console.warn('bWalletX connect:', e);
     } finally {
       try { modal && modal.close(); } catch {}
@@ -81,5 +85,8 @@
   }
 
   draw();
-  if (get()) connect(false);
+  // On a phone, bWalletX returns to this page after Connect with the pairing (bwx-phone.js finishes it).
+  Promise.resolve(window.bwxPhone && window.bwxPhone.returned)
+    .catch(() => null)
+    .then((r) => (r && r.wallet ? connect(false, r.wallet) : get() ? connect(false) : null));
 })();

@@ -95,6 +95,7 @@
     </main>
 
     <script src="/connect/bwalletx-connect.global.js"></script>
+    <script src="/bwx-phone.js" data-verify="/api/bwalletx/verify"></script>
     <script>
       const $ = (id) => document.getElementById(id);
       const NAMES = { 'ad-film': 'Ad film', 'brand-kit': 'Brand kit', logo: 'Logo', 'share-image': 'Share image', 'launch-pack': 'Launch pack', other: 'Something else' };
@@ -125,19 +126,26 @@
 
       $('connect').onclick = async () => {
         const btn = $('connect'), was = btn.textContent; btn.disabled = true; btn.textContent = 'Opening your wallet…'; $('err1').textContent = '';
+        let modal = null;
         try {
-          const { signInWithBwalletX, pairingModal } = window.bWalletXConnect;
-          const r = await signInWithBwalletX({
-            challenge: (identityKey) => api('/api/bwalletx/challenge', { identityKey }),
-            pairing: pairingModal(),
+          modal = window.bWalletXConnect.pairingModal();
+          const r = await window.bwxPhone.signIn({
+            challenge: (identityKey) => api('/api/bwalletx/challenge', identityKey ? { identityKey } : {}),
+            pairing: modal,
             onStatus: (st) => { btn.textContent = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; },
           });
           await api('/api/bwalletx/verify', { identityKey: r.identityKey, nonce: r.nonce, signature: r.signature });
           show(await api('/api/bwalletx/session').catch(() => ({ identityKey: r.identityKey })));
         } catch (e) {
+          // On a phone bWalletX may send the user back to a new tab, which signs in: this tab just re-reads the session.
+          if (window.bwxPhone.anotherTab(e)) { recheck(); return; }
           $('err1').textContent = e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : e.message;
-        } finally { btn.disabled = false; btn.textContent = was; }
+        } finally { try { modal && modal.close(); } catch {} btn.disabled = false; btn.textContent = was; }
       };
+      // Back from bWalletX (or another tab signed in meanwhile): re-read the session while signed out.
+      function recheck() { if ($('acct').hidden) api('/api/bwalletx/session').then((s) => s && s.identityKey && show(s)).catch(() => {}); }
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') recheck(); });
+      window.addEventListener('pageshow', (ev) => { if (ev.persisted) recheck(); });
       if (window.bWalletXConnect && window.bWalletXConnect.bindPrewarm) window.bWalletXConnect.bindPrewarm($('connect'));
 
       $('out').onclick = async () => { await api('/api/bwalletx/logout', {}).catch(() => {}); show(null); };
