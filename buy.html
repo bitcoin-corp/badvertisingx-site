@@ -197,6 +197,7 @@
     </main>
 
     <script src="/connect/bwalletx-connect.global.js"></script>
+    <script src="/bwx-phone.js" data-verify="/api/bwalletx/verify"></script>
     <script>
       const CHECKOUT_ON = true; // Off switch: false = button stays "Checkout opens soon" and /checkout is never called.
       const $ = (id) => document.getElementById(id);
@@ -443,11 +444,16 @@
         const bwx = window.bWalletXConnect;
         if (!bwx) throw new Error('The wallet connector did not load. Refresh and try again.');
         let issued = null;
-        const r = await bwx.signInWithBwalletX({
-          challenge: async () => { issued = await call('/session', { method: 'POST' }); return { protocolID: issued.protocolID, keyID: issued.keyID || issued.nonce, message: issued.message, nonce: issued.nonce }; },
-          pairing: bwx.pairingModal(),
-          onStatus: (st) => { if (btn) btn.textContent = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; },
-        });
+        const modal = bwx.pairingModal();
+        let r;
+        try {
+          // bwxPhone.signIn: the last challenge fetched is the one signed, so `issued` always matches the signature.
+          r = await window.bwxPhone.signIn({
+            challenge: async () => { issued = await call('/session', { method: 'POST' }); return { protocolID: issued.protocolID, keyID: issued.keyID || issued.nonce, message: issued.message, nonce: issued.nonce }; },
+            pairing: modal,
+            onStatus: (st) => { if (btn) btn.textContent = st === 'pairing' ? 'Scan the QR…' : st === 'finding' ? 'Opening your wallet…' : 'Approve in bWalletX…'; },
+          });
+        } finally { try { modal.close(); } catch {} }
         const v = await call('/session/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ challenge: issued.challenge, identityKey: r.identityKey, signature: r.signature }) });
         session = { token: v.token, expiresAt: v.expiresAt || new Date(Date.now() + 3600e3).toISOString(), identityKey: v.identityKey || r.identityKey };
         wallet = r.wallet || null; tok.set(session); showAcct();
@@ -458,7 +464,7 @@
         try { return await call(path, { ...opts, headers: { ...(opts.headers || {}), authorization: 'Bearer ' + session.token } }); }
         catch (e) { if (e.status === 401 && !retried) { session = null; tok.set(null); showAcct(); return buyer(path, opts, true); } throw e; }
       }
-      const say = (e) => (e && e.code === 'store_not_ready') || (e && e.status === 503) ? SOON : e && e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : (e && e.message) || 'Something went wrong.';
+      const say = (e) => e && e.code === 'RETURNED_IN_ANOTHER_TAB' ? 'bWalletX opened this page in another tab. Carry on there.' : (e && e.code === 'store_not_ready') || (e && e.status === 503) ? SOON : e && e.code === 'NOT_FOUND' ? 'No wallet found. Open this page in bWalletX or install the extension.' : (e && e.message) || 'Something went wrong.';
       function showAcct() {
         const on = !!session;
         $('signin').hidden = on; $('acct').hidden = !on; $('s6').hidden = !on;
@@ -552,12 +558,16 @@
         try {
           if (pending) { await sendPaid(pending); pending = null; done(); return; } // wallet already paid: only re-check
           if (!quote || Date.parse(quote.expiresAt) < Date.now() + 15e3) { const q = await getQuote(); if (q.free) { done(); return; } }
-          if (!wallet) wallet = (await window.bWalletXConnect.connectBwalletX({ pairing: window.bWalletXConnect.pairingModal() })).wallet;
+          if (!wallet) { const m = window.bWalletXConnect.pairingModal(); try { wallet = (await window.bWalletXConnect.connectBwalletX({ pairing: m })).wallet; } finally { try { m.close(); } catch {} } }
           const q = quote;
           let r;
           try {
             r = await wallet.createAction({ description: `bAds campaign ${saved.id}`, outputs: q.payTo.map((o) => ({ lockingScript: o.lockingScript, satoshis: o.sats, outputDescription: 'bAds' })), options: { randomizeOutputs: false } });
-          } catch (e) { throw Object.assign(new Error('Payment cancelled in your wallet. Nothing was sent.'), { refused: true }); }
+          } catch (e) {
+            // No answer in time (the phone link or the bWalletX frame): the wallet may still have paid. Never say "nothing was sent".
+            if (e && (e.code === 'NO_ANSWER_MAYBE_SENT' || e.maybeSent || /timed out/i.test(e.message || ''))) throw new Error('No answer from bWalletX. It may still have paid: check bWalletX before you press Pay again.');
+            throw Object.assign(new Error('Payment cancelled in your wallet. Nothing was sent.'), { refused: true });
+          }
           if (!r || (!r.tx && !r.txid)) throw new Error('Your wallet did not return a payment. Nothing was sent.');
           pending = r.tx ? { quoteId: q.quoteId, beef: Array.from(r.tx) } : { quoteId: q.quoteId, txid: r.txid };
           await sendPaid(pending); pending = null; done();
