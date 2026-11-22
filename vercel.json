@@ -1,4 +1,32 @@
 {
   "cleanUrls": true,
-  "functions": { "api/drafts.js": { "maxDuration": 60 } }
+  "functions": {
+    "api/drafts.js": {
+      "maxDuration": 60
+    }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.badvertisingx.com"
+        }
+      ],
+      "destination": "https://badvertisingx.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.badvertisingx.com"
+        }
+      ],
+      "destination": "https://badvertisingx.com/:path*",
+      "permanent": true
+    }
+  ]
 }
