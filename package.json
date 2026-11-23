@@ -6,6 +6,6 @@
     "vendor:connect": "cp node_modules/@bwalletx/connect/dist/bwalletx-connect.global.js node_modules/@bwalletx/connect/THIRD_PARTY_LICENSES.md connect/ && rm -rf connect/third-party && cp -R node_modules/@bwalletx/connect/third-party connect/"
   },
   "dependencies": {
-    "@bwalletx/connect": "^0.9.0"
+    "@bwalletx/connect": "^0.9.2"
   }
 }
